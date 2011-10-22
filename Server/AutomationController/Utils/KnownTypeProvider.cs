@@ -60,7 +60,12 @@ namespace WindowsPhoneTestFramework.AutomationController.Utils
         {
             return _knownTypes;
         }
-
+		
+		public static IEnumerable<Type> GetKnownTypesFor(Type baseType)
+		{
+			return GetDerivedTypesOf(baseType, _knownTypes);
+		}
+		
         private static IEnumerable<Type> GetDerivedTypesOf(Type baseType, IEnumerable<Type> types)
         {
             return types.Where(t => !t.IsAbstract && t.IsSubclassOf(baseType));
