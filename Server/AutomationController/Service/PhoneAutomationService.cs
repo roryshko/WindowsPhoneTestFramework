@@ -23,6 +23,8 @@ using WindowsPhoneTestFramework.AutomationController.Utils;
 using WindowsPhoneTestFramework.AutomationController.Interfaces;
 using WindowsPhoneTestFramework.AutomationController.Results;
 using WindowsPhoneTestFramework.Utils;
+using System.Runtime.Serialization.Json;
+using System.Text.RegularExpressions;
 
 namespace WindowsPhoneTestFramework.AutomationController.Service
 {
@@ -68,11 +70,32 @@ namespace WindowsPhoneTestFramework.AutomationController.Service
         {
             Clear();
             _checkTimer = new Timer(WatchdogTimerTick, null, WatchdogPeriodInMilliseconds, WatchdogPeriodInMilliseconds);
-            CurrentInstance = this;
+			CurrentInstance = this;
         }
+		
+#warning HackDeserialiseResultBase should be moved to its own tested class		
+		public ResultBase HackDeserialiseResultBase(string json)
+		{
+			var regexId = new Regex("__type\\\":\\\"(?<one>[^:]*):#(?<two>[^\\\"]*)\"");
+			var matchId = regexId.Match(json);
+			if (!matchId.Success)
+				throw new FormatException("Failed to decoded result - missing __type field");
+			
+			var className = matchId.Groups[1].Value;
+			var assemblyName = matchId.Groups[2].Value;
+			
+			var type = Type.GetType(assemblyName + "." + className);
+			var dcs = new DataContractJsonSerializer(type, KnownTypeProvider.GetKnownTypesFor(typeof(ResultBase)));
+			
+			var textStream = new MemoryStream(UTF8Encoding.Default.GetBytes(json));
+			return (ResultBase)dcs.ReadObject(textStream);
+		}
 
         public void Dispose()
         {
+			if (_checkTimer != null)
+				_checkTimer.Dispose();
+			
             if (CurrentInstance == this)
                 CurrentInstance = null;
         }
@@ -181,6 +204,27 @@ namespace WindowsPhoneTestFramework.AutomationController.Service
                 InvokeCallbackAndClear(result);
             }
         }
+		
+        public bool RawSubmitResult(String jsonResult)
+		{
+			var result = HackDeserialiseResultBase(jsonResult);
+			if (result == null)
+			{
+				// TODO - barf loudly!
+				return false;
+			}
+			
+			var resultBase = result as ResultBase;
+			if (resultBase == null)
+			{
+				// TODO - barf loudly!
+				return false;
+			}
+			
+			SubmitResult(resultBase);
+			return true;
+		}
+	
 
         #endregion // IPhoneAutomationService
 

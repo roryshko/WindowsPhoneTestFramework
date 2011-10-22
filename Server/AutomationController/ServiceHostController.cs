@@ -46,7 +46,12 @@ namespace WindowsPhoneTestFramework.AutomationController
             BindingAddress = DefaultBindingAddress;
             AutomationIdentification = AutomationIdentification.TryEverything;
         }
-
+		
+		public static bool IsRunningOnMono ()
+		{
+		    return Type.GetType ("Mono.Runtime") != null;
+		}
+		
         public void Dispose()
         {
             Dispose(true);
@@ -75,21 +80,30 @@ namespace WindowsPhoneTestFramework.AutomationController
             var phoneAutomationService = new PhoneAutomationService();
             phoneAutomationService.Trace += (sender, args) => InvokeTrace(args);
             var serviceHost = new ServiceHost(phoneAutomationService, BindingAddress);
-
-            // Enable metadata publishing
-            var smb = new ServiceMetadataBehavior
-            {
-                HttpGetEnabled = true,
-                MetadataExporter = { PolicyVersion = PolicyVersion.Policy15 }
-            };
-            serviceHost.Description.Behaviors.Add(smb);
-
-            // build SOAP ServiceEndpoint
-            serviceHost.AddServiceEndpoint(
-                                            typeof(IPhoneAutomationService),
-                                            GetHttpBinding(),
-                                            BindingAddress + "/automate");
-
+			
+			if (!IsRunningOnMono())
+			{
+	            // Enable metadata publishing
+	            var smb = new ServiceMetadataBehavior
+	            {
+	                HttpGetEnabled = true,
+	                MetadataExporter = new WsdlExporter() 
+#if !MONO					
+					{  PolicyVersion = PolicyVersion.Policy15 }
+#endif //!MONO
+				};
+	            serviceHost.Description.Behaviors.Add(smb);
+			}
+			
+            if (!IsRunningOnMono())
+			{
+		        // build SOAP ServiceEndpoint
+	            serviceHost.AddServiceEndpoint(
+	                                            typeof(IPhoneAutomationService),
+	                                            GetHttpBinding(),
+	                                            BindingAddress + "/automate");
+			}
+			
             // build JSON ServiceEndpoint
             var jsonServiceEndpoint = serviceHost.AddServiceEndpoint(
                                                         typeof(IPhoneAutomationService),
