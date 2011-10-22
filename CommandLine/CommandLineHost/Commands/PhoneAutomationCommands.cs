@@ -134,13 +134,15 @@ namespace WindowsPhoneTestFramework.CommandLineHost.Commands
 
                     if (!process.Start())
                         return;
-
-                    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5.0));
+					
+					/*
+					System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5.0));
 
                     if (!process.WaitForExit(60000)) // one minute
                         process.Kill();
 
                     File.Delete(fileName);
+                    */
                 }
                 catch (Exception exception)
                 {
