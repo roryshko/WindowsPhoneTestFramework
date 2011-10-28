@@ -38,5 +38,10 @@ namespace WindowsPhoneTestFramework.AutomationController.Service
         [ServiceKnownType("GetKnownTypes", typeof(KnownTypeProvider))]
         [WebInvoke(Method = "POST", UriTemplate = "submitResult")]
         void SubmitResult(ResultBase result);
+		
+        [OperationContract]
+        [ServiceKnownType("GetKnownTypes", typeof(KnownTypeProvider))]
+        [WebInvoke(Method = "POST", UriTemplate = "rawSubmitResult")]
+        bool RawSubmitResult(String jsonResult);
     }
 }
