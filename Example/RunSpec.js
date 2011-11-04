@@ -132,7 +132,7 @@ WScript.echo('Now really running tests...');
 WScript.echo('');
 
 var batchCommand = '"' + baseDirectory + '/../packages/NUnit.2.5.10.11092/tools/nunit-console-x86.exe"'
-                    + ' "' + baseDirectory + '/ExampleApp.Spec/bin/debug/ExampleApp.Spec.dll"'
+                    + ' "' + baseDirectory + '/../bin/debug/ExampleApp.Spec.dll"'
 					+ ' /labels /out=TestResult.txt /xml=TestResult.xml';
 WScript.echo(batchCommand);
 shell.run(batchCommand, 1 /* show normal */, true /* wait for this to finish*/);
@@ -153,7 +153,7 @@ WScript.echo("======================");
 WScript.echo('Moving images...');
 WScript.echo('');
 
-var imageSpec = baseDirectory + "/ExampleApp.Spec/bin/debug/_EmuShot_*.png";
+var imageSpec = baseDirectory + "/../bin/debug/_EmuShot_*.png";
 fso.MoveFile(imageSpec, datedTestDirectory);
 
 WScript.echo('Images moved.');
