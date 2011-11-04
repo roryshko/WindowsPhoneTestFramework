@@ -12,9 +12,9 @@
 using System;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using WindowsPhoneTestFramework.EmuDriver;
+using WindowsPhoneTestFramework.Server.Core.Results;
 
-namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
+namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
 {
     [Binding]
     public class DriverStepDefinitions : EmuDefinitionBase
@@ -41,7 +41,7 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
         [Given(@"my app is uninstalled$")]
         public void GivenMyAppIsUninstalled()
         {
-            var result = Emu.Driver.ForceUninstall(Configuration.ProductId);
+            var result = Emu.DeviceController.ForceUninstall(Configuration.ApplicationDefinition);
             Assert.That(result == UninstallationResult.NotInstalled || result == UninstallationResult.Success);
         }
 
@@ -69,45 +69,45 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
 
         private void AttemptToInstallApp()
         {
-            var result = Emu.Driver.Install(Configuration.ProductId, Configuration.ApplicationName, Configuration.IconPath, Configuration.XapPath);
+            var result = Emu.DeviceController.Install(Configuration.ApplicationDefinition);
             Assert.That(result == InstallationResult.AlreadyInstalled || result == InstallationResult.Success);
         }
 
         [Given(@"my app is not running$")]
         public void GivenMyAppIsNotRunning()
         {
-            var result = Emu.Driver.Stop(Configuration.ProductId);
+            var result = Emu.DeviceController.Stop(Configuration.ApplicationDefinition);
             Assert.That(result == StopResult.Success || result == StopResult.NotRunning || result == StopResult.NotInstalled);
         }
 
         [Given(@"my app is running$")]
         public void GivenMyAppIsRunning()
         {
-            var start = Emu.Driver.Start(Configuration.ProductId);
+            var start = Emu.DeviceController.Start(Configuration.ApplicationDefinition);
             Assert.That(start == StartResult.Success || start == StartResult.AlreadyRunning, "Failed to start the device - response was {0}", start);
 
-            var ping = Emu.PhoneAutomationController.WaitIsAlive();
+            var ping = Emu.ApplicationAutomationController.WaitIsAlive();
             Assert.IsTrue(ping, "App started, but failed to ping the app");
         }
 
         [Then(@"my app is running")]
         public void ThenMyAppIsAlive()
         {
-            var ping = Emu.PhoneAutomationController.LookIsAlive();
+            var ping = Emu.ApplicationAutomationController.LookIsAlive();
             Assert.IsTrue(ping, "App not alive - ping failed");
         }
 
         [Then("I start my app")]
         public void ThenIStartMyApp()
         {
-            var start = Emu.Driver.Start(Configuration.ProductId);
+            var start = Emu.DeviceController.Start(Configuration.ApplicationDefinition);
             Assert.That(start == StartResult.Success, "failed to start my app - result " + start);
         }
 
         [Then(@"my app is not running")]
         public void ThenMyAppIsNotAlive()
         {
-            var ping = Emu.PhoneAutomationController.LookIsAlive();
+            var ping = Emu.ApplicationAutomationController.LookIsAlive();
             Assert.IsFalse(ping, "App was alive - ping succeeded");
         }
     }

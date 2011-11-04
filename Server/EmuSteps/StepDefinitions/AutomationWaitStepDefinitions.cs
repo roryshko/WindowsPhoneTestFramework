@@ -14,7 +14,7 @@ using System.Threading;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
+namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
 {
     [Binding]
     public class AutomationWaitStepDefinitions : EmuDefinitionBase
@@ -32,14 +32,14 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
         [Then(@"I wait for the control ""([^\""]*)"" to appear$")]
         public void ThenIWaitForControlToAppear(string controlId)
         {
-            var result = Emu.PhoneAutomationController.WaitForControl(controlId);
+            var result = Emu.ApplicationAutomationController.WaitForControl(controlId);
             Assert.IsTrue(result, "Failed to wait for control '{0}'", controlId);
         }
 
         [Then(@"I wait for the text ""([^\""]*)"" to appear$")]
         public void ThenIWaitForTextToAppear(string text)
         {
-            var result = Emu.PhoneAutomationController.WaitForText(text);
+            var result = Emu.ApplicationAutomationController.WaitForText(text);
             Assert.IsTrue(result, "Failed to wait for text '{0}'", text);
         }
 

@@ -8,8 +8,8 @@
     <ProjectGuid>{6D7696D6-943C-4604-9FF7-5255EB6861B5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsPhoneTestFramework.EmuDriver</RootNamespace>
-    <AssemblyName>WindowsPhoneTestFramework.EmuDriver</AssemblyName>
+    <RootNamespace>WindowsPhoneTestFramework.Server.EmuDriver</RootNamespace>
+    <AssemblyName>WindowsPhoneTestFramework.Server.EmuDriver</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,29 +49,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDisplayInputController.cs" />
-    <Compile Include="IDriver.cs" />
-    <Compile Include="InstallationResult.cs" />
-    <Compile Include="StartResult.cs" />
-    <Compile Include="StopResult.cs" />
-    <Compile Include="TapGesture.cs" />
-    <Compile Include="UninstallationResult.cs" />
-    <Compile Include="WindowsPhoneDriver.cs" />
-    <Compile Include="DriverBase.cs" />
-    <Compile Include="EmulatorDriver.cs" />
-    <Compile Include="ManipulationFailedException.cs" />
-    <Compile Include="EmulatorDisplayInputController.cs" />
-    <Compile Include="GestureBase.cs" />
-    <Compile Include="IGesture.cs" />
-    <Compile Include="MultipointGestureBase.cs" />
-    <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FlickGesture.cs" />
-    <Compile Include="WindowsPhoneHardwareButton.cs" />
-    <Compile Include="WindowsPhoneOrientation.cs" />
-    <Compile Include="WindowsPhoneOrientationExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{D781684B-6B06-4D2C-B6F1-3A281D7C3697}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{4C0765F2-A904-4E2E-8FFA-9DE0AA461804}</Project>
       <Name>Utils</Name>

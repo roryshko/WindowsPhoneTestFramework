@@ -10,17 +10,15 @@
 // ------------------------------------------------------------------------
 
 using System;
-using WindowsPhoneTestFramework.AutomationController.Interfaces;
+using WindowsPhoneTestFramework.Server.Core;
 
-namespace WindowsPhoneTestFramework.EmuSteps
+namespace WindowsPhoneTestFramework.Server.EmuSteps
 {
     public interface IConfiguration
     {
-        string BindingAddress { get; }
+        string AutomationControllerName { get; }
+        string ControllerInitialisationString { get; }
         AutomationIdentification AutomationIdentification { get; }
-        Guid ProductId { get; }
-        string ApplicationName { get; }
-        string IconPath { get; }
-        string XapPath { get; }
+        ApplicationDefinition ApplicationDefinition { get; }
     }
 }

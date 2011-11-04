@@ -10,9 +10,9 @@
 // ------------------------------------------------------------------------
 
 using TechTalk.SpecFlow;
-using WindowsPhoneTestFramework.EmuAutomationController.Interfaces;
+using WindowsPhoneTestFramework.Server.Core;
 
-namespace WindowsPhoneTestFramework.EmuSteps
+namespace WindowsPhoneTestFramework.Server.EmuSteps
 {
     public class EmuDefinitionBase : ConfigurableDefinitionBase
     {
@@ -25,7 +25,7 @@ namespace WindowsPhoneTestFramework.EmuSteps
         {
         }
 
-        protected IEmuAutomationController Emu
+        protected IAutomationController Emu
         {
             get { return StepFlowContextHelpers.GetEmuAutomationController(ScenarioContext.Current, Configuration); }
         }

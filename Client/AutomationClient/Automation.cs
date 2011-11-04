@@ -12,9 +12,9 @@
 using System;
 using System.Windows;
 using System.Windows.Automation.Peers;
-using WindowsPhoneTestFramework.AutomationClient.Remote;
+using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
 
-namespace WindowsPhoneTestFramework.AutomationClient
+namespace WindowsPhoneTestFramework.Client.AutomationClient
 {
     public class Automation
     {

@@ -11,7 +11,7 @@
 
 using System.Windows.Controls;
 
-namespace WindowsPhoneTestFramework.AutomationClient.Remote
+namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
     public partial class SetFocusCommand
     {

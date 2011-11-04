@@ -15,7 +15,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.Controls;
 
-namespace WindowsPhoneTestFramework.AutomationClient.Remote
+namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
 
     public partial class TakePictureCommand

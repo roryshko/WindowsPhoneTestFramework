@@ -17,7 +17,7 @@ using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 
-namespace WindowsPhoneTestFramework.AutomationClient.Remote
+namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
     public partial class InvokeControlTapActionCommand
     {

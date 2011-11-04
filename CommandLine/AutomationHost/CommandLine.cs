@@ -11,11 +11,10 @@
 
 using System.ComponentModel;
 using Args;
-using WindowsPhoneTestFramework.AutomationController.Interfaces;
+using WindowsPhoneTestFramework.Server.Core;
 
-namespace WindowsPhoneTestFramework.AutomationHost
+namespace WindowsPhoneTestFramework.CommandLine.AutomationHost
 {
-    [ArgsModel(SwitchDelimiter = "//")]
     public class CommandLine
     {
         [ArgsMemberSwitch("bind")]

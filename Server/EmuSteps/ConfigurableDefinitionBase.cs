@@ -1,4 +1,4 @@
-﻿namespace WindowsPhoneTestFramework.EmuSteps
+﻿namespace WindowsPhoneTestFramework.Server.EmuSteps
 {
     public class ConfigurableDefinitionBase
     {

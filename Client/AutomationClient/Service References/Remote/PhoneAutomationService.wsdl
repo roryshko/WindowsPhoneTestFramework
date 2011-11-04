@@ -4,9 +4,9 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd4" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Commands" />
-      <xsd:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Interfaces" />
-      <xsd:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Results" />
+      <xsd:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" />
+      <xsd:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Interfaces" />
+      <xsd:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Results" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPhoneAutomationService_GetNextCommand_InputMessage">
@@ -27,6 +27,12 @@
   <wsdl:message name="IPhoneAutomationService_SubmitResult_OutputMessage">
     <wsdl:part name="parameters" element="tns:SubmitResultResponse" />
   </wsdl:message>
+  <wsdl:message name="IPhoneAutomationService_RawSubmitResult_InputMessage">
+    <wsdl:part name="parameters" element="tns:RawSubmitResult" />
+  </wsdl:message>
+  <wsdl:message name="IPhoneAutomationService_RawSubmitResult_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RawSubmitResultResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPhoneAutomationService">
     <wsdl:operation name="GetNextCommand">
       <wsdl:input wsam:Action="http://tempuri.org/IPhoneAutomationService/GetNextCommand" message="tns:IPhoneAutomationService_GetNextCommand_InputMessage" />
@@ -39,6 +45,10 @@
     <wsdl:operation name="SubmitResult">
       <wsdl:input wsam:Action="http://tempuri.org/IPhoneAutomationService/SubmitResult" message="tns:IPhoneAutomationService_SubmitResult_InputMessage" />
       <wsdl:output wsam:Action="http://tempuri.org/IPhoneAutomationService/SubmitResultResponse" message="tns:IPhoneAutomationService_SubmitResult_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RawSubmitResult">
+      <wsdl:input wsam:Action="http://tempuri.org/IPhoneAutomationService/RawSubmitResult" message="tns:IPhoneAutomationService_RawSubmitResult_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IPhoneAutomationService/RawSubmitResultResponse" message="tns:IPhoneAutomationService_RawSubmitResult_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SOAP_IPhoneAutomationService" type="tns:IPhoneAutomationService">
@@ -63,6 +73,15 @@
     </wsdl:operation>
     <wsdl:operation name="SubmitResult">
       <soap:operation soapAction="http://tempuri.org/IPhoneAutomationService/SubmitResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RawSubmitResult">
+      <soap:operation soapAction="http://tempuri.org/IPhoneAutomationService/RawSubmitResult" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -11,38 +11,49 @@
 
 using System;
 using System.Configuration;
-using WindowsPhoneTestFramework.AutomationController.Interfaces;
+using WindowsPhoneTestFramework.Server.Core;
 
-namespace WindowsPhoneTestFramework.EmuSteps
+namespace WindowsPhoneTestFramework.Server.EmuSteps
 {
     public class AppConfigFileBasedConfiguration : IConfiguration
     {
-        public string BindingAddress { get; set; }
+        private const string EmuStepsPrefix = "EmuSteps.";
+        private const string EmuStepsApplicationPrefix = EmuStepsPrefix + "Application.";
+        private const string EmuStepsControllerInitialisationKeyName = EmuStepsPrefix + "ControllerInitialisation";
+        private const string EmuStepsAutomationControllerKeyName = EmuStepsPrefix + "AutomationController";
+        private const string EmuStepsAutomationIdentificationKeyName = EmuStepsPrefix + "AutomationIdentification";
+
+        public string AutomationControllerName{get; set; }
+        public string ControllerInitialisationString { get; set; }
+
         public AutomationIdentification AutomationIdentification { get; set; }
-        public Guid ProductId { get; set; }
-        public string ApplicationName { get; set; }
-        public string IconPath { get; set; }
-        public string XapPath { get; set; }
+
+        public ApplicationDefinition ApplicationDefinition { get; set; }
 
         public AppConfigFileBasedConfiguration()
         {
-            BindingAddress = ConfigurationManager.AppSettings["EmuSteps.BindingAddress"];
+            AutomationControllerName = ConfigurationManager.AppSettings[EmuStepsAutomationControllerKeyName];
+            ControllerInitialisationString = ConfigurationManager.AppSettings[EmuStepsControllerInitialisationKeyName];
+            if (string.IsNullOrEmpty(AutomationControllerName))
+                AutomationControllerName = "wp";
+            if (string.IsNullOrEmpty(ControllerInitialisationString))
+                ControllerInitialisationString = string.Empty;
 
             AutomationIdentification automationIdentification;
-            if (Enum.TryParse(ConfigurationManager.AppSettings["EmuSteps.AutomationIdentification"], true, out automationIdentification))
+            if (Enum.TryParse(ConfigurationManager.AppSettings[EmuStepsAutomationIdentificationKeyName], true, out automationIdentification))
                 AutomationIdentification = automationIdentification;
             else
                 AutomationIdentification = AutomationIdentification.TryEverything;
 
-            Guid productId;
-            if (Guid.TryParse(ConfigurationManager.AppSettings["EmuSteps.ProductId"], out productId))
-                ProductId = productId;
-            else
-                ProductId = Guid.Empty;
-
-            IconPath = ConfigurationManager.AppSettings["EmuSteps.IconPath"];
-            ApplicationName = ConfigurationManager.AppSettings["EmuSteps.ApplicationName"];
-            XapPath = ConfigurationManager.AppSettings["EmuSteps.XapPath"];
+            ApplicationDefinition = new ApplicationDefinition();
+            foreach (var key in ConfigurationManager.AppSettings.AllKeys)
+            {
+                if (key.StartsWith(EmuStepsApplicationPrefix) && key.Length > EmuStepsApplicationPrefix.Length)
+                {
+                    ApplicationDefinition.Fields[key.Substring(EmuStepsApplicationPrefix.Length)] =
+                        ConfigurationManager.AppSettings[key];
+                }
+            }
         }
     }
 }

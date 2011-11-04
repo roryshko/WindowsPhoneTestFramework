@@ -11,7 +11,7 @@
 
 using System;
 
-namespace WindowsPhoneTestFramework.Utils
+namespace WindowsPhoneTestFramework.Server.Utils
 {
     public class SimpleMessageEventArgs : EventArgs
     {

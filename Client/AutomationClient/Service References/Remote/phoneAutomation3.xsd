@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Commands" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Commands" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Interfaces" />
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Interfaces" />
   <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="AutomationElementCommandBase">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:CommandBase">
         <xs:sequence>
-          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Interfaces" minOccurs="0" name="AutomationIdentifier" nillable="true" type="q1:AutomationIdentifier" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Interfaces" minOccurs="0" name="AutomationIdentifier" nillable="true" type="q1:AutomationIdentifier" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -19,34 +19,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CommandBase" nillable="true" type="tns:CommandBase" />
-  <xs:complexType name="GetPositionCommand">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:AutomationElementCommandBase">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="ReturnEmptyIfNotVisible" type="xs:boolean" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="GetPositionCommand" nillable="true" type="tns:GetPositionCommand" />
-  <xs:complexType name="LookForTextCommand">
+  <xs:complexType name="ConfirmAliveCommand">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:CommandBase">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="LookForTextCommand" nillable="true" type="tns:LookForTextCommand" />
-  <xs:complexType name="GetTextCommand">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:AutomationElementCommandBase">
         <xs:sequence />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="GetTextCommand" nillable="true" type="tns:GetTextCommand" />
+  <xs:element name="ConfirmAliveCommand" nillable="true" type="tns:ConfirmAliveCommand" />
   <xs:complexType name="GenericCommand">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:AutomationElementCommandBase">
@@ -62,14 +42,58 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="GenericCommand" nillable="true" type="tns:GenericCommand" />
-  <xs:complexType name="ConfirmAliveCommand">
+  <xs:complexType name="GetPositionCommand">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:AutomationElementCommandBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ReturnEmptyIfNotVisible" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetPositionCommand" nillable="true" type="tns:GetPositionCommand" />
+  <xs:complexType name="GetTextCommand">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:AutomationElementCommandBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetTextCommand" nillable="true" type="tns:GetTextCommand" />
+  <xs:complexType name="InvokeControlTapActionCommand">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:AutomationElementCommandBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InvokeControlTapActionCommand" nillable="true" type="tns:InvokeControlTapActionCommand" />
+  <xs:complexType name="LookForTextCommand">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:CommandBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LookForTextCommand" nillable="true" type="tns:LookForTextCommand" />
+  <xs:complexType name="NullCommand">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:CommandBase">
         <xs:sequence />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="ConfirmAliveCommand" nillable="true" type="tns:ConfirmAliveCommand" />
+  <xs:element name="NullCommand" nillable="true" type="tns:NullCommand" />
+  <xs:complexType name="SetFocusCommand">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:AutomationElementCommandBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SetFocusCommand" nillable="true" type="tns:SetFocusCommand" />
   <xs:complexType name="SetTextCommand">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:AutomationElementCommandBase">
@@ -88,28 +112,4 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="TakePictureCommand" nillable="true" type="tns:TakePictureCommand" />
-  <xs:complexType name="NullCommand">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:CommandBase">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="NullCommand" nillable="true" type="tns:NullCommand" />
-  <xs:complexType name="InvokeControlTapActionCommand">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:AutomationElementCommandBase">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="InvokeControlTapActionCommand" nillable="true" type="tns:InvokeControlTapActionCommand" />
-  <xs:complexType name="SetFocusCommand">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:AutomationElementCommandBase">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="SetFocusCommand" nillable="true" type="tns:SetFocusCommand" />
 </xs:schema>

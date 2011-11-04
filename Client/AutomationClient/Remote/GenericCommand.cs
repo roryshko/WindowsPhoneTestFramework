@@ -12,7 +12,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WindowsPhoneTestFramework.AutomationClient.Remote
+namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
     public partial class GenericCommand
     {

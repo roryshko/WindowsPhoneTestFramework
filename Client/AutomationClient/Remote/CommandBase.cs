@@ -12,7 +12,7 @@
 using System;
 using System.Threading;
 
-namespace WindowsPhoneTestFramework.AutomationClient.Remote
+namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
     public partial class CommandBase
     {
@@ -28,6 +28,7 @@ namespace WindowsPhoneTestFramework.AutomationClient.Remote
             try
             {
                 DoImpl();
+                SendErrorResultIfNoOtherResultSent();
             }
             catch (Exception exception)
             {
@@ -52,6 +53,66 @@ namespace WindowsPhoneTestFramework.AutomationClient.Remote
                                  ExceptionType = exception.GetType().FullName,
                                  FailureText = string.Format("Exception: {0}: {1}", exception.GetType().Name, exception.Message)
                              };
+            Send(result);
+        }
+
+        protected void SkipResult()
+        {
+            EnsureAtMostOneResultSent();
+        }
+
+        protected void SendSuccessResult()
+        {
+            var result = new SuccessResult() { Id = Id };
+            Send(result);
+        }
+
+        protected void SendNotFoundResult()
+        {
+            var result = new NotFoundFailedResult() { Id = Id };
+            Send(result);
+        }
+
+        protected void SendTextResult(string text)
+        {
+            var result = new SuccessResult() { Id = Id, ResultText = text};
+            Send(result);
+        }
+
+        protected void SendPositionResult(double left, double top, double width, double height)
+        {
+            var result = new PositionResult()
+                             {
+                                 Id = Id,
+                                 Left = left,
+                                 Top = top,
+                                 Width = width,
+                                 Height = height,
+                             };
+            Send(result);
+        }
+
+        protected void SendPictureResult(byte[] bytes)
+        {
+            var result = new PictureResult()
+            {
+                Id = Id,
+                EncodedPictureBytes = Convert.ToBase64String(bytes),
+            };
+            Send(result);
+        }
+
+        private void SendErrorResultIfNoOtherResultSent()
+        {
+            if (!_resultSent)
+                SendExceptionFailedResult(
+                    new InvalidOperationException("No result signalled by Command processing : " +
+                                                  this.GetType().FullName));
+        }
+
+        private void Send(ResultBase result)
+        {
+            EnsureAtMostOneResultSent();
             result.Send(Configuration);
         }
 
@@ -64,64 +125,6 @@ namespace WindowsPhoneTestFramework.AutomationClient.Remote
             }
 
             _resultSent = true;
-        }
-
-        private void SendErrorResultIfNoOtherResultSent()
-        {
-            if (!_resultSent)
-                SendExceptionFailedResult(
-                    new InvalidOperationException("No result signalled by Command processing : " +
-                                                  this.GetType().FullName));
-        }
-
-        protected void SkipResult()
-        {
-            EnsureAtMostOneResultSent();
-        }
-
-        protected void SendSuccessResult()
-        {
-            EnsureAtMostOneResultSent();
-            var result = new SuccessResult() { Id = Id };
-            result.Send(Configuration);
-        }
-
-        protected void SendNotFoundResult()
-        {
-            EnsureAtMostOneResultSent();
-            var result = new NotFoundFailedResult() { Id = Id };
-            result.Send(Configuration);
-        }
-
-        protected void SendTextResult(string text)
-        {
-            EnsureAtMostOneResultSent();
-            var result = new SuccessResult() { Id = Id, ResultText = text};
-            result.Send(Configuration);
-        }
-
-        protected void SendPositionResult(double left, double top, double width, double height)
-        {
-            EnsureAtMostOneResultSent();
-            var result = new PositionResult()
-                             {
-                                 Id = Id,
-                                 Left = left,
-                                 Top = top,
-                                 Width = width,
-                                 Height = height,
-                             };
-            result.Send(Configuration);
-        }
-
-        protected void SendPictureResult(byte[] bytes)
-        {
-            var result = new PictureResult()
-            {
-                Id = Id,
-                EncodedPictureBytes = Convert.ToBase64String(bytes),
-            };
-            result.Send(Configuration);
         }
     }
 }

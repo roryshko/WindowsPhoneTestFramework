@@ -11,11 +11,12 @@
 
 using System;
 using System.ComponentModel;
-using WindowsInput.Native;
-using WindowsPhoneTestFramework.CommandLineHost;
-using WindowsPhoneTestFramework.EmuDriver;
+using WindowsPhoneTestFramework.CommandLine.CommandLineHost;
+using WindowsPhoneTestFramework.Server.Core;
+using WindowsPhoneTestFramework.Server.Core.Gestures;
+using WindowsPhoneTestFramework.Server.Core.Tangibles;
 
-namespace WindowsPhoneTestFramework.EmuHost.Commands
+namespace WindowsPhoneTestFramework.CommandLine.EmuHost.Commands
 {
     public class DisplayInputCommands
     {
@@ -25,7 +26,7 @@ namespace WindowsPhoneTestFramework.EmuHost.Commands
         [Description("press a hardware button - Back, Start, Search, Camera, VolumeUp, VolumeDown, Power - e.g. 'hardwareButton Back'")]
         public void PressHardware(string whichButton)
         {
-            var parsedButton = (WindowsPhoneHardwareButton)Enum.Parse(typeof(WindowsPhoneHardwareButton), whichButton);
+            var parsedButton = (PhoneHardwareButton)Enum.Parse(typeof(PhoneHardwareButton), whichButton);
             DisplayInputController.EnsureWindowIsInForeground();
             DisplayInputController.EnsureHardwareKeyboardEnabled();
             DisplayInputController.PressHardwareButton(parsedButton);
@@ -46,7 +47,7 @@ namespace WindowsPhoneTestFramework.EmuHost.Commands
         [Description("enter a specific virtual key code - e.g. 'enterText VK_U'")]
         public void SendKeyPress(string whichCode)
         {
-            var vk = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), whichCode);
+            var vk = (KeyboardKeyCode)Enum.Parse(typeof(KeyboardKeyCode), whichCode);
             DisplayInputController.EnsureWindowIsInForeground();
             DisplayInputController.EnsureHardwareKeyboardEnabled();
             DisplayInputController.SendKeyPress(vk);
@@ -57,7 +58,7 @@ namespace WindowsPhoneTestFramework.EmuHost.Commands
         [Description("lists all defined virtual key code - for info on key codes mapped for emulator, see http://msdn.microsoft.com/en-us/library/ff754352(v=VS.92).aspx - e.g. 'listKeyCodes'")]
         public void ListKeyCodes(string ignore)
         {
-            foreach (var vk in Enum.GetValues(typeof(VirtualKeyCode)))
+            foreach (var vk in Enum.GetValues(typeof(KeyboardKeyCode)))
             {
                 Console.WriteLine(vk);
             }
@@ -96,13 +97,13 @@ namespace WindowsPhoneTestFramework.EmuHost.Commands
             switch (parsed)
             {
                 case FlickDirection.LeftToRight:
-                    gesture = orientation == WindowsPhoneOrientation.Portrait480By800
+                    gesture = orientation == PhoneOrientation.Portrait480By800
                                   ? FlickGesture.LeftToRightPortrait()
                                   : FlickGesture.LeftToRightLandscape();
                     break;
 
                 case FlickDirection.RightToLeft:
-                    gesture = orientation == WindowsPhoneOrientation.Portrait480By800
+                    gesture = orientation == PhoneOrientation.Portrait480By800
                                   ? FlickGesture.RightToLeftPortrait()
                                   : FlickGesture.RightToLeftLandscape();
                     break;

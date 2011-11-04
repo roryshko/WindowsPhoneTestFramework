@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace WindowsPhoneTestFramework.CommandLineHost.Commands
+namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
 {
     public class ConsoleCommands
     {

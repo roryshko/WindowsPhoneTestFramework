@@ -9,14 +9,12 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
-using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using WindowsPhoneTestFramework.EmuDriver;
+using WindowsPhoneTestFramework.Server.Core.Tangibles;
 
-namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
+namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
 {
     [Binding]
     public class AutomationStepDefinitions : EmuDefinitionBase
@@ -32,7 +30,7 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
         [Then(@"I press the control ""([^\""]*)""$")]
         public void ThenIPressTheNamedControl(string named)
         {
-            var result = Emu.PhoneAutomationController.InvokeControlTapAction(named);
+            var result = Emu.ApplicationAutomationController.InvokeControlTapAction(named);
             Assert.IsTrue(result, "Failed to click control '{0}'", named);
         }
 
@@ -40,7 +38,7 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
         public void ThenISeeTheNamedFieldWithContent(string namedField, string expectedContents)
         {
             string actualContents;
-            var result = Emu.PhoneAutomationController.TryGetTextFromControl(namedField, out actualContents);
+            var result = Emu.ApplicationAutomationController.TryGetTextFromControl(namedField, out actualContents);
             Assert.IsTrue(result, "Failed to get field contents for '{0}' - looking for '{1}'", namedField, expectedContents);
             Assert.AreEqual(expectedContents, actualContents, "Contents didn't match - field '{0}' - expected '{1}' - actual '{2}'", namedField, expectedContents, actualContents);
         }
@@ -49,14 +47,14 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
         [Then(@"I enter ""([^\""]*)"" into the control ""([^\""]*)""$")]
         public void ThenIEnterTextIntoTheNamedField(string contents, string namedField)
         {
-            var result = Emu.PhoneAutomationController.SetTextOnControl(namedField, contents);
+            var result = Emu.ApplicationAutomationController.SetTextOnControl(namedField, contents);
             Assert.IsTrue(result, "Failed to enter text into '{0}'", namedField);
         }
 
         [Then(@"I see ""([^\""]*)""$")]
         public void ThenISee(string textOrControlId)
         {
-            var position = Emu.PhoneAutomationController.GetPositionOfControlOrText(textOrControlId);
+            var position = Emu.ApplicationAutomationController.GetPositionOfControlOrText(textOrControlId);
             AssertPositionIsVisible(position, textOrControlId);
         }
 
@@ -65,7 +63,7 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
         {
             var seen = false;
 
-            var position = Emu.PhoneAutomationController.GetPositionOfText(contents);
+            var position = Emu.ApplicationAutomationController.GetPositionOfText(contents);
             seen = IsPositionVisible(position);
 
             if (seen)
@@ -77,14 +75,14 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
         [Then(@"I see the text ""([^\""]*)""$")]
         public void ThenISeeText(string contents)
         {
-            var position = Emu.PhoneAutomationController.GetPositionOfText(contents);
+            var position = Emu.ApplicationAutomationController.GetPositionOfText(contents);
             AssertPositionIsVisible(position, contents);
         }
 
         [Then(@"I don't see the text ""([^\""]*)""$")]
         public void ThenIDontSeeText(string contents)
         {
-            var position = Emu.PhoneAutomationController.GetPositionOfText(contents);
+            var position = Emu.ApplicationAutomationController.GetPositionOfText(contents);
             AssertPositionIsNotVisible(position, contents);
         }
 
@@ -103,22 +101,22 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
         [Then(@"I see my app is not running$")]
         public void AndMyAppIsNotRunning()
         {
-            var result = Emu.PhoneAutomationController.LookIsAlive();
+            var result = Emu.ApplicationAutomationController.LookIsAlive();
             Assert.IsFalse(result, "App is still alive");
         }
 
         [Then(@"I see the control ""([^\""]*)"" is left of the control ""([^\""]*)""$")]
         public void ThenISeeControlOnTheLeftOfControl(string leftControlId, string rightControlId)
         {
-            var leftPosition = Emu.PhoneAutomationController.GetPositionOfControlOrText(leftControlId);
-            var rightPosition = Emu.PhoneAutomationController.GetPositionOfControlOrText(rightControlId);
+            var leftPosition = Emu.ApplicationAutomationController.GetPositionOfControlOrText(leftControlId);
+            var rightPosition = Emu.ApplicationAutomationController.GetPositionOfControlOrText(rightControlId);
             Assert.Less(leftPosition.X, rightPosition.X);
             Assert.LessOrEqual(leftPosition.X + leftPosition.Width, rightPosition.X);
         }
 
         private bool IsControlVisible(string controlId)
         {
-            var position = Emu.PhoneAutomationController.GetPositionOfControl(controlId);
+            var position = Emu.ApplicationAutomationController.GetPositionOfControl(controlId);
             return IsPositionVisible(position);
         }
 

@@ -11,9 +11,9 @@
 
 using System.ComponentModel;
 using Args;
-using WindowsPhoneTestFramework.AutomationController.Interfaces;
+using WindowsPhoneTestFramework.Server.Core;
 
-namespace EmuMac
+namespace WindowsPhoneTestFramework.CommandLine.EmuMac
 {
     [ArgsModel(SwitchDelimiter = "//")]
     public class CommandLine

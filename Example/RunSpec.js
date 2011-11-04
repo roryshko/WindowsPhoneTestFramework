@@ -47,12 +47,10 @@ function safeCreateFolder(folderPath) {
 function patchUpReport(reportText) {
 	reportText = reportText.replace( /_startEmuShot_/g, '\n          <img src="');
 	reportText = reportText.replace( /_endEmuShot_/g, '" height="200">');
-	reportText = reportText.replace( /_startEmuTrace_/g, '<span class="emuTraceMessage">');
-	reportText = reportText.replace( /_endEmuTrace_/g, '</span>');
-	reportText = reportText.replace( /_startEmuWarning_/g, '<span class="emuWarningMessage">');
-	reportText = reportText.replace( /_endEmuWarning_/g, '</span>');
-	reportText = reportText.replace( /_startEmuError_/g, '<span class="emuErrorMessage">');
-	reportText = reportText.replace( /_endEmuError_/g, '</span>');
+	reportText = reportText.replace( /^Trace:/g, '<span class="emuTraceMessage">');
+	reportText = reportText.replace( /^Warning:/g, '<span class="emuWarningMessage">');
+	reportText = reportText.replace( /^Error/g, '<span class="emuErrorMessage">');
+	reportText = reportText.replace( / \t\t \t$/g, '</span>');
 	reportText = reportText.replace( /span.traceMessage/g, 'span.emuTraceMessage\n{ font-style:italic; margin-left: 4em; color: #888888; }\nspan.emuWarningMessage\n{ font-style:italic; margin-left: 4em; color: #FFB00F; }\nspan.emuErrorMessage\n{ font-style:italic; margin-left: 4em; color: #FF3030; }\nspan.traceMessage' );
 	return reportText;
 }

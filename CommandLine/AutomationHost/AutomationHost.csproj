@@ -8,7 +8,7 @@
     <ProjectGuid>{E7F08DBA-90A9-425F-9DA0-02C7A003292A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsPhoneTestFramework.AutomationHost</RootNamespace>
+    <RootNamespace>WindowsPhoneTestFramework.CommandLine.AutomationHost</RootNamespace>
     <AssemblyName>AutomationHost</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -29,7 +29,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -57,9 +57,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Server\AutomationController\AutomationController.csproj">
-      <Project>{74791D2D-5C3E-465A-BFF1-A13F83BAC4B3}</Project>
-      <Name>AutomationController</Name>
+    <ProjectReference Include="..\..\Server\Core\Core.csproj">
+      <Project>{D781684B-6B06-4D2C-B6F1-3A281D7C3697}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Server\WCFHostedAutomationController\WCFHostedAutomationController.csproj">
+      <Project>{B0F9A9E3-D4AC-44C5-AEC2-DE83534C7E73}</Project>
+      <Name>WCFHostedAutomationController</Name>
     </ProjectReference>
     <ProjectReference Include="..\CommandLineHost\CommandLineHost.csproj">
       <Project>{2F9D77C2-C258-45BA-9921-9A7AE3729D4C}</Project>

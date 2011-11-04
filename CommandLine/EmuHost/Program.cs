@@ -10,20 +10,16 @@
 // ------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Args;
 using Args.Help;
 using Args.Help.Formatters;
-using WindowsPhoneTestFramework.CommandLineHost;
-using WindowsPhoneTestFramework.CommandLineHost.Commands;
-using WindowsPhoneTestFramework.EmuAutomationController.Interfaces;
-using WindowsPhoneTestFramework.EmuHost.Commands;
+using WindowsPhoneTestFramework.CommandLine.CommandLineHost;
+using WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands;
+using WindowsPhoneTestFramework.CommandLine.EmuHost.Commands;
+using WindowsPhoneTestFramework.Server.Core;
 
-namespace WindowsPhoneTestFramework.EmuHost
+namespace WindowsPhoneTestFramework.CommandLine.EmuHost
 {
     public class Program : ProgramBase
     {
@@ -36,11 +32,14 @@ namespace WindowsPhoneTestFramework.EmuHost
                 modelBindingDefinition = Configuration.Configure<AppLaunchingCommandLine>();
                 commandLine = modelBindingDefinition.CreateAndBind(args);
 
+                /*
                 if (commandLine.ProductId == Guid.Empty)
                 {
-                    Console.WriteLine("No productId supplied");
-                    throw new ApplicationException("Help!");
+                    Console.WriteLine("");
+                    Console.WriteLine("***Warning*** - no productId supplied");
+                    Console.WriteLine("");
                 }
+                */
             }
             catch (Exception /*exception*/)
             {
@@ -81,30 +80,30 @@ namespace WindowsPhoneTestFramework.EmuHost
         }
 
         private readonly AppLaunchingCommandLine _commandLine;
-        private IEmuAutomationController _emuAutomationController;
+        private IAutomationController _automationController;
 
         public Program(AppLaunchingCommandLine commandLine)
         {
             _commandLine = commandLine;
             StartEmuAutomationController();
 
-            var driverCommands = new DriverCommands()
+            var driverCommands = new DeviceControllerCommands()
                                      {
-                                         Driver = _emuAutomationController.Driver,
+                                         DeviceController = _automationController.DeviceController,
                                          CommandLine = _commandLine
                                      };
             AddCommands(driverCommands);
 
             var inputCommands = new DisplayInputCommands()
                                     {
-                                        DisplayInputController = _emuAutomationController.DisplayInputController
+                                        DisplayInputController = _automationController.DisplayInputController
                                     };
             AddCommands(inputCommands);
 
             var phoneAutomationCommands = new PhoneAutomationCommands()
                                               {
-                                                  PhoneAutomationController =
-                                                      _emuAutomationController.PhoneAutomationController
+                                                  ApplicationAutomationController =
+                                                      _automationController.ApplicationAutomationController
                                               };
             AddCommands(phoneAutomationCommands);
 
@@ -112,11 +111,13 @@ namespace WindowsPhoneTestFramework.EmuHost
 
         private void StartEmuAutomationController()
         {
-            Console.WriteLine("-> controller will listen for connection on " + _commandLine.Binding);
-            Console.WriteLine("-> controller will identify controls using " + _commandLine.AutomationIdentification);
-            _emuAutomationController = new EmuAutomationController.EmuAutomationController();
-            _emuAutomationController.Trace += (sender, args) => Console.WriteLine("-> " + args.Message);
-            _emuAutomationController.Start(new Uri(_commandLine.Binding), _commandLine.AutomationIdentification);
+            Console.WriteLine("-> controller will be loaded from: " + _commandLine.Controller);
+            Console.WriteLine("-> controller will be initialised with: " + _commandLine.Initialisation);
+            Console.WriteLine("-> controller will identify controls using: " + _commandLine.AutomationIdentification);
+            _automationController = Server.Core.Loader.LoadFrom(_commandLine.Controller);
+            Console.WriteLine("-> controller loaded: " + _automationController.GetType().FullName);
+            _automationController.Trace += (sender, args) => Console.WriteLine("-> " + args.Message);
+            _automationController.Start(_commandLine.Initialisation, _commandLine.AutomationIdentification);
             Console.WriteLine("-> controller started");
             Console.WriteLine();
         }
@@ -125,10 +126,10 @@ namespace WindowsPhoneTestFramework.EmuHost
         {
             if (isDisposing)
             {
-                if (_emuAutomationController != null)
+                if (_automationController != null)
                 {
-                    _emuAutomationController.Dispose();
-                    _emuAutomationController = null;
+                    _automationController.Dispose();
+                    _automationController = null;
                 }
             }
             base.Dispose(isDisposing);

@@ -11,7 +11,7 @@
 
 using System;
 
-namespace WindowsPhoneTestFramework.CommandLineHost
+namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class CommandLineCommandAttribute : Attribute

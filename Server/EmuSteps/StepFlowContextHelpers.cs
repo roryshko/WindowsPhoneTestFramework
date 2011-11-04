@@ -13,31 +13,31 @@ using System;
 using System.IO;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using WindowsPhoneTestFramework.EmuAutomationController.Interfaces;
+using WindowsPhoneTestFramework.Server.Core;
 
-namespace WindowsPhoneTestFramework.EmuSteps
+namespace WindowsPhoneTestFramework.Server.EmuSteps
 {
     public static class StepFlowContextHelpers
     {
         private const string EmuShotPrefix = "_EmuShot_";
-        private const string EmuControllerKey = "Emu.EmuAutomationController";
+        private const string EmuControllerKey = "Emu.AutomationController";
         private const string EmuPictureIndexKey = "Emu.PictureIndex";
 
-        public static IEmuAutomationController GetEmuAutomationController(ScenarioContext context, IConfiguration configuration)
+        public static IAutomationController GetEmuAutomationController(ScenarioContext context, IConfiguration configuration)
         {
             Assert.That(context != null);
             Assert.That(configuration != null);
 
             lock (context)
             {
-                IEmuAutomationController emu = null;
+                IAutomationController emu = null;
                 if (context.TryGetValue(EmuControllerKey, out emu))
                     return emu;
 
-                emu = new EmuAutomationController.EmuAutomationController();
+                emu = Server.Core.Loader.LoadFrom(configuration.AutomationControllerName);
                 emu.Trace += (sender, args) => StepFlowOutputHelpers.Write(args.Message);
                 emu.Start(
-                    configuration.BindingAddress == null ? null : new Uri(configuration.BindingAddress),
+                    configuration.ControllerInitialisationString,
                     configuration.AutomationIdentification);
                 if (emu.DisplayInputController != null)
                     emu.DisplayInputController.EnsureWindowIsInForeground();
@@ -84,7 +84,7 @@ namespace WindowsPhoneTestFramework.EmuSteps
 
             lock (context)
             {
-                IEmuAutomationController emu = null;
+                IAutomationController emu = null;
                 if (!context.TryGetValue(EmuControllerKey, out emu))
                     return;
                 

@@ -12,9 +12,11 @@
 using System;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using WindowsPhoneTestFramework.EmuDriver;
+using WindowsPhoneTestFramework.Server.Core;
+using WindowsPhoneTestFramework.Server.Core.Gestures;
+using WindowsPhoneTestFramework.Server.Core.Tangibles;
 
-namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
+namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
 {
     [Binding]
     public class InputStepDefinitions : EmuDefinitionBase
@@ -52,25 +54,25 @@ namespace WindowsPhoneTestFramework.EmuSteps.StepDefinitions
         [Then(@"I go back")]
         public void ThenIGoBack()
         {
-            Emu.DisplayInputController.PressHardwareButton(WindowsPhoneHardwareButton.Back);
+            Emu.DisplayInputController.PressHardwareButton(PhoneHardwareButton.Back);
         }
 
         [Then(@"I press the back button for (\d+) seconds")]
         public void ThenILongPressBack(int timeInSeconds)
         {
-            Emu.DisplayInputController.LongPressHardwareButton(WindowsPhoneHardwareButton.Back, TimeSpan.FromSeconds(timeInSeconds));
+            Emu.DisplayInputController.LongPressHardwareButton(PhoneHardwareButton.Back, TimeSpan.FromSeconds(timeInSeconds));
         }
 
         [Then(@"I go home")]
         public void ThenIGoHome()
         {
-            Emu.DisplayInputController.PressHardwareButton(WindowsPhoneHardwareButton.Home);
+            Emu.DisplayInputController.PressHardwareButton(PhoneHardwareButton.Home);
         }
 
         [Then(@"I press hardware button ""([^\""]*)""$")]
         public void ThenIPressHardwareButton(string whichButton)
         {
-            WindowsPhoneHardwareButton parsedButton;
+            PhoneHardwareButton parsedButton;
             Assert.IsTrue(Enum.TryParse(whichButton, true, out parsedButton), "failed to parse button name " + whichButton);
             Emu.DisplayInputController.PressHardwareButton(parsedButton);
         }

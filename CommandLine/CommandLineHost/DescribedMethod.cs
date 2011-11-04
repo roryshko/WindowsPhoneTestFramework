@@ -11,7 +11,7 @@
 
 using System;
 
-namespace WindowsPhoneTestFramework.CommandLineHost
+namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost
 {
     public class DescribedMethod
     {

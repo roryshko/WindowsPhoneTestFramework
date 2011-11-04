@@ -8,8 +8,8 @@
     <ProjectGuid>{A1828C05-AE1C-45F0-8F86-1195E40E62D7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsPhoneTestFramework.EmuSteps</RootNamespace>
-    <AssemblyName>WindowsPhoneTestFramework.EmuSteps</AssemblyName>
+    <RootNamespace>WindowsPhoneTestFramework.Server.EmuSteps</RootNamespace>
+    <AssemblyName>WindowsPhoneTestFramework.Server.EmuSteps</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -73,21 +73,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutomationController\AutomationController.csproj">
-      <Project>{74791D2D-5C3E-465A-BFF1-A13F83BAC4B3}</Project>
-      <Name>AutomationController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EmuAutomationController\EmuAutomationController.csproj">
-      <Project>{054FE529-50CF-4A35-B40A-D05A1B59CCAA}</Project>
-      <Name>EmuAutomationController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EmuDriver\EmuDriver.csproj">
-      <Project>{6D7696D6-943C-4604-9FF7-5255EB6861B5}</Project>
-      <Name>EmuDriver</Name>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{D781684B-6B06-4D2C-B6F1-3A281D7C3697}</Project>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{4C0765F2-A904-4E2E-8FFA-9DE0AA461804}</Project>
       <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WindowsPhoneEmulatorAutomationController\WindowsPhoneEmulatorAutomationController.csproj">
+      <Project>{C46C6F71-28D0-4151-8268-D5E851CDE9DC}</Project>
+      <Name>WindowsPhoneEmulatorAutomationController</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

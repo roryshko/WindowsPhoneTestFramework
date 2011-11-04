@@ -11,7 +11,7 @@
 
 using System;
 
-namespace WindowsPhoneTestFramework.AutomationClient
+namespace WindowsPhoneTestFramework.Client.AutomationClient
 {
     public interface IAutomationClient : IDisposable
     {

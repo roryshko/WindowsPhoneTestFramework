@@ -15,9 +15,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using WindowsPhoneTestFramework.CommandLineHost.Commands;
+using WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands;
 
-namespace WindowsPhoneTestFramework.CommandLineHost
+namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost
 {
     public class ProgramBase : IDisposable
     {

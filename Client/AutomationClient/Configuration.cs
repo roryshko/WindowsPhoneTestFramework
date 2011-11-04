@@ -14,9 +14,9 @@ using System.Net;
 using System.ServiceModel;
 using System.Threading;
 using System.Windows.Threading;
-using WindowsPhoneTestFramework.AutomationClient.Remote;
+using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
 
-namespace WindowsPhoneTestFramework.AutomationClient
+namespace WindowsPhoneTestFramework.Client.AutomationClient
 {
     public class Configuration : IConfiguration
     {

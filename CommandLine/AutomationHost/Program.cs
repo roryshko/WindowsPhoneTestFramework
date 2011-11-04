@@ -10,12 +10,11 @@
 // ------------------------------------------------------------------------
 
 using System;
-using System.Text;
-using WindowsPhoneTestFramework.AutomationController;
-using WindowsPhoneTestFramework.CommandLineHost;
-using WindowsPhoneTestFramework.CommandLineHost.Commands;
+using WindowsPhoneTestFramework.CommandLine.CommandLineHost;
+using WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands;
+using WindowsPhoneTestFramework.Server.WCFHostedAutomationController;
 
-namespace WindowsPhoneTestFramework.AutomationHost
+namespace WindowsPhoneTestFramework.CommandLine.AutomationHost
 {
     class Program : ProgramBase
     {
@@ -48,7 +47,7 @@ namespace WindowsPhoneTestFramework.AutomationHost
             StartServiceHost(commandLine);
             var commands = new PhoneAutomationCommands()
                                {
-                                   PhoneAutomationController = _serviceHost.Controller
+                                   ApplicationAutomationController = _serviceHost.AutomationController
                                };
             AddCommands(commands);
         }

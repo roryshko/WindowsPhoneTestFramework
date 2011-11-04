@@ -12,41 +12,83 @@
 using System;
 using System.ComponentModel;
 using Args;
-using Args.Help;
-using WindowsPhoneTestFramework.AutomationController.Interfaces;
-using WindowsPhoneTestFramework.CommandLineHost;
+using WindowsPhoneTestFramework.Server.Core;
 
-namespace WindowsPhoneTestFramework.EmuHost
+namespace WindowsPhoneTestFramework.CommandLine.EmuHost
 {
     [Description("emuhost - provides communications with the Windows Phone Emulator")]
     public class AppLaunchingCommandLine
     {
-        [ArgsMemberSwitch("bind")]
-        [DefaultValue("http://localhost:8085/phoneAutomation")]
-        [Description("Url and port binding for the phone automation host")]
-        public string Binding { get; set; }
+        [ArgsMemberSwitch("controller")]
+        [DefaultValue("WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emulator.dll")]
+        [Description("Assembly to use as controller - by default this is WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emulator.dll")]
+        public string Controller { get; set; }
 
-        [ArgsMemberSwitch("id")]
+        [ArgsMemberSwitch("init")]
+        [DefaultValue("")]
+        [Description("Initialisation string for the contoller")]
+        public string Initialisation { get; set; }
+
+        [ArgsMemberSwitch("autoid")]
         [DefaultValue(AutomationIdentification.TryEverything)]
         [Description("Mechanism for identifying phone controls - defaults to TryEverything")]
         public AutomationIdentification AutomationIdentification { get; set; }
 
-        [ArgsMemberSwitch("pid")]
-        [Description("The Product Id (Guid)")]
-        public Guid ProductId { get; set; }
+        // Windows Phone specific fields
+        [ArgsMemberSwitch("wppid")]
+        [Description("The WindowsPhone Product Id (Guid)")]
+        [ApplicationDefinitionArg("WindowsPhone", "ApplicationId")]
+        public Guid WindowsPhoneProductId { get; set; }
 
-        [ArgsMemberSwitch("icon")]
+        [ArgsMemberSwitch("wpicon")]
         [DefaultValue("ApplicationIcon.png")]
-        [Description("Path to application icon file")]
-        public string IconPath { get; set; }
+        [Description("Path to WindowsPhone application icon file (62x62 .png)")]
+        [ApplicationDefinitionArg("WindowsPhone", "ApplicationIconPath")]
+        public string WindowsPhoneIconPath { get; set; }
 
-        [ArgsMemberSwitch("xap")]
-        [Description("Path to application xap file")]
-        public string XapPath { get; set; }
+        [ArgsMemberSwitch("wpxap")]
+        [Description("Path to WindowsPhone application package file - .xap")]
+        [ApplicationDefinitionArg("WindowsPhone", "ApplicationPackagePath")]
+        public string WindowsPhonePackagePath { get; set; }
 
-        [ArgsMemberSwitch("name")]
+        [ArgsMemberSwitch("wpname")]
         [DefaultValue("Test Application")]
-        [Description("Application name")]
-        public string Name { get; set; }
+        [Description("WindowsPhone application name")]
+        [ApplicationDefinitionArg("WindowsPhone", "ApplicationName")]
+        public string WindowsPhoneName { get; set; }
+
+        // Android specific fields
+        [ArgsMemberSwitch("andapk")]
+        [Description("Path to Android package file - .apk")]
+        [ApplicationDefinitionArg("Android", "PackagePath")]
+        public string AndroidPackagePath { get; set; }
+
+        [ArgsMemberSwitch("andpackage")]
+        [Description("Android package name - e.g. 'com.acme.mypackage'")]
+        [ApplicationDefinitionArg("Android", "PackageName")]
+        public string AndroidPackageName { get; set; }
+
+        [ArgsMemberSwitch("andtestapk")]
+        [Description("Path to Android JUnit test stub package file - .apk")]
+        [ApplicationDefinitionArg("Android", "StubPackagePath")]
+        public string AndroidStubPackagePath { get; set; }
+
+        [ArgsMemberSwitch("andtestpackage")]
+        [Description("Android JUnit test stub package name - e.g. 'com.acme.mypackage.test'")]
+        [ApplicationDefinitionArg("Android", "StubPackageName")]
+        public string AndroidStubPackageName { get; set; }
+
+        // remobe this?
+        [ArgsMemberSwitch("andaction")]
+        [Description("Android action to start - e.g. android.intent.action.MAIN")]
+        [ApplicationDefinitionArg("Android", "Action")]
+        [DefaultValue("android.intent.action.MAIN")]
+        public string AndroidAction { get; set; }
+
+        // remobe this?
+        [ArgsMemberSwitch("andclass")]
+        [Description("Android activity Class name - e.g. 'com.acme.mypackage.Program'")]
+        [ApplicationDefinitionArg("Android", "ActivityClassName")]
+        public string ActivityClassName { get; set; }
     }
 }

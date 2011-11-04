@@ -13,7 +13,7 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WindowsPhoneTestFramework.AutomationClient.Remote
+namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
     public partial class GetPositionCommand
     {

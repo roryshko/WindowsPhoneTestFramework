@@ -9,15 +9,15 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
-using WindowsPhoneTestFramework.EmuDriver;
+using WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController;
 
-namespace WindowsPhoneTestFramework.EmuBackground
+namespace WindowsPhoneTestFramework.CommandLine.EmuBackground
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var displayInputController = new EmulatorDisplayInputController();
+            var displayInputController = new WindowsPhoneWindowsEmulatorDisplayInputController();
             displayInputController.ReleaseWindowFromForeground();
         }
     }

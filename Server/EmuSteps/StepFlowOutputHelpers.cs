@@ -10,9 +10,8 @@
 // ------------------------------------------------------------------------
 
 using System;
-using System.IO;
 
-namespace WindowsPhoneTestFramework.EmuSteps
+namespace WindowsPhoneTestFramework.Server.EmuSteps
 {
     public static class StepFlowOutputHelpers
     {
@@ -30,7 +29,7 @@ namespace WindowsPhoneTestFramework.EmuSteps
 
         public static void Write(WriteType type, string message, params object[] args)
         {
-            var template = string.Format("_startEmu{0}_->{1}_endEmu{0}_", type, message);
+            var template = string.Format("{0}:->{1} \t\t \t", type, message);
             Console.WriteLine(string.Format(template, args));
         }
 

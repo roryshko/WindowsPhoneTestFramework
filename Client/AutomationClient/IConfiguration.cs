@@ -10,9 +10,9 @@
 // ------------------------------------------------------------------------
 
 using System.Windows.Threading;
-using WindowsPhoneTestFramework.AutomationClient.Remote;
+using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
 
-namespace WindowsPhoneTestFramework.AutomationClient
+namespace WindowsPhoneTestFramework.Client.AutomationClient
 {
     public interface IConfiguration
     {

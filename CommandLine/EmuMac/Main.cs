@@ -1,9 +1,9 @@
 using System;
-using WindowsPhoneTestFramework.CommandLineHost;
-using WindowsPhoneTestFramework.AutomationController;
-using WindowsPhoneTestFramework.CommandLineHost.Commands;
+using WindowsPhoneTestFramework.CommandLine.CommandLineHost;
+using WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands;
+using WindowsPhoneTestFramework.Server.WCFHostedAutomationController;
 
-namespace EmuMac
+namespace WindowsPhoneTestFramework.CommandLine.EmuMac
 {
     class Program : ProgramBase
     {
@@ -36,7 +36,7 @@ namespace EmuMac
             StartServiceHost(commandLine);
             var commands = new PhoneAutomationCommands()
                                {
-                                   PhoneAutomationController = _serviceHost.Controller
+                                   ApplicationAutomationController = _serviceHost.AutomationController
                                };
             AddCommands(commands);
         }

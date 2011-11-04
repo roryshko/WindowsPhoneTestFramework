@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Commands" />
+  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" />
   <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Results" />
+  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Results" />
   <xs:element name="GetNextCommand">
     <xs:complexType>
       <xs:sequence>
@@ -13,7 +13,7 @@
   <xs:element name="GetNextCommandResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Commands" minOccurs="0" name="GetNextCommandResult" nillable="true" type="q1:CommandBase" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" minOccurs="0" name="GetNextCommandResult" nillable="true" type="q1:CommandBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -34,13 +34,27 @@
   <xs:element name="SubmitResult">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.AutomationController.Results" minOccurs="0" name="result" nillable="true" type="q3:ResultBase" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Results" minOccurs="0" name="result" nillable="true" type="q3:ResultBase" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SubmitResultResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RawSubmitResult">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="jsonResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RawSubmitResultResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RawSubmitResultResult" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

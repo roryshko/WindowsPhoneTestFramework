@@ -8,7 +8,7 @@
     <ProjectGuid>{08B30BEC-3995-4508-81EC-E96E396177FC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsPhoneTestFramework.EmuHost</RootNamespace>
+    <RootNamespace>WindowsPhoneTestFramework.CommandLine.EmuHost</RootNamespace>
     <AssemblyName>EmuHost</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -29,7 +29,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -50,8 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppLaunchingCommandLine.cs" />
+    <Compile Include="ApplicationDefinitionArgAttribute.cs" />
     <Compile Include="Commands\DisplayInputCommands.cs" />
-    <Compile Include="Commands\DriverCommands.cs" />
+    <Compile Include="Commands\DeviceControllerCommands.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,21 +61,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Server\AutomationController\AutomationController.csproj">
-      <Project>{74791D2D-5C3E-465A-BFF1-A13F83BAC4B3}</Project>
-      <Name>AutomationController</Name>
+    <ProjectReference Include="..\..\Server\Core\Core.csproj">
+      <Project>{D781684B-6B06-4D2C-B6F1-3A281D7C3697}</Project>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\CommandLineHost\CommandLineHost.csproj">
       <Project>{2F9D77C2-C258-45BA-9921-9A7AE3729D4C}</Project>
       <Name>CommandLineHost</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Server\EmuAutomationController\EmuAutomationController.csproj">
-      <Project>{054FE529-50CF-4A35-B40A-D05A1B59CCAA}</Project>
-      <Name>EmuAutomationController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Server\EmuDriver\EmuDriver.csproj">
-      <Project>{6D7696D6-943C-4604-9FF7-5255EB6861B5}</Project>
-      <Name>EmuDriver</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Server\Utils\Utils.csproj">
       <Project>{4C0765F2-A904-4E2E-8FFA-9DE0AA461804}</Project>

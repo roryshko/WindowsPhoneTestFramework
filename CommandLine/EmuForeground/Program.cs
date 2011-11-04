@@ -10,15 +10,15 @@
 // ------------------------------------------------------------------------
 
 
-using WindowsPhoneTestFramework.EmuDriver;
+using WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController;
 
-namespace WindowsPhoneTestFramework.EmuForeground
+namespace WindowsPhoneTestFramework.CommandLine.EmuForeground
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var displayInputController = new EmulatorDisplayInputController();
+            var displayInputController = new WindowsPhoneWindowsEmulatorDisplayInputController();
             displayInputController.EnsureWindowIsInForeground();
         }
     }
