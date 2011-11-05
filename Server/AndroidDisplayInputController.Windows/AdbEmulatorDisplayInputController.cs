@@ -16,6 +16,8 @@ using WindowsInput.Native;
 using WindowsPhoneTestFramework.Server.Core.Tangibles;
 using WindowsPhoneTestFramework.Server.DisplayInputControllerCore;
 
+// TODO - revisit this class with the telnet knowledge from http://stackoverflow.com/questions/1959012/how-can-i-unlock-the-screen-programmatically-in-android
+
 namespace WindowsPhoneTestFramework.Server.AndroidDisplayInputController.Windows
 {
     public interface IAndroidDisplayInputController
