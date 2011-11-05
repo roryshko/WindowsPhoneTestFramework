@@ -12,7 +12,7 @@
 using TechTalk.SpecFlow;
 using WindowsPhoneTestFramework.Server.Core;
 
-namespace WindowsPhoneTestFramework.Server.EmuSteps
+namespace WindowsPhoneTestFramework.Test.EmuSteps
 {
     public class EmuDefinitionBase : ConfigurableDefinitionBase
     {

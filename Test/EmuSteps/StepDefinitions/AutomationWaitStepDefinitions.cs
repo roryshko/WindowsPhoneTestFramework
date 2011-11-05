@@ -14,7 +14,7 @@ using System.Threading;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
+namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
     [Binding]
     public class AutomationWaitStepDefinitions : EmuDefinitionBase

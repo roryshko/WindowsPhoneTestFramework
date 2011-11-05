@@ -16,7 +16,7 @@ using WindowsPhoneTestFramework.Server.Core;
 using WindowsPhoneTestFramework.Server.Core.Gestures;
 using WindowsPhoneTestFramework.Server.Core.Tangibles;
 
-namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
+namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
     [Binding]
     public class InputStepDefinitions : EmuDefinitionBase

@@ -14,7 +14,7 @@ using NUnit.Framework;
 using TechTalk.SpecFlow;
 using WindowsPhoneTestFramework.Server.Core.Results;
 
-namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
+namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
     [Binding]
     public class DriverStepDefinitions : EmuDefinitionBase

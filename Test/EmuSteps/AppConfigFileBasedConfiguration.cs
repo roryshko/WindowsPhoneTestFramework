@@ -13,7 +13,7 @@ using System;
 using System.Configuration;
 using WindowsPhoneTestFramework.Server.Core;
 
-namespace WindowsPhoneTestFramework.Server.EmuSteps
+namespace WindowsPhoneTestFramework.Test.EmuSteps
 {
     public class AppConfigFileBasedConfiguration : IConfiguration
     {

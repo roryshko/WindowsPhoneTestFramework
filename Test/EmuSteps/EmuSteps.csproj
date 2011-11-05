@@ -8,8 +8,8 @@
     <ProjectGuid>{A1828C05-AE1C-45F0-8F86-1195E40E62D7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsPhoneTestFramework.Server.EmuSteps</RootNamespace>
-    <AssemblyName>WindowsPhoneTestFramework.Server.EmuSteps</AssemblyName>
+    <RootNamespace>WindowsPhoneTestFramework.Test.EmuSteps</RootNamespace>
+    <AssemblyName>WindowsPhoneTestFramework.Test.EmuSteps</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -76,15 +76,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
+    <ProjectReference Include="..\..\Server\Core\Core.csproj">
       <Project>{D781684B-6B06-4D2C-B6F1-3A281D7C3697}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Utils\Utils.csproj">
+    <ProjectReference Include="..\..\Server\Utils\Utils.csproj">
       <Project>{4C0765F2-A904-4E2E-8FFA-9DE0AA461804}</Project>
       <Name>Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WindowsPhoneEmulatorAutomationController\WindowsPhoneEmulatorAutomationController.csproj">
+    <ProjectReference Include="..\..\Server\WindowsPhoneEmulatorAutomationController\WindowsPhoneEmulatorAutomationController.csproj">
       <Project>{C46C6F71-28D0-4151-8268-D5E851CDE9DC}</Project>
       <Name>WindowsPhoneEmulatorAutomationController</Name>
     </ProjectReference>

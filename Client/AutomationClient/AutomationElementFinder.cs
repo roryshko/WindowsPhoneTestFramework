@@ -28,7 +28,14 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
                                                                        };
         public readonly static List<string> ObjectPropertyNamesToTestForText = new List<string>()
                                                                        {
-                                                                            "Content"    
+                                                                            "Content"
+                                                                       };
+        public readonly static List<string> PropertyNamesToTestForValue = new List<string>()
+                                                                       {
+                                                                            "Text",
+                                                                            "Password",
+                                                                            "IsChecked",
+                                                                            "Value"
                                                                        };
 
         public static UIElement FindElement(AutomationIdentifier identifier)
@@ -210,6 +217,20 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
                 if (objectPropertyValue != null
                     && objectPropertyValue is string)
                     return (string) objectPropertyValue;
+            }
+
+            return null;
+        }
+
+        public static string GetValueForFrameworkElement(FrameworkElement frameworkElement)
+        {
+            foreach (var objectName in PropertyNamesToTestForValue)
+            {
+                var objectPropertyValue = GetElementProperty<object>(frameworkElement, objectName);
+                if (objectPropertyValue != null)
+                {
+                    return (string) objectPropertyValue.ToString();
+                }
             }
 
             return null;

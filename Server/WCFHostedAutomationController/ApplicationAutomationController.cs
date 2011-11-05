@@ -104,6 +104,16 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             return SetTextOnAutomationIdentification(CreateAutomationIdentifier(controlId), text);
         }
 
+        public bool TryGetValueFromControl(string controlId, out string textValue)
+        {
+            return TryGetValueFromAutomationIdentifier(CreateAutomationIdentifier(controlId), out textValue);
+        }
+
+        public bool SetValueOnControl(string controlId, string value)
+        {
+            return SetValueOnAutomationIdentification(CreateAutomationIdentifier(controlId), value);
+        }
+
         public bool InvokeControlTapAction(string controlId)
         {
             var automationIdentifier = CreateAutomationIdentifier(controlId);
@@ -265,6 +275,19 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             return (successResult != null);
         }
 
+        private bool SetValueOnAutomationIdentification(AutomationIdentifier automationIdentifier, string textValue)
+        {
+            var command = new SetValueCommand()
+            {
+                AutomationIdentifier = automationIdentifier,
+                TextValue = textValue
+            };
+
+            var result = SyncExecuteCommand(command);
+            var successResult = result as SuccessResult;
+            return (successResult != null);
+        }
+
         private bool TryGetTextFromAutomationIdentifier(AutomationIdentifier automationIdentifier, out string text)
         {
             text = null;
@@ -278,6 +301,22 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
                 return false;
 
             text = successResult.ResultText;
+            return true;
+        }
+
+        private bool TryGetValueFromAutomationIdentifier(AutomationIdentifier automationIdentifier, out string textValue)
+        {
+            textValue = null;
+            var command = new GetValueCommand()
+            {
+                AutomationIdentifier = automationIdentifier
+            };
+            var result = SyncExecuteCommand(command);
+            var successResult = result as SuccessResult;
+            if (successResult == null)
+                return false;
+
+            textValue = successResult.ResultText;
             return true;
         }
 

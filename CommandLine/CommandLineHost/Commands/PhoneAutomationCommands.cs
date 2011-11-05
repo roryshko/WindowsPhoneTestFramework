@@ -63,6 +63,30 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
             Console.WriteLine("WaitForText:" + result.ToString());
         }
 
+        [CommandLineCommand("getValue")]
+        [Description("gets a value from the named control in the app UI - e.g. 'getValue checkBox1'")]
+        public void GetValue(string whatToGet)
+        {
+            string text;
+            var result = ApplicationAutomationController.TryGetValueFromControl(whatToGet, out text);
+            Console.WriteLine("GeValue:" + (result ? text : "FAIL"));
+        }
+
+        [CommandLineCommand("setValue")]
+        [Description("sets a value on the named control in the app UI - e.g. 'setText CheckBox1=true'")]
+        public void SetValue(string whatToSetAndValue)
+        {
+            var items = whatToSetAndValue.Split(new char[] { '=' }, 2);
+            if (items.Count() != 2)
+            {
+                Console.WriteLine("Incorrect syntax - require setValue id=value");
+                return;
+            }
+
+            var result = ApplicationAutomationController.SetValueOnControl(items[0], items[1]);
+            Console.WriteLine("SetValue:" + result);
+        }
+
         [CommandLineCommand("getText")]
         [Description("gets text from the named control in the app UI - e.g. 'getText TextBox1'")]
         public void GetText(string whatToGet)

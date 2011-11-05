@@ -81,12 +81,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Server\EmuSteps\EmuSteps.csproj">
-      <Project>{A1828C05-AE1C-45F0-8F86-1195E40E62D7}</Project>
-      <Name>EmuSteps</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

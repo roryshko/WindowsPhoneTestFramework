@@ -28,6 +28,8 @@ namespace WindowsPhoneTestFramework.Server.Core
         bool LookForText(string text);
         bool TryGetTextFromControl(string controlId, out string text);
         bool SetTextOnControl(string controlId, string text);
+        bool TryGetValueFromControl(string controlId, out string textValue);
+        bool SetValueOnControl(string controlId, string value);
         bool InvokeControlTapAction(string controlId);
         RectangleF GetPositionOfControlOrText(string textOrControlId);
         RectangleF GetPositionOfControl(string controlId);

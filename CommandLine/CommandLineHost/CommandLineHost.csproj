@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WindowsPhoneTestFramework.CommandLine.CommandLineHost</RootNamespace>
-    <AssemblyName>WindowsPhoneTestFramework.CommandLineHost</AssemblyName>
+    <AssemblyName>WindowsPhoneTestFramework.CommandLine.CommandLineHost</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

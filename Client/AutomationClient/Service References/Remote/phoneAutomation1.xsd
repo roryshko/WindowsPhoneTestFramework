@@ -25,17 +25,27 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="ActionFailedResult" nillable="true" type="tns:ActionFailedResult" />
-  <xs:complexType name="ExceptionFailedResult">
+  <xs:complexType name="TimeoutFailedResult">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:FailedResultBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TimeoutFailedResult" nillable="true" type="tns:TimeoutFailedResult" />
+  <xs:complexType name="PositionResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultBase">
         <xs:sequence>
-          <xs:element minOccurs="0" name="ExceptionMessage" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ExceptionType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Height" type="xs:double" />
+          <xs:element minOccurs="0" name="Left" type="xs:double" />
+          <xs:element minOccurs="0" name="Top" type="xs:double" />
+          <xs:element minOccurs="0" name="Width" type="xs:double" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="ExceptionFailedResult" nillable="true" type="tns:ExceptionFailedResult" />
+  <xs:element name="PositionResult" nillable="true" type="tns:PositionResult" />
   <xs:complexType name="NotFoundFailedResult">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:FailedResultBase">
@@ -54,19 +64,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="PictureResult" nillable="true" type="tns:PictureResult" />
-  <xs:complexType name="PositionResult">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ResultBase">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Height" type="xs:double" />
-          <xs:element minOccurs="0" name="Left" type="xs:double" />
-          <xs:element minOccurs="0" name="Top" type="xs:double" />
-          <xs:element minOccurs="0" name="Width" type="xs:double" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="PositionResult" nillable="true" type="tns:PositionResult" />
   <xs:complexType name="SuccessResult">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:ResultBase">
@@ -77,12 +74,15 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="SuccessResult" nillable="true" type="tns:SuccessResult" />
-  <xs:complexType name="TimeoutFailedResult">
+  <xs:complexType name="ExceptionFailedResult">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:FailedResultBase">
-        <xs:sequence />
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ExceptionMessage" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExceptionType" nillable="true" type="xs:string" />
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="TimeoutFailedResult" nillable="true" type="tns:TimeoutFailedResult" />
+  <xs:element name="ExceptionFailedResult" nillable="true" type="tns:ExceptionFailedResult" />
 </xs:schema>

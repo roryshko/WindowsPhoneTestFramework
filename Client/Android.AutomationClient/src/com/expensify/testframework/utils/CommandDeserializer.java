@@ -53,6 +53,7 @@ public class CommandDeserializer implements JsonDeserializer<CommandBase>
 		registerCommand(new ConfirmAliveCommand());
 		registerCommand(new GetPositionCommand());
 		registerCommand(new GetTextCommand());
+		registerCommand(new GetValueCommand());
 		registerCommand(new InvokeControlTapActionCommand());
 		registerCommand(new LookForTextCommand());
 		registerCommand(new NullCommand());

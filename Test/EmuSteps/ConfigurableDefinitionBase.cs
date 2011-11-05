@@ -1,6 +1,8 @@
-﻿namespace WindowsPhoneTestFramework.Server.EmuSteps
+﻿using TechTalk.SpecFlow;
+
+namespace WindowsPhoneTestFramework.Test.EmuSteps
 {
-    public class ConfigurableDefinitionBase
+    public class ConfigurableDefinitionBase : Steps
     {
         private readonly IConfiguration _configuration;
 

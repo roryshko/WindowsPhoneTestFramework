@@ -11,7 +11,7 @@
 
 using TechTalk.SpecFlow;
 
-namespace WindowsPhoneTestFramework.Server.EmuSteps.HookDefinitions
+namespace WindowsPhoneTestFramework.Test.EmuSteps.HookDefinitions
 {
     [Binding]
     public class EmuHookDefinitions : EmuDefinitionBase

@@ -48,6 +48,8 @@
     <Compile Include="Commands\AutomationElementCommandBase.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\ConfirmAliveCommand.cs" />
+    <Compile Include="Commands\SetValueCommand.cs" />
+    <Compile Include="Commands\GetValueCommand.cs" />
     <Compile Include="Commands\GenericCommand.cs" />
     <Compile Include="Commands\GetPositionCommand.cs" />
     <Compile Include="Commands\GetTextCommand.cs" />

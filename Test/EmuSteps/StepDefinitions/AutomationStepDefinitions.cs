@@ -14,7 +14,7 @@ using NUnit.Framework;
 using TechTalk.SpecFlow;
 using WindowsPhoneTestFramework.Server.Core.Tangibles;
 
-namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
+namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
     [Binding]
     public class AutomationStepDefinitions : EmuDefinitionBase
@@ -45,12 +45,28 @@ namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
             Assert.AreEqual(expectedContents, actualContents, "Contents didn't match - field '{0}' - expected '{1}' - actual '{2}'", namedField, expectedContents, actualContents);
         }
 
+        [Then(@"I see the control ""([^\""]*)"" has value ""([^\""]*)""$")]
+        public void ThenISeeTheNamedFieldWithValue(string namedField, string expectedValue)
+        {
+            string actualValue;
+            var result = Emu.ApplicationAutomationController.TryGetValueFromControl(namedField, out actualValue);
+            Assert.IsTrue(result, "Failed to get field contents for '{0}' - looking for '{1}'", namedField, expectedValue);
+            Assert.AreEqual(expectedValue, actualValue, "Contents didn't match - field '{0}' - expected '{1}' - actual '{2}'", namedField, expectedValue, actualValue);
+        }
+
         // TODO - this doesn't quite match the LessPainful platform... as this replaces the contents...
         [Then(@"I enter ""([^\""]*)"" into the control ""([^\""]*)""$")]
         public void ThenIEnterTextIntoTheNamedField(string contents, string namedField)
         {
             var result = Emu.ApplicationAutomationController.SetTextOnControl(namedField, contents);
             Assert.IsTrue(result, "Failed to enter text into '{0}'", namedField);
+        }
+
+        [Then(@"I set the value of the control ""([^\""]*)"" to ""([^\""]*)""$")]
+        public void ThenISetTheValueOfTheNamedField(string namedField, string value)
+        {
+            var result = Emu.ApplicationAutomationController.SetValueOnControl(namedField, value);
+            Assert.IsTrue(result, "Failed to set value on '{0}'", namedField);
         }
 
         [Then(@"I see ""([^\""]*)""$")]
