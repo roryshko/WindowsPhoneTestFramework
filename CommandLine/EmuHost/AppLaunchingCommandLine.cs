@@ -77,18 +77,5 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost
         [Description("Android JUnit test stub package name - e.g. 'com.acme.mypackage.test'")]
         [ApplicationDefinitionArg("Android", "StubPackageName")]
         public string AndroidStubPackageName { get; set; }
-
-        // remobe this?
-        [ArgsMemberSwitch("andaction")]
-        [Description("Android action to start - e.g. android.intent.action.MAIN")]
-        [ApplicationDefinitionArg("Android", "Action")]
-        [DefaultValue("android.intent.action.MAIN")]
-        public string AndroidAction { get; set; }
-
-        // remobe this?
-        [ArgsMemberSwitch("andclass")]
-        [Description("Android activity Class name - e.g. 'com.acme.mypackage.Program'")]
-        [ApplicationDefinitionArg("Android", "ActivityClassName")]
-        public string ActivityClassName { get; set; }
     }
 }

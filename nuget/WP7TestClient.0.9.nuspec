@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>WP7TestClient</id>
-    <version>0.8</version>
+    <version>0.9</version>
     <title>App - Windows Phone Test Framework</title>
     <authors>slodge</authors>
     <owners>slodge</owners>
@@ -15,9 +15,8 @@
     <tags>testing specflow nunit bdd wp7 wp7dev windowsphone</tags>
   </metadata>
   <files>
-    <file src="..\Client\AutomationClient\bin\release\WindowsPhoneTestFramework.AutomationClient.dll" target="lib\sl4-wp71\WindowsPhoneTestFramework.AutomationClient.dll" />
-    <file src="..\Client\AutomationClient\bin\release\WindowsPhoneTestFramework.AutomationClient.pdb" target="lib\sl4-wp71\WindowsPhoneTestFramework.AutomationClient.pdb" />
+    <file src="..\ClientBin\release\WindowsPhoneTestFramework.Client.AutomationClient.dll" target="lib\sl4-wp71\WindowsPhoneTestFramework.Client.AutomationClient.dll" />
     <file src="..\License.txt" target="License.txt" />
-    <file src="..\ReadMe.txt" target="ReadMe.txt" />
+    <file src="..\ReadMe.md" target="ReadMe.md" />
   </files>
 </package>

@@ -4,6 +4,11 @@ There is an introduction video on http://bit.ly/wp7-test
 
 There are some Wiki Pages now on https://github.com/Expensify/WindowsPhoneTestFramework/wiki
 
+
+##General setup
+
+Important note - there are several changes going through the tip of the source tree at present as we add Android and iOS support - please be patient as we make these big changes!
+
 			
 ##General setup
 
@@ -24,7 +29,7 @@ Once you have installed from NuGet into your WP7 App, then:
 
 	```
             #if DEBUG
-            WindowsPhoneTestFramework.AutomationClient.Automation.Instance.Initialise();
+            WindowsPhoneTestFramework.Client.AutomationClient.Automation.Instance.Initialise();
             #endif // DEBUG
 	```
 
@@ -41,7 +46,7 @@ Once you have installed from NuGet into your test class library, then:
 
     - Be especially careful about the paths
 	
-	- For finding the ProductId, see the WMAppManifest.xml file.
+	- For finding the ApplicationId, see ProductId inside the WMAppManifest.xml file for your app.
 	
 3. Add a new feature:
 
@@ -113,7 +118,18 @@ To start:
 		doSwipe LeftToRight
 	```
 
-
+	Example command line arguments for EmuHost are:
+	
+		for WP7
+		```
+		EmuHost.exe /controller wp /wppid {e33eb75b-7811-4343-a3ab-da5dd6df7572} /wpicon ../../clientbin/debug/ApplicationIcon.png /wpname ExampleApp /wpxap ../../clientbin/debug/ExampleApp.xap 
+		```
+		
+		for Android:
+		```
+		/controller Android /init Android.AvdName=BigScreen;Android.ConsolePort=6001;Android.AdbPort=6002;Android.SdkPath=D:\android-sdk-windows\ /andpackage com.cirrious.exampleApp /andapk ../../Example/ExampleApp.Android/bin/ExampleApp.apk /andtestpackage com.cirrious.exampleApp.test /andtestapk ../../Example/ExampleApp.TestStub/bin/ExampleApp.TestStub.apk
+		```
+	
 #Source code - using the test platform
 
 To work out how to use the test platform in your own apps:

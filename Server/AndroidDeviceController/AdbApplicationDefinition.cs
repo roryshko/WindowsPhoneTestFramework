@@ -18,8 +18,6 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
     {
         public override string ParsePrefix { get { return "Android."; } }
 
-        public string Action { get; set; }
-        public string ActivityClassName { get; set; }
         public string PackagePath { get; set; }
         public string PackageName { get; set; }
         public string StubPackagePath { get; set; }
