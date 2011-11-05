@@ -23,10 +23,12 @@ namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
         {
         }
 
+        /*
         public AutomationSystemStepDefinitions(IConfiguration configuration)
             : base(configuration)
         {
         }
+         */
 
         [Then(@"take a picture$")]
         public void ThenTakeAPicture()

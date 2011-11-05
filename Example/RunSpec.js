@@ -142,7 +142,7 @@ WScript.echo('');
 WScript.echo("======================");
 WScript.echo(' Generating report...');
 WScript.echo('');
-var reportCommand = '"' + baseDirectory + '/../packages/SpecFlow.1.7.1/tools/specflow.exe"'
+var reportCommand = '"' + baseDirectory + '/../packages/SpecFlow.1.8.1/tools/specflow.exe"'
                     + ' nunitexecutionreport' 
 					+ ' "' + baseDirectory + "/ExampleApp/ExampleApp.csproj";
 shell.run(reportCommand, 1 /* show normal */, true /* wait for this to finish*/);

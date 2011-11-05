@@ -26,10 +26,12 @@ namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
         {
         }
 
+        /*
         public InputStepDefinitions(IConfiguration configuration)
             : base(configuration)
         {
         }
+        */
 
         [Then(@"I flick ""([^\""]*)""$")]
         public void ThenIFlick(string flickDirection)

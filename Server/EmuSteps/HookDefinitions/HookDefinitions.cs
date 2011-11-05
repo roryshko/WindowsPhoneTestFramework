@@ -20,10 +20,12 @@ namespace WindowsPhoneTestFramework.Server.EmuSteps.HookDefinitions
         {                
         }
 
+        /*
         public EmuHookDefinitions(IConfiguration configuration)
             : base(configuration)
         {                
         }
+        */
 
         [AfterScenario]
         public void AfterAnyScenarioMakeSureEmuIsDisposed()

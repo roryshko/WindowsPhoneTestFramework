@@ -24,10 +24,12 @@ namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
         {
         }
 
+        /*
         public DriverStepDefinitions(IConfiguration configuration)
             : base(configuration)
         {
         }
+        */
 
         [Given(@"my app is clean installed and running$")]
         public void GivenMyAppIsCleanInstalledAndRunning()

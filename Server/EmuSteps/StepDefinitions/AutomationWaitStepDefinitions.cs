@@ -24,10 +24,12 @@ namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
         {
         }
 
+        /*
         public AutomationWaitStepDefinitions(IConfiguration configuration)
             : base(configuration)
         {
         }
+        */
 
         [Then(@"I wait for the control ""([^\""]*)"" to appear$")]
         public void ThenIWaitForControlToAppear(string controlId)

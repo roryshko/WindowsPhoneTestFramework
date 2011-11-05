@@ -23,9 +23,11 @@ namespace WindowsPhoneTestFramework.Server.EmuSteps.StepDefinitions
         {
         }
 
+        /*
         public AutomationStepDefinitions(IConfiguration configuration) : base(configuration)
         {
         }
+         */
 
         [Then(@"I press the control ""([^\""]*)""$")]
         public void ThenIPressTheNamedControl(string named)

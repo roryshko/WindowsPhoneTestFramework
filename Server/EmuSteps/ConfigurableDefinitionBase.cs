@@ -2,7 +2,7 @@
 {
     public class ConfigurableDefinitionBase
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         protected IConfiguration Configuration { get { return _configuration; } }
 
