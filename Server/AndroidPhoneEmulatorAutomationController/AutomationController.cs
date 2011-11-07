@@ -10,7 +10,6 @@
 // ------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using WindowsPhoneTestFramework.Server.AndroidDeviceController;
 using WindowsPhoneTestFramework.Server.Core;
 using WindowsPhoneTestFramework.Server.Utils;
@@ -18,50 +17,11 @@ using WindowsPhoneTestFramework.Server.WCFHostedAutomationController;
 
 namespace WindowsPhoneTestFramework.Server.AutomationController.Android.Emulator
 {
-    public class ParsedInitialisationString
-    {
-        public Dictionary<string, string> Fields { get; private set; }
-
-        public ParsedInitialisationString(string initialisation)
-        {
-            FillFrom(initialisation);
-        }
-
-        public string SafeGetValue(string key, string defaultValue = "")
-        {
-            string toReturn;
-            if (Fields.TryGetValue(key, out toReturn))
-                return toReturn;
-
-            return defaultValue;
-        }
-
-        public void FillFrom(string initialisation)
-        {
-            Fields = new Dictionary<string, string>();
-
-            if (string.IsNullOrEmpty(initialisation))
-                return;
-
-            var split = initialisation.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var entry in split)
-            {
-                var entrySplit = entry.Split(new char[] {'='}, 2);
-                if (entrySplit.Length != 2)
-                    continue;
-
-                var key = entrySplit[0];
-                var value = entrySplit[1];
-                if (string.IsNullOrEmpty(key))
-                    continue;
-
-                Fields[key] = value;
-            }
-        }
-    }
-
     public class AutomationController : TraceBase, IAutomationController
     {
+        public string Name { get { return "Android Emulator"; } }
+        public string Version { get { return "0.1"; } } // not started counting yet!
+
         private ServiceHostController _hostController;
 
         public IApplicationAutomationController ApplicationAutomationController { get { return _hostController == null ? null : _hostController.AutomationController; } }
