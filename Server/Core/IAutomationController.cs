@@ -16,7 +16,9 @@ namespace WindowsPhoneTestFramework.Server.Core
 {
     public interface IAutomationController : IDisposable, ITrace
     {
-        // TODO - add name
+        string Name { get; }
+        string Version { get; }
+
         // TODO - add a new interface for Choosers/Pickers? Or for advanced tasks like that...
 
         void Start(string initialisationString=null, AutomationIdentification automationIdentification = AutomationIdentification.TryEverything);
