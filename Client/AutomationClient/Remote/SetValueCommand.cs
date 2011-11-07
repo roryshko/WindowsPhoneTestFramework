@@ -9,6 +9,9 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
+using System;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
+
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
     public partial class SetValueCommand
@@ -18,6 +21,12 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             var element = GetUIElement();
             if (element == null)
                 return;
+
+            if (ValueCommandHelper.TrySetValue(element, TextValue))
+            {
+                SendSuccessResult();
+                return;
+            }
 
             if (AutomationElementFinder.SetElementProperty<string>(element, "Text", TextValue))
             {
@@ -60,6 +69,29 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                     return;
                 }
             }
+
+            DateTime dateTimeValue;
+            if (DateTime.TryParse(TextValue, out dateTimeValue))
+            {
+                if (AutomationElementFinder.SetElementProperty<DateTime>(element, "Value", dateTimeValue))
+                {
+                    SendSuccessResult();
+                    return;
+                }
+
+                if (AutomationElementFinder.SetElementProperty<DateTime?>(element, "Value", dateTimeValue))
+                {
+                    SendSuccessResult();
+                    return;
+                }
+            }
+
+            if (AutomationElementFinder.SetElementProperty<string>(element, "Value", TextValue))
+            {
+                SendSuccessResult();
+                return;
+            }
+
 
 
             // if text, password IsChecked, Value are all missing... then give up

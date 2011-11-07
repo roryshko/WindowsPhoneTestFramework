@@ -9,6 +9,8 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
+
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
     public partial class GetValueCommand
@@ -19,6 +21,13 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             if (element == null)
             {
                 SendNotFoundResult();
+                return;
+            }
+
+            string textValue;
+            if (ValueCommandHelper.TryGetValue(element, out textValue))
+            {
+                SendTextResult(textValue);
                 return;
             }
 

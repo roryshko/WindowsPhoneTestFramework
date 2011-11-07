@@ -86,6 +86,14 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="TakePictureCommand" nillable="true" type="tns:TakePictureCommand" />
+  <xs:complexType name="GetValueCommand">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:AutomationElementCommandBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetValueCommand" nillable="true" type="tns:GetValueCommand" />
   <xs:complexType name="NullCommand">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:CommandBase">
@@ -112,14 +120,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="GetPositionCommand" nillable="true" type="tns:GetPositionCommand" />
-  <xs:complexType name="GetValueCommand">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:AutomationElementCommandBase">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="GetValueCommand" nillable="true" type="tns:GetValueCommand" />
   <xs:complexType name="SetValueCommand">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:AutomationElementCommandBase">
@@ -130,4 +130,12 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="SetValueCommand" nillable="true" type="tns:SetValueCommand" />
+  <xs:complexType name="GetIsEnabledCommand">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:AutomationElementCommandBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetIsEnabledCommand" nillable="true" type="tns:GetIsEnabledCommand" />
 </xs:schema>

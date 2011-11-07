@@ -15,7 +15,7 @@ using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 
-namespace WindowsPhoneTestFramework.Client.AutomationClient
+namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
 {
     public static class AutomationPeerCreator
     {

@@ -1,5 +1,5 @@
 ﻿// ----------------------------------------------------------------------
-// <copyright file="LookForTextCommand.cs" company="Expensify">
+// <copyright file="GetIsEnabledCommand.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
 //     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
@@ -9,20 +9,29 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
-using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
+using System.Windows.Controls;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
-    public partial class LookForTextCommand
+    public partial class GetIsEnabledCommand
     {
         protected override void DoImpl()
         {
-            var element = AutomationElementFinder.FindElementByDisplayedText(Text);
-
-            if (element != null)
-                SendSuccessResult();
-            else
+            var element = GetFrameworkElement();
+            if (element == null)
+            {
                 SendNotFoundResult();
+                return;
+            }
+
+            var control = element as Control;
+            if (control == null)
+            {
+                SendNotFoundResult();
+                return;
+            }
+
+            SendTextResult(control.IsEnabled.ToString());
         }
     }
 }

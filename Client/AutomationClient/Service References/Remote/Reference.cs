@@ -25,10 +25,11 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GenericCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.SetTextCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.TakePictureCommand))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GetValueCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.InvokeControlTapActionCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GetPositionCommand))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GetValueCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.SetValueCommand))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GetIsEnabledCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.LookForTextCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.ConfirmAliveCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.NullCommand))]
@@ -83,10 +84,11 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GenericCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.SetTextCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.TakePictureCommand))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GetValueCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.InvokeControlTapActionCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GetPositionCommand))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GetValueCommand))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.SetValueCommand))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WindowsPhoneTestFramework.Client.AutomationClient.Remote.GetIsEnabledCommand))]
     public partial class AutomationElementCommandBase : WindowsPhoneTestFramework.Client.AutomationClient.Remote.CommandBase {
         
         private WindowsPhoneTestFramework.Client.AutomationClient.Remote.AutomationIdentifier AutomationIdentifierField;
@@ -247,6 +249,13 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetValueCommand", Namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHoste" +
+        "dAutomationController.Commands")]
+    public partial class GetValueCommand : WindowsPhoneTestFramework.Client.AutomationClient.Remote.AutomationElementCommandBase {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="InvokeControlTapActionCommand", Namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHoste" +
         "dAutomationController.Commands")]
     public partial class InvokeControlTapActionCommand : WindowsPhoneTestFramework.Client.AutomationClient.Remote.AutomationElementCommandBase {
@@ -276,13 +285,6 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GetValueCommand", Namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHoste" +
-        "dAutomationController.Commands")]
-    public partial class GetValueCommand : WindowsPhoneTestFramework.Client.AutomationClient.Remote.AutomationElementCommandBase {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SetValueCommand", Namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHoste" +
         "dAutomationController.Commands")]
     public partial class SetValueCommand : WindowsPhoneTestFramework.Client.AutomationClient.Remote.AutomationElementCommandBase {
@@ -301,6 +303,13 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote {
                 }
             }
         }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetIsEnabledCommand", Namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHoste" +
+        "dAutomationController.Commands")]
+    public partial class GetIsEnabledCommand : WindowsPhoneTestFramework.Client.AutomationClient.Remote.AutomationElementCommandBase {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

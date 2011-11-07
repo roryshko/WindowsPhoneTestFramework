@@ -12,6 +12,7 @@
 using System;
 using System.Windows;
 using System.Windows.Automation.Peers;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient
@@ -54,9 +55,19 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
             AutomationElementFinder.ObjectPropertyNamesToTestForText.Add(propertyName);
         }
 
+        public void AddPropertyNameToTestForValue(string propertyName)
+        {
+            AutomationElementFinder.PropertyNamesToTestForValue.Add(propertyName);
+        }
+
         public void AddAutomationPeerHandlerForTapAction(Func<AutomationPeer, bool> handler)
         {
             InvokeControlTapActionCommand.PatternTesters.Insert(0, handler);
+        }
+
+        public void AddValueManipulator(IValueManipulator valueManipulator)
+        {
+            ValueCommandHelper.AddManipulator(valueManipulator);    
         }
 
         public void AddUIElementHandlerForTapAction(Func<UIElement, bool> handler)

@@ -13,9 +13,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {

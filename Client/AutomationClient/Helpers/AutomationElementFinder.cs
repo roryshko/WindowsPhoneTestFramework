@@ -16,7 +16,7 @@ using System.Windows;
 using System.Windows.Media;
 using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
 
-namespace WindowsPhoneTestFramework.Client.AutomationClient
+namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
 {
     public static class AutomationElementFinder
     {

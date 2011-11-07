@@ -14,6 +14,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.Controls;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {

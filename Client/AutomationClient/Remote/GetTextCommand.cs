@@ -9,6 +9,9 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
+using System.Windows;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
+
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
     public partial class GetTextCommand
