@@ -1,15 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="AutomationStepDefinitions.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
-
-using System.Drawing;
+﻿using System.Drawing;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using WindowsPhoneTestFramework.Server.Core.Tangibles;
@@ -17,23 +6,16 @@ using WindowsPhoneTestFramework.Server.Core.Tangibles;
 namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
     [Binding]
-    public class AutomationStepDefinitions : EmuDefinitionBase
+    public class AutomationSeeStepDefinitions : EmuDefinitionBase
     {
-        public AutomationStepDefinitions()
+        public AutomationSeeStepDefinitions()
         {
         }
 
-        /*
-        public AutomationStepDefinitions(IConfiguration configuration) : base(configuration)
+        [Then(@"I see the values$")]
+        public void ThenISeeTheNamedFieldWithContent(Table table)
         {
-        }
-         */
-
-        [Then(@"I press the control ""([^\""]*)""$")]
-        public void ThenIPressTheNamedControl(string named)
-        {
-            var result = Emu.ApplicationAutomationController.InvokeControlTapAction(named);
-            Assert.IsTrue(result, "Failed to click control '{0}'", named);
+            IterateOverNameValueTable(table, (@"I see the control ""{0}"" contains ""{1}"""));
         }
 
         [Then(@"I see the control ""([^\""]*)"" contains ""([^\""]*)""$")]
@@ -54,21 +36,6 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.AreEqual(expectedValue, actualValue, "Contents didn't match - field '{0}' - expected '{1}' - actual '{2}'", namedField, expectedValue, actualValue);
         }
 
-        // TODO - this doesn't quite match the LessPainful platform... as this replaces the contents...
-        [Then(@"I enter ""([^\""]*)"" into the control ""([^\""]*)""$")]
-        public void ThenIEnterTextIntoTheNamedField(string contents, string namedField)
-        {
-            var result = Emu.ApplicationAutomationController.SetTextOnControl(namedField, contents);
-            Assert.IsTrue(result, "Failed to enter text into '{0}'", namedField);
-        }
-
-        [Then(@"I set the value of the control ""([^\""]*)"" to ""([^\""]*)""$")]
-        public void ThenISetTheValueOfTheNamedField(string namedField, string value)
-        {
-            var result = Emu.ApplicationAutomationController.SetValueOnControl(namedField, value);
-            Assert.IsTrue(result, "Failed to set value on '{0}'", namedField);
-        }
-
         [Then(@"I see ""([^\""]*)""$")]
         public void ThenISee(string textOrControlId)
         {
@@ -87,7 +54,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             if (seen)
                 StepFlowOutputHelpers.Write("I saw the optional text '{0}'", contents);
             else
-                StepFlowOutputHelpers.Write("I didn't see the optional text '{0}'", contents);                           
+                StepFlowOutputHelpers.Write("I didn't see the optional text '{0}'", contents);
         }
 
         [Then(@"I see the text ""([^\""]*)""$")]
@@ -116,13 +83,6 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.False(IsControlVisible(controlId), "control is visible {0}", controlId);
         }
 
-        [Then(@"I see my app is not running$")]
-        public void AndMyAppIsNotRunning()
-        {
-            var result = Emu.ApplicationAutomationController.LookIsAlive();
-            Assert.IsFalse(result, "App is still alive");
-        }
-
         [Then(@"I see the control ""([^\""]*)"" is left of the control ""([^\""]*)""$")]
         public void ThenISeeControlOnTheLeftOfControl(string leftControlId, string rightControlId)
         {
@@ -131,6 +91,8 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.Less(leftPosition.X, rightPosition.X);
             Assert.LessOrEqual(leftPosition.X + leftPosition.Width, rightPosition.X);
         }
+
+        #region Helper methods
 
         private bool IsControlVisible(string controlId)
         {
@@ -149,12 +111,14 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 
         private void AssertPositionIsNotVisible(RectangleF position, string textTest)
         {
-            Assert.False(IsPositionVisible(position), "Position of is offscreen, text:'{0}', position:{1}", textTest, position);            
+            Assert.False(IsPositionVisible(position), "Position of is offscreen, text:'{0}', position:{1}", textTest, position);
         }
 
         private void AssertPositionIsVisible(RectangleF position, string textTest)
         {
             Assert.True(IsPositionVisible(position), "Position of is offscreen, text:'{0}', position:{1}", textTest, position);
         }
+
+        #endregion
     }
 }

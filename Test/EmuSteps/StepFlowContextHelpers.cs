@@ -22,6 +22,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
         private const string EmuShotPrefix = "_EmuShot_";
         private const string EmuControllerKey = "Emu.AutomationController";
         private const string EmuPictureIndexKey = "Emu.PictureIndex";
+        private const string EmuRandomGeneratorKey = "Emu.RandomGenerator";
 
         public static IAutomationController GetEmuAutomationController(ScenarioContext context, IConfiguration configuration)
         {
@@ -76,6 +77,28 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
 
                 return fileName;
             }
+        }
+
+        public static Random GetRandom()
+        {
+            return GetRandom(FeatureContext.Current, ScenarioContext.Current);
+        }
+
+        public static Random GetRandom(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            Assert.NotNull(featureContext);
+            Assert.NotNull(scenarioContext);
+
+            object randomObject;
+            if (featureContext.TryGetValue(EmuRandomGeneratorKey, out randomObject))
+            {
+                if (randomObject is Random)
+                    return randomObject as Random;
+            }
+
+            var random = new Random();
+            featureContext[EmuRandomGeneratorKey] = random;
+            return random;
         }
 
         public static void DisposeOfEmu(ScenarioContext context)

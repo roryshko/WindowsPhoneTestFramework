@@ -85,11 +85,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         [Given(@"my app is running$")]
         public void GivenMyAppIsRunning()
         {
-            var start = Emu.DeviceController.Start(Configuration.ApplicationDefinition);
-            Assert.That(start == StartResult.Success || start == StartResult.AlreadyRunning, "Failed to start the device - response was {0}", start);
-
-            var ping = Emu.ApplicationAutomationController.WaitIsAlive();
-            Assert.IsTrue(ping, "App started, but failed to ping the app");
+            ThenIStartMyAppAndWaitForItToStart();
         }
 
         [Then(@"my app is running")]
@@ -97,6 +93,13 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         {
             var ping = Emu.ApplicationAutomationController.LookIsAlive();
             Assert.IsTrue(ping, "App not alive - ping failed");
+        }
+
+        [Then("I start my app and wait for it to start$")]
+        public void ThenIStartMyAppAndWaitForItToStart()
+        {
+            Then("I start my app");
+            Then("my app is running");
         }
 
         [Then("I start my app")]
