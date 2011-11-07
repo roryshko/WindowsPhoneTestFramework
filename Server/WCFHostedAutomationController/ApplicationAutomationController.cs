@@ -189,6 +189,26 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             return result is SuccessResult;
         }
 
+
+        public bool TryGetControlIsEnabled(string controlId, out bool isEnabled)
+        {
+            isEnabled = false;
+            var command = new GetIsEnabledCommand()
+            {
+                AutomationIdentifier = CreateAutomationIdentifier(controlId)
+            };
+            var result = SyncExecuteCommand(command);
+            var successResult = result as SuccessResult;
+            if (successResult == null)
+                return false;
+
+            if (!Boolean.TryParse(successResult.ResultText, out isEnabled))
+                return false;
+
+            return true;
+        }
+
+
         #endregion // IApplicationAutomationController
 
         #region Private methods

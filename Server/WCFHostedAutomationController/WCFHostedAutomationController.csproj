@@ -48,6 +48,7 @@
     <Compile Include="Commands\AutomationElementCommandBase.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\ConfirmAliveCommand.cs" />
+    <Compile Include="Commands\GetIsEnabledCommand.cs" />
     <Compile Include="Commands\SetValueCommand.cs" />
     <Compile Include="Commands\GetValueCommand.cs" />
     <Compile Include="Commands\GenericCommand.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Results\TimeoutFailedResult.cs" />
     <Compile Include="ServiceHostController.cs" />
     <Compile Include="Service\IPhoneAutomationService.cs" />
+    <Compile Include="Service\MonoHacks.cs" />
     <Compile Include="Service\PhoneAutomationService.cs" />
     <Compile Include="Utils\KnownTypeProvider.cs" />
   </ItemGroup>

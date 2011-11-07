@@ -19,6 +19,9 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
 {
     public class AutomationController : TraceBase, IAutomationController
     {
+        public string Name { get { return "Windows Phone Emulator"; } }
+        public string Version { get { return "0.1"; } } // not started counting yet!
+
         private ServiceHostController _hostController;
 
         public IApplicationAutomationController ApplicationAutomationController { get { return _hostController == null ? null : _hostController.AutomationController; } }

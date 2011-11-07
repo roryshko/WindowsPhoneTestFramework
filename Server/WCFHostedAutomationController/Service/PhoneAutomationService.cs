@@ -10,12 +10,8 @@
 // ------------------------------------------------------------------------
 
 using System;
-using System.IO;
-using System.Runtime.Serialization.Json;
 using System.ServiceModel;
-using System.Text;
 using System.Threading;
-using System.Text.RegularExpressions;
 using WindowsPhoneTestFramework.Server.Utils;
 using WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands;
 using WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Interfaces;
@@ -69,23 +65,6 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
 			CurrentInstance = this;
         }
 		
-#warning HackDeserialiseResultBase should be moved to its own tested class		
-		public ResultBase HackDeserialiseResultBase(string json)
-		{
-			var regexId = new Regex("__type\\\":\\\"(?<one>[^:]*):#(?<two>[^\\\"]*)\"");
-			var matchId = regexId.Match(json);
-			if (!matchId.Success)
-				throw new FormatException("Failed to decoded result - missing __type field");
-			
-			var className = matchId.Groups[1].Value;
-			var assemblyName = matchId.Groups[2].Value;
-			
-			var type = Type.GetType(assemblyName + "." + className);
-			var dcs = new DataContractJsonSerializer(type, KnownTypeProvider.GetKnownTypesFor(typeof(ResultBase)));
-			
-			var textStream = new MemoryStream(UTF8Encoding.Default.GetBytes(json));
-			return (ResultBase)dcs.ReadObject(textStream);
-		}
 
         public void Dispose()
         {
@@ -203,7 +182,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
 		
         public bool RawSubmitResult(String jsonResult)
 		{
-			var result = HackDeserialiseResultBase(jsonResult);
+            var result = MonoHacks.DeserialiseResultBase(jsonResult);
 			if (result == null)
 			{
 				// TODO - barf loudly!
