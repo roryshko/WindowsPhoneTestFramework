@@ -69,7 +69,7 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
         {
             string text;
             var result = ApplicationAutomationController.TryGetValueFromControl(whatToGet, out text);
-            Console.WriteLine("GeValue:" + (result ? text : "FAIL"));
+            Console.WriteLine("GetValue:" + (result ? text : "FAIL"));
         }
 
         [CommandLineCommand("setValue")]
@@ -85,6 +85,15 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
 
             var result = ApplicationAutomationController.SetValueOnControl(items[0], items[1]);
             Console.WriteLine("SetValue:" + result);
+        }
+
+        [CommandLineCommand("getIsEnabled")]
+        [Description("gets whether the named control is enabled in the app UI - e.g. 'getEnabled TextBox1'")]
+        public void GetIsEnabled(string whatToGet)
+        {
+            bool isEnabled;
+            var result = ApplicationAutomationController.TryGetControlIsEnabled(whatToGet, out isEnabled);
+            Console.WriteLine("GetIsEnabled:" + (result ? isEnabled.ToString() : "FAIL"));
         }
 
         [CommandLineCommand("getText")]
