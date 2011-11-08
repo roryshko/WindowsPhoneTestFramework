@@ -17,6 +17,12 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class AutomationMiscStepDefinitions : EmuDefinitionBase
     {
+        [Then(@"I set focus to the control ""([^\""]*)""")]
+        public void ThenISetFocusToTheControl(string whichControl)
+        {
+            Assert.IsTrue(Emu.ApplicationAutomationController.SetFocus(whichControl));
+        }
+
         [Then(@"I see my app is not running$")]
         public void AndMyAppIsNotRunning()
         {

@@ -29,6 +29,18 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             IterateOverNameValueTable(table, (@"I see the control ""{0}"" contains ""{1}"""));
         }
 
+        [Then(@"I see the controls")]
+        public void ThenISeeTheControls(Table table)
+        {
+            IterateOverNameTable(table, @"I see the control ""{0}""");
+        }
+
+        [Then(@"I don't see the controls")]
+        public void ThenIDoNotSeeTheControls(Table table)
+        {
+            IterateOverNameTable(table, ThenIDontSeeControl);
+        }
+
         [Then(@"I see the control ""([^\""]*)"" contains ""([^\""]*)""$")]
         public void ThenISeeTheNamedFieldWithContent(string namedField, string expectedContents)
         {

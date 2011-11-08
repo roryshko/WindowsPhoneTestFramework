@@ -35,6 +35,14 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             ThenISeeTheNamedFieldIsEnabled(namedField, true);
         }
 
+        [Then(@"I see the control ""([^\""]*)"" is disabled")]
+        public void ThenISeeTheNamedFieldIsDisabled(string namedField)
+        {
+            ThenISeeTheNamedFieldIsEnabled(namedField, false);
+        }
+
+        #region private helper methods
+
         private void ThenISeeTheNamedFieldIsEnabled(string namedField, bool expectedIsEnabled)
         {
             bool actualIsEnabled;
@@ -43,10 +51,6 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.AreEqual(expectedIsEnabled, actualIsEnabled, "Enabeld state didn't match - field '{0}' - expected '{1}' - actual '{2}'", namedField, expectedIsEnabled, actualIsEnabled);
         }
 
-        [Then(@"I see the control ""([^\""]*)"" is disabled")]
-        public void ThenISeeTheNamedFieldIsDisabled(string namedField)
-        {
-            ThenISeeTheNamedFieldIsEnabled(namedField, false);
-        }
+        #endregion
     }
 }

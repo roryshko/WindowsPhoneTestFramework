@@ -35,5 +35,11 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             var result = Emu.ApplicationAutomationController.SetValueOnControl(namedField, value);
             Assert.IsTrue(result, "Failed to set value on '{0}'", namedField);
         }
+
+        [Then(@"I enter values")]
+        public void StepIEnterTheValues(Table table)
+        {
+            IterateOverNameValueTable(table, (@"I enter ""{1}"" into the control ""{0}"""));
+        }
     }
 }

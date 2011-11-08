@@ -54,23 +54,5 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             var subStep = string.Format(@"I enter ""{0}"" into the control ""{1}""", value, whichControl);
             Then(subStep);
         }
-
-        [Then(@"I enter values")]
-        public void StepIEnterTheValues(Table table)
-        {
-            IterateOverNameValueTable(table, (@"I enter ""{1}"" into the control ""{0}"""));
-        }
-
-        [Then(@"I see the controls")]
-        public void ThenISeeTheControls(Table table)
-        {
-            IterateOverNameTable(table, @"I see the control ""{0}""");
-        }
-
-        [Then(@"I set focus to the control ""([^\""]*)""")]
-        public void ThenISetFocusToTheControl(string whichControl)
-        {
-            Assert.IsTrue(Emu.ApplicationAutomationController.SetFocus(whichControl));
-        }
     }
 }
