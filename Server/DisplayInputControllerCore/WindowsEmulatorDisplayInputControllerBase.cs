@@ -42,7 +42,8 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
              
             */
 
-            var topMostResult = NativeMethods.MakeWindowTopMost(EmulatorWindowClassName, EmulatorWindowWindowName);
+            var topMostResult = NativeMethods.MakeWindowTopMost(EmulatorProcessName);
+            //var topMostResult = NativeMethods.MakeWindowTopMost(EmulatorWindowClassName, EmulatorWindowWindowName);
             if (!topMostResult)
                 throw new ManipulationFailedException("Failed to bring emulator skin window to topMost");
 
