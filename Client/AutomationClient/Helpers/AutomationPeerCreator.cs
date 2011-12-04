@@ -23,30 +23,20 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
 
         static AutomationPeerCreator()
         {
+#warning Many more peers could be added?
             Lookups.Add(typeof(Button), (element) => new ButtonAutomationPeer((Button)element));
             Lookups.Add(typeof(CheckBox), (element) => new CheckBoxAutomationPeer((CheckBox)element));
             Lookups.Add(typeof(HyperlinkButton), (element) => new HyperlinkButtonAutomationPeer((HyperlinkButton)element));
             Lookups.Add(typeof(Image), (element) => new ImageAutomationPeer((Image)element));
             Lookups.Add(typeof(ListBox), (element) => new ListBoxAutomationPeer((ListBox)element));
+            Lookups.Add(typeof(ListBoxItem), (element) => new ListBoxItemAutomationPeer((ListBoxItem)element));
             Lookups.Add(typeof(PasswordBox), (element) => new PasswordBoxAutomationPeer((PasswordBox)element));
             Lookups.Add(typeof(ProgressBar), (element) => new ProgressBarAutomationPeer((ProgressBar)element));
             Lookups.Add(typeof(RadioButton), (element) => new RadioButtonAutomationPeer((RadioButton)element));
             Lookups.Add(typeof(Slider), (element) => new SliderAutomationPeer((Slider)element));
+            Lookups.Add(typeof(ScrollViewer), (element) => new ScrollViewerAutomationPeer((ScrollViewer)element));
             Lookups.Add(typeof(TextBlock), (element) => new TextBlockAutomationPeer((TextBlock)element));
             Lookups.Add(typeof(TextBox), (element) => new TextBoxAutomationPeer((TextBox)element));
-
-            // start here tomorrow (Tuesday)
-            // - consider hard-coding the size of the emulator...
-            // - consider sending messages direct from the code...
-            // TODO... the only way to send back... and right... and click...
-            // ... and other things...
-            // ... is to automate clicks on the emulator skin!
-            // go for it...
-            // - orientation is relatively easy... except if keyboard is on!
-            // - back button is relatively easy... except if orientation is needed...
-            // - do as much as you can...
-            // - findWindow and SendMessage...
-            // http://msdn.microsoft.com/en-us/library/ff754352(v=VS.92).aspx - just use keyboard mappings.
         }
 
         public static void AddPeerFactory(Type t, Func<UIElement, AutomationPeer> factory)
@@ -68,7 +58,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                 if (!Lookups.TryGetValue(element.GetType(), out func))
                     return null;
             }
-
+            
             if (func == null)
                 return null;
 

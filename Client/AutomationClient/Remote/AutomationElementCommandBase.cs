@@ -56,6 +56,20 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             return element;
         }
 
+        protected FrameworkElement GetFrameworkElementParent<TParentType>(bool sendNotFoundResultOnFail = true)
+            where TParentType : FrameworkElement
+        {
+            var element = AutomationElementFinder.FindElementsNearestParentOfType<TParentType>(AutomationIdentifier) as FrameworkElement;
+            if (element == null)
+            {
+                if (sendNotFoundResultOnFail)
+                    SendNotFoundResult();
+                return null;
+            }
+
+            return element;
+        }
+
         protected FrameworkElement GetApplicationRootVisual()
         {
             var rootVisual = (PhoneApplicationFrame)Application.Current.RootVisual;

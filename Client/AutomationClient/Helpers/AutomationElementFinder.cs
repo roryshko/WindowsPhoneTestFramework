@@ -40,23 +40,29 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
 
         public static UIElement FindElement(AutomationIdentifier identifier)
         {
+            return FindElementsNearestParentOfType<UIElement>(identifier);
+        }
+
+        public static UIElement FindElementsNearestParentOfType<TParentType>(AutomationIdentifier identifier)
+            where TParentType : UIElement
+        {
             if (!string.IsNullOrEmpty(identifier.AutomationName))
             {
-                var candidate = FindElementByAutomationTag(identifier.AutomationName);
+                var candidate = FindElementsNearestParentByAutomationTag<TParentType>(identifier.AutomationName);
                 if (candidate != null)
                     return candidate;
             }
 
             if (!string.IsNullOrEmpty(identifier.ElementName))
             {
-                var candidate = FindElementByElementName(identifier.ElementName);
+                var candidate = FindElementsNearestParentByElementName<TParentType>(identifier.ElementName);
                 if (candidate != null)
                     return candidate;
             }
 
             if (!string.IsNullOrEmpty(identifier.DisplayedText))
             {
-                var candidate = FindElementByDisplayedText(identifier.DisplayedText);
+                var candidate = FindElementsNearestParentByDisplayedText<TParentType>(identifier.DisplayedText);
                 if (candidate != null)
                     return candidate;
             }
@@ -99,13 +105,41 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                                           BindingFlags.FlattenHierarchy);
         }
 
-        private static UIElement SearchFrameworkElementTreeFor(UIElement parentElement, Func<UIElement, bool> elementTest)
+        private class SearchResult<TElementType>
+            where TElementType : UIElement
+        {
+            public UIElement IdentifiedElement { get; private set; }
+            public TElementType NearestParent { get; private set; }
+
+            public bool HasNearestParent { get { return NearestParent != null; } }
+            public bool TryInsertNearestParent(UIElement nearestParentCandidate)
+            {
+                if (HasNearestParent)
+                    return false;
+
+                var cast = nearestParentCandidate as TElementType;
+                if (cast == null)
+                    return false;
+                
+                NearestParent = cast;
+                return true;
+            }
+
+            public SearchResult(UIElement identifiedElement)
+            {
+                IdentifiedElement = identifiedElement;
+                NearestParent = identifiedElement as TElementType;
+            }
+        }
+
+        private static SearchResult<TElementType> SearchFrameworkElementTreeFor<TElementType>(UIElement parentElement, Func<UIElement, bool> elementTest)
+            where TElementType : UIElement
         {
             if (parentElement == null)
                 return null;
 
             if (elementTest(parentElement))
-                return parentElement;
+                return new SearchResult<TElementType>(parentElement);
 
             var childrenCount = VisualTreeHelper.GetChildrenCount(parentElement);
             for (var i = 0; i < childrenCount; i++)
@@ -113,19 +147,23 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                 var child = VisualTreeHelper.GetChild(parentElement, i) as FrameworkElement;
                 if (child != null)
                 {
-                    var candidate = SearchFrameworkElementTreeFor(child, elementTest);
+                    var candidate = SearchFrameworkElementTreeFor<TElementType>(child, elementTest);
                     if (candidate != null)
+                    {
+                        candidate.TryInsertNearestParent(parentElement);
                         return candidate;
+                    }
                 }
             }
 
             return null;
         }
 
-        public static UIElement FindElementByAutomationTag(string automationName)
+        public static UIElement FindElementsNearestParentByAutomationTag<TElementType>(string automationName)
+            where TElementType : UIElement
         {
             var rootVisual = Application.Current.RootVisual;
-            return SearchFrameworkElementTreeFor(rootVisual, (element) =>
+            var searchResult = SearchFrameworkElementTreeFor<TElementType>(rootVisual, (element) =>
             {
                 var frameworkElement = element as FrameworkElement;
                 if (frameworkElement == null)
@@ -143,12 +181,16 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
 
                 return true;
             });
+            if (searchResult == null)
+                return null;
+            return searchResult.NearestParent;
         }
 
-        public static UIElement FindElementByElementName(string elementName)
+        public static UIElement FindElementsNearestParentByElementName<TElementType>(string elementName)
+            where TElementType : UIElement
         {
             var rootVisual = Application.Current.RootVisual;
-            return SearchFrameworkElementTreeFor(rootVisual, (element) =>
+            var searchResult = SearchFrameworkElementTreeFor<TElementType>(rootVisual, (element) =>
             {
                 var frameworkElement = element as FrameworkElement;
                 if (frameworkElement == null)
@@ -163,12 +205,21 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
 
                 return true;
             });
+            if (searchResult == null)
+                return null;
+            return searchResult.NearestParent;
         }
 
         public static UIElement FindElementByDisplayedText(string displayedText)
         {
+            return FindElementsNearestParentByDisplayedText<UIElement>(displayedText);
+        }
+
+        public static UIElement FindElementsNearestParentByDisplayedText<TElementType>(string displayedText)
+            where TElementType : UIElement
+        {
             var rootVisual = Application.Current.RootVisual;
-            return SearchFrameworkElementTreeFor(rootVisual, (element) =>
+            var searchResult = SearchFrameworkElementTreeFor<TElementType>(rootVisual, (element) =>
             {
                 var frameworkElement = element as FrameworkElement;
                 if (frameworkElement == null)
@@ -200,6 +251,9 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
 
                 return false;
             });
+            if (searchResult == null)
+                return null;
+            return searchResult.NearestParent;
         }
 
         public static string GetTextForFrameworkElement(FrameworkElement frameworkElement)

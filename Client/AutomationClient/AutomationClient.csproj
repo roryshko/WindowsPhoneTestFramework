@@ -61,7 +61,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Helpers\IValueManipulator.cs" />
+    <Compile Include="Remote\ItemExtenstionMethods.cs" />
+    <Compile Include="Remote\ListBoxItemScrollIntoViewCommand.cs" />
+    <Compile Include="Remote\ListBoxItemSelectCommand.cs" />
     <Compile Include="Remote\GetIsEnabledCommand.cs" />
+    <Compile Include="Remote\ScrollCommand.cs" />
     <Compile Include="Remote\SetValueCommand.cs" />
     <Compile Include="Remote\GetValueCommand.cs" />
     <Compile Include="Remote\InvokeControlTapActionCommand.cs" />

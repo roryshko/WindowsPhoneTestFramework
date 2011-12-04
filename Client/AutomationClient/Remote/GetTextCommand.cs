@@ -21,7 +21,6 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             var element = GetFrameworkElement();
             if (element == null)
             {
-                SendNotFoundResult();
                 return;
             }
 
