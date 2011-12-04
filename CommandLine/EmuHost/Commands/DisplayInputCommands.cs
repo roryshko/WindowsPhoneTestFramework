@@ -114,6 +114,30 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost.Commands
 
             DisplayInputController.DoGesture(gesture);
             Console.WriteLine("doFlick: Completed");
-        }        
+        }
+
+        [CommandLineCommand("tapAt")]
+        [Description("tap at the specifed position - e.g. 'tapAt 100,100'")]
+        public void PressOnControl(string x_comma_y)
+        {
+            var split = x_comma_y.Split(new char[] {','}, 2);
+            if (split.Length != 2)
+            {
+                Console.WriteLine("Input incorrect - need x,y");
+                return;
+            }
+
+            int x;
+            int y;
+            if (!int.TryParse(split[0], out x) || !int.TryParse(split[1], out y))
+            {
+                Console.WriteLine("Input incorrect - need integer x,y");
+                return;
+            }
+
+            IGesture gesture = TapGesture.TapOnPosition(x,y);
+            DisplayInputController.DoGesture(gesture);
+            Console.WriteLine("tapAt: Completed");
+        }
     }
 }
