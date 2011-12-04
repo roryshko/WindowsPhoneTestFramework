@@ -142,6 +142,38 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
             Console.WriteLine(string.Format("getPosition: {0:0.0} {1:0.0} {2:0.0} {3:0.0}", position.Left, position.Top, position.Width, position.Height));
         }
 
+        [CommandLineCommand("scrollH")]
+        [Description("scrolls the position of e.g. a list - use -10 for PageUp, -1 for Up, 0 for non, +1 for Down, +10 for PageDown - e.g. 'scrollV ListBox1 10'")]
+        public void ScrollH(string whichControl, string howMuch)
+        {
+            var result = ApplicationAutomationController.HorizontalScroll(whichControl, int.Parse(howMuch));
+            Console.WriteLine("scrollH: " + result);
+        }
+
+        [CommandLineCommand("scrollV")]
+        [Description("scrolls the position of e.g. a list - use -10 for PageUp, -1 for Up, 0 for non, +1 for Down, +10 for PageDown - e.g. 'scrollV ListBox1 10'")]
+        public void ScrollV(string whichControl, string howMuch)
+        {
+            var result = ApplicationAutomationController.VerticalScroll(whichControl, int.Parse(howMuch));
+            Console.WriteLine("scrollH: " + result);
+        }
+
+        [CommandLineCommand("scrollIntoView")]
+        [Description("scrolls the list item containing a control into view - e.g. 'scrollIntoView textBlock101'")]
+        public void ScrollIntoView(string whichControl)
+        {
+            var result = ApplicationAutomationController.ScrollIntoViewListItem(whichControl);
+            Console.WriteLine("scrollIntoView: " + result);
+        }
+
+        [CommandLineCommand("select")]
+        [Description("select the list item containing a control - e.g. 'select textBlock101'")]
+        public void Select(string whichControl)
+        {
+            var result = ApplicationAutomationController.SelectListItem(whichControl);
+            Console.WriteLine("select: " + result);
+        }
+
         [CommandLineCommand("screenshot")]
         [Description("requests a screenshot from the running application - provide an optional control to just picture that control - e.g. 'screenshot' or 'screenshot TextBox1'")]
         public void TakeScreenshot(string optionalControlId)
