@@ -16,6 +16,7 @@ using WindowsPhoneTestFramework.Server.Core;
 namespace WindowsPhoneTestFramework.Server.FluentCore
 {
     #warning Still need to add Device and UI features to this code!
+    #warning Also missing latest newest commands - e.g. scroll and select list items
 
     public abstract class FluentBase
     {
@@ -225,7 +226,7 @@ namespace WindowsPhoneTestFramework.Server.FluentCore
 
         public void SetFocus()
         {
-            if (!Automation.ApplicationAutomationController.SetFocus(_controlId));
+            if (!Automation.ApplicationAutomationController.SetFocus(_controlId))
                 throw new AutomationException("SetFocus failed for " + _controlId);
         }
 
