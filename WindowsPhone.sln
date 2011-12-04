@@ -53,6 +53,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmuSteps", "Test\EmuSteps\E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentCore", "Server\FluentCore\FluentCore.csproj", "{56CC191E-4433-40A0-93C6-A893B97BCBC7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example2", "Example2", "{5D7B138B-3992-4DEF-B887-9BB7FAD83040}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitConverter", "Example2\UnitConverter\UnitConverter.csproj", "{989480A7-6931-49FC-923F-35B722DD4704}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitConverter.Spec", "Example2\UnitConverter.Spec\UnitConverter.Spec.csproj", "{B68A73FD-F634-45FA-A76B-26292518A795}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -267,6 +273,30 @@ Global
 		{56CC191E-4433-40A0-93C6-A893B97BCBC7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{56CC191E-4433-40A0-93C6-A893B97BCBC7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{56CC191E-4433-40A0-93C6-A893B97BCBC7}.Release|x86.ActiveCfg = Release|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
+		{989480A7-6931-49FC-923F-35B722DD4704}.Release|x86.ActiveCfg = Release|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B68A73FD-F634-45FA-A76B-26292518A795}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -293,6 +323,8 @@ Global
 		{AA54B613-9AA7-4DDD-99B3-E8A3447B7BB4} = {B1352518-A11F-4F75-864F-33A994AC5342}
 		{2A8828E5-50D9-4129-A28C-1E585C2D1B18} = {B1352518-A11F-4F75-864F-33A994AC5342}
 		{A1828C05-AE1C-45F0-8F86-1195E40E62D7} = {7C73CE07-CDD7-4B63-BDE7-9614D2F47A66}
+		{989480A7-6931-49FC-923F-35B722DD4704} = {5D7B138B-3992-4DEF-B887-9BB7FAD83040}
+		{B68A73FD-F634-45FA-A76B-26292518A795} = {5D7B138B-3992-4DEF-B887-9BB7FAD83040}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = CommandLine\EmuMac\EmuMac.csproj

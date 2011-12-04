@@ -6,6 +6,13 @@ The WindowsPhoneTestFramework further includes NuGet and binary packages from:
 - http://nunit.org/ 
 - https://github.com/techtalk/SpecFlow
 
+As a sample, the WindowsPhoneTestFramework further includes the unit converter Windows Phone sample:
+- http://create.msdn.com/en-US/education/catalog/sample/unit_converter
+
+Please note that the UnitConverter sample has specific terms and conditions in its license - in particular it must not be ported to hardware other than Windows Phone.
+
+
+
 License: Microsoft Public License (Ms-PL)
 Microsoft Public License (Ms-PL)
 
