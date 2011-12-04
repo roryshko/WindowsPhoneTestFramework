@@ -48,6 +48,9 @@
     <Compile Include="Commands\AutomationElementCommandBase.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\ConfirmAliveCommand.cs" />
+    <Compile Include="Commands\ListBoxItemScrollIntoViewCommand.cs" />
+    <Compile Include="Commands\ListBoxItemSelectCommand.cs" />
+    <Compile Include="Commands\ScrollCommand.cs" />
     <Compile Include="Commands\GetIsEnabledCommand.cs" />
     <Compile Include="Commands\SetValueCommand.cs" />
     <Compile Include="Commands\GetValueCommand.cs" />

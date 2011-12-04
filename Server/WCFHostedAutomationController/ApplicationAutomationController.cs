@@ -147,6 +147,48 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             return TakePicture(null, out bitmap);
         }
 
+        public bool HorizontalScroll(string controlId, int amount)
+        {
+            return CommonScroll(controlId, amount, 0);
+        }
+
+        public bool VerticalScroll(string controlId, int amount)
+        {
+            return CommonScroll(controlId, 0, amount);
+        }
+
+        private bool CommonScroll(string controlId, int horizontalAmount, int verticalAmount)
+        {
+            var command = new ScrollCommand()
+            {
+                AutomationIdentifier = CreateAutomationIdentifier(controlId),
+                HorizontalScroll = horizontalAmount,
+                VerticalScroll = verticalAmount
+            };
+            var result = SyncExecuteCommand(command);
+            return (result is SuccessResult);
+        }
+
+        public bool ScrollIntoViewListItem(string controlWithinItemId)
+        {
+            var command = new ListBoxItemScrollIntoViewCommand()
+            {
+                AutomationIdentifier = CreateAutomationIdentifier(controlWithinItemId),
+            };
+            var result = SyncExecuteCommand(command);
+            return (result is SuccessResult);
+        }
+
+        public bool SelectListItem(string controlWithinItemId)
+        {
+            var command = new ListBoxItemSelectCommand()
+            {
+                AutomationIdentifier = CreateAutomationIdentifier(controlWithinItemId),
+            };
+            var result = SyncExecuteCommand(command);
+            return (result is SuccessResult);
+        }
+
         public RectangleF GetPositionOfText(string text)
         {
             return GetPositionOfAutomationIdentifier(CreateTextOnlyAutomationIdentifier(text));

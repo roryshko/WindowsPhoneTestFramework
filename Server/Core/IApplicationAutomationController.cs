@@ -38,5 +38,9 @@ namespace WindowsPhoneTestFramework.Server.Core
         bool SetFocus(string controlId);
         bool TakePicture(string controlId, out Bitmap bitmap);
         bool TakePicture(out Bitmap bitmap);
+        bool HorizontalScroll(string controlId, int amount);
+        bool VerticalScroll(string controlId, int amount);
+        bool SelectListItem(string controlWithinItemId);
+        bool ScrollIntoViewListItem(string controlWithinItemId);
     }
 }
