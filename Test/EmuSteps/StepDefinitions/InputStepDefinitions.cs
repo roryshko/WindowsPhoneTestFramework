@@ -105,6 +105,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Emu.DisplayInputController.DoGesture(gesture);
         }
 
+
         // /^I press "([^\"]*)"$/
 
         // /^I press button number (\d+)$/

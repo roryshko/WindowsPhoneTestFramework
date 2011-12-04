@@ -9,20 +9,14 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
-using System.Drawing;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using WindowsPhoneTestFramework.Server.Core.Tangibles;
 
 namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
     [Binding]
-    public class AutomationSeeStepDefinitions : EmuDefinitionBase
+    public class AutomationSeeStepDefinitions : AutomationPositionStepDefinitionsBase
     {
-        public AutomationSeeStepDefinitions()
-        {
-        }
-
         [Then(@"I see the values$")]
         public void ThenISeeTheNamedFieldWithContent(Table table)
         {
@@ -114,34 +108,5 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.Less(leftPosition.X, rightPosition.X);
             Assert.LessOrEqual(leftPosition.X + leftPosition.Width, rightPosition.X);
         }
-
-        #region Helper methods
-
-        private bool IsControlVisible(string controlId)
-        {
-            var position = Emu.ApplicationAutomationController.GetPositionOfControl(controlId);
-            return IsPositionVisible(position);
-        }
-
-        private bool IsPositionVisible(RectangleF position)
-        {
-            if (position.IsEmpty)
-                return false;
-
-            var phoneOrientation = Emu.DisplayInputController.GuessOrientation();
-            return position.IsVisible(phoneOrientation);
-        }
-
-        private void AssertPositionIsNotVisible(RectangleF position, string textTest)
-        {
-            Assert.False(IsPositionVisible(position), "Position of is offscreen, text:'{0}', position:{1}", textTest, position);
-        }
-
-        private void AssertPositionIsVisible(RectangleF position, string textTest)
-        {
-            Assert.True(IsPositionVisible(position), "Position of is offscreen, text:'{0}', position:{1}", textTest, position);
-        }
-
-        #endregion
     }
 }

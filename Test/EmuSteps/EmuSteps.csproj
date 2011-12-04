@@ -60,11 +60,13 @@
     <Compile Include="StepDefinitions\AutomationEnabledStepDefinition.cs" />
     <Compile Include="StepDefinitions\AutomationEnterStepDefinitions.cs" />
     <Compile Include="StepDefinitions\AutomationMiscStepDefinitions.cs" />
+    <Compile Include="StepDefinitions\AutomationPositionStepDefinitionsBase.cs" />
     <Compile Include="StepDefinitions\AutomationSeeStepDefinitions.cs" />
     <Compile Include="StepDefinitions\AutomationSystemStepDefinitions.cs" />
     <Compile Include="StepDefinitions\AutomationUniqueStepDefinitions.cs" />
     <Compile Include="StepDefinitions\AutomationWaitStepDefinitions.cs" />
     <Compile Include="ConfigurableDefinitionBase.cs" />
+    <Compile Include="StepDefinitions\InputWithAutomationStepDefinitions.cs" />
     <Compile Include="StepDefinitions\DriverStepDefinitions.cs" />
     <Compile Include="EmuDefinitionBase.cs" />
     <Compile Include="HookDefinitions\HookDefinitions.cs" />
