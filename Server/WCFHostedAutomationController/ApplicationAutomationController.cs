@@ -22,6 +22,11 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 {
     public class ApplicationAutomationController : IApplicationAutomationController
     {
+        // for "Look" requests we are expecting faster pick up of the requests - but accept that the app may still take its time responding
+        // (especially if the user is debugging!)
+        private static readonly TimeSpan LookSendCommandWithin = TimeSpan.FromSeconds(1.0);
+        private static readonly TimeSpan LookExpectResultWithin = TimeSpan.FromSeconds(10.0);
+        
         private readonly IPhoneAutomationServiceControl _serviceControl;
         private readonly AutomationIdentification _automationIdentification;
 
@@ -41,14 +46,14 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public bool LookIsAlive()
         {
             var command = new ConfirmAliveCommand();
-            var result = SyncExecuteCommand(command);
+            var result = SyncLookExecuteCommand(command);
             return result is SuccessResult;
         }
 
         public bool LookForText(string text)
         {
             var command = new LookForTextCommand() { Text = text };
-            var result = SyncExecuteCommand(command);
+            var result = SyncLookExecuteCommand(command);
             return result is SuccessResult;
         }
 
@@ -278,12 +283,25 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         private bool LookForAutomationIdentifer(AutomationIdentifier automationIdentifier)
         {
             var command = new GetPositionCommand() { AutomationIdentifier = automationIdentifier, ReturnEmptyIfNotVisible = true };
-            var result = SyncExecuteCommand(command) as PositionResult;
+            var result = SyncLookExecuteCommand(command) as PositionResult;
             if (result == null)
                 return false;
 
             // check that position is not empty
             return (result.Width + result.Height > 0.0);
+        }
+
+        private ResultBase SyncLookExecuteCommand(CommandBase command)
+        {
+            ResultBase toReturn = null;
+            var manualResetEvent = new ManualResetEvent(false);
+            _serviceControl.AddCommand(command, (result) =>
+            {
+                toReturn = result;
+                manualResetEvent.Set();
+            }, LookSendCommandWithin, LookExpectResultWithin);
+            manualResetEvent.WaitOne();
+            return toReturn;
         }
 
         private ResultBase SyncExecuteCommand(CommandBase command)
