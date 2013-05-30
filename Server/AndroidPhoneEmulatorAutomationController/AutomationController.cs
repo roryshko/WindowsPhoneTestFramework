@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AutomationController.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -19,6 +19,8 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.Android.Emulator
 {
     public class AutomationController : TraceBase, IAutomationController
     {
+        public static string DefaultBindingAddress = "http://localhost:8085/phoneAutomation";
+
         public string Name { get { return "Android Emulator"; } }
         public string Version { get { return "0.1"; } } // not started counting yet!
 
@@ -31,6 +33,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.Android.Emulator
         public void Dispose()
         {
             Stop();
+            ShutDown();
             GC.SuppressFinalize(this);
         }
 
@@ -45,7 +48,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.Android.Emulator
             var parsedInitialisationString = new ParsedInitialisationString(initialisationString);
 
             var bindingAddressUrl = parsedInitialisationString.SafeGetValue("BindingAddress");
-            var bindingAddressUri = string.IsNullOrEmpty(bindingAddressUrl) ? null : new Uri(bindingAddressUrl);
+            var bindingAddressUri = new Uri(string.IsNullOrEmpty(bindingAddressUrl) ? DefaultBindingAddress : bindingAddressUrl);
 
             StartDriver(parsedInitialisationString);
             StartPhoneAutomationController(automationIdentification, bindingAddressUri);
@@ -61,7 +64,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.Android.Emulator
             DeviceController = driver;
         }
 
-        private void StartPhoneAutomationController(AutomationIdentification automationIdentification, Uri bindingAddress)
+        protected void StartPhoneAutomationController(AutomationIdentification automationIdentification, Uri bindingAddress)
         {
             try
             {
@@ -70,12 +73,9 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.Android.Emulator
                     AutomationIdentification = automationIdentification,
                 };
 
-                if (bindingAddress != null)
-                    hostController.BindingAddress = bindingAddress;
-
                 hostController.Trace += (sender, args) => InvokeTrace(args);
 
-                hostController.Start();
+                hostController.Start(bindingAddress);
 
                 _hostController = hostController;
             }
@@ -83,6 +83,11 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.Android.Emulator
             {
                 throw new AutomationException("Failed to start ApplicationAutomationController", exception);
             }
+        }
+
+        public void Start(WindowsPhoneVersion version, string initialisationString = null, AutomationIdentification automationIdentification = AutomationIdentification.TryEverything)
+        {
+            throw new NotImplementedException();
         }
 
         public void Stop()
@@ -95,7 +100,17 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.Android.Emulator
             if (DeviceController != null)
             {
                 DeviceController.ReleaseDeviceConnection();
+                ShutDown();
                 DeviceController = null;
+            }
+        }
+
+
+        public void ShutDown()
+        {
+            if (DeviceController != null)
+            {
+                DeviceController.ForceDeviceShutDown();
             }
         }
     }

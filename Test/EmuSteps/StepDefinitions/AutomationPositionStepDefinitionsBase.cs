@@ -9,6 +9,7 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
+using System;
 using System.Drawing;
 using NUnit.Framework;
 using WindowsPhoneTestFramework.Server.Core.Tangibles;
@@ -25,11 +26,19 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 
         protected bool IsPositionVisible(RectangleF position)
         {
-            if (position.IsEmpty)
-                return false;
-
+            bool result = true;
             var phoneOrientation = Emu.DisplayInputController.GuessOrientation();
-            return position.IsVisible(phoneOrientation);
+            try
+            {
+                StepFlowOutputHelpers.Write("IsVisible checking position {0}, {1}, {2}, {3} in orientation {4}", position.Left, position.Top, position.Width, position.Height, phoneOrientation);
+                position.IsVisible(phoneOrientation);                
+            }
+            catch (Exception ex)
+            {
+                StepFlowOutputHelpers.Write("IsVisible exception {0}, {1}", ex.GetType().Name, ex.Message);
+                result = false;
+            }
+            return result;
         }
 
         protected void AssertPositionIsNotVisible(RectangleF position, string textTest)

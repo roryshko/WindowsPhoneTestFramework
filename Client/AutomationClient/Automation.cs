@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="Automation.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -10,7 +10,10 @@
 // ------------------------------------------------------------------------
 
 using System;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Windows;
+using System.Windows.Resources;
 using System.Windows.Automation.Peers;
 using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
@@ -31,6 +34,8 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
             if (Application.Current.RootVisual == null)
                 throw new TestAutomationException("Automation client initialised too early");
 
+            remoteUrl = string.IsNullOrEmpty(remoteUrl) ? BddHostForWindowsPhone8 : remoteUrl;
+
             var configuration = new Configuration()
                                     {
                                         RemoteUrl =
@@ -45,34 +50,33 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
             _initialised = true;
         }
 
-        public void AddStringPropertyNameForTextLookup(string propertyName)
+        private static string BddHostForWindowsPhone8
         {
-            AutomationElementFinder.StringPropertyNamesToTestForText.Add(propertyName);
-        }
-
-        public void AddObjectPropertyNameForTextLookup(string propertyName)
-        {
-            AutomationElementFinder.ObjectPropertyNamesToTestForText.Add(propertyName);
-        }
-
-        public void AddPropertyNameToTestForValue(string propertyName)
-        {
-            AutomationElementFinder.PropertyNamesToTestForValue.Add(propertyName);
-        }
-
-        public void AddAutomationPeerHandlerForTapAction(Func<AutomationPeer, bool> handler)
-        {
-            InvokeControlTapActionCommand.PatternTesters.Insert(0, handler);
-        }
-
-        public void AddValueManipulator(IValueManipulator valueManipulator)
-        {
-            ValueCommandHelper.AddManipulator(valueManipulator);    
-        }
-
-        public void AddUIElementHandlerForTapAction(Func<UIElement, bool> handler)
-        {
-            InvokeControlTapActionCommand.UIElementTesters.Insert(0, handler);
+            get
+            {
+                string remoteUrl = null;
+                if (System.Environment.OSVersion.Version.Major == 8)
+                {
+                    try
+                    {
+                        using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
+                        {
+                            using (var isoStream = isoStore.OpenFile("bddhost.txt", FileMode.Open))
+                            {
+                                using (var streamReader = new System.IO.StreamReader(isoStream))
+                                {
+                                    string bddhost = streamReader.ReadLine();
+                                    remoteUrl = "http://" + bddhost + "/phoneAutomation/automate";
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                return remoteUrl;
+            }
         }
     }
 }

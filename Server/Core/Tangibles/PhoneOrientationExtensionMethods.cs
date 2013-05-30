@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="PhoneOrientationExtensionMethods.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -10,6 +10,7 @@
 // ------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Drawing;
 
 namespace WindowsPhoneTestFramework.Server.Core.Tangibles
@@ -38,10 +39,12 @@ namespace WindowsPhoneTestFramework.Server.Core.Tangibles
             }
         }
 
-        public static bool IsVisible(this RectangleF position, PhoneOrientation orientation)
+        public static void IsVisible(this RectangleF position, PhoneOrientation orientation)
         {
             if (position.IsEmpty)
-                return false;
+            {
+                throw new ArgumentOutOfRangeException("IsVisible position is Empty");
+            }
 
             var height = 0.0;
             var width = 0.0;
@@ -61,18 +64,16 @@ namespace WindowsPhoneTestFramework.Server.Core.Tangibles
             }
 
             if (position.X + position.Width <= 0)
-                return false;
+                throw new ArgumentOutOfRangeException("bottom", string.Format("IsVisible position.X ({0}) + position.Width ({1}) <= 0 ", position.X, position.Width));
 
             if (position.Y + position.Height <= 0)
-                return false;
+                throw new ArgumentOutOfRangeException("right", string.Format("IsVisible position.Y ({0}) + position.Height ({1}) <= 0 ", position.Y, position.Height));
 
             if (position.X >= width)
-                return false;
+                throw new ArgumentOutOfRangeException("left", string.Format("IsVisible position.X ({0}) > width ({1})", position.X, width));
 
             if (position.Y >= height)
-                return false;
-                
-            return true;
+                throw new ArgumentOutOfRangeException("top", string.Format("IsVisible position.Y ({0}) > height ({1})", position.Y, height));
         }
     }
 }

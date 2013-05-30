@@ -28,6 +28,7 @@
     <MetadataFile FileName="phoneAutomation4.xsd" MetadataType="Schema" ID="2ed9331e-dda5-4c46-87be-26540fc2a836" SourceId="1" SourceUrl="http://localhost:8085/phoneAutomation?xsd=xsd2" />
     <MetadataFile FileName="phoneAutomation1.xsd" MetadataType="Schema" ID="9a7bb1a3-54c1-4216-a69a-598fe2e82665" SourceId="1" SourceUrl="http://localhost:8085/phoneAutomation?xsd=xsd3" />
     <MetadataFile FileName="phoneAutomation2.xsd" MetadataType="Schema" ID="daddb56e-3a9c-4585-bc31-0ec4885e462f" SourceId="1" SourceUrl="http://localhost:8085/phoneAutomation?xsd=xsd4" />
+    <MetadataFile FileName="phoneAutomation5.xsd" MetadataType="Schema" ID="18447997-4614-43cc-94c9-dbd2f14e82f9" SourceId="1" SourceUrl="http://localhost:8085/phoneAutomation?xsd=xsd5" />
     <MetadataFile FileName="phoneAutomation.disco" MetadataType="Disco" ID="fdb726eb-51ba-4f3f-b19e-e6714afe336a" SourceId="1" SourceUrl="http://localhost:8085/phoneAutomation?disco" />
     <MetadataFile FileName="phoneAutomation3.xsd" MetadataType="Schema" ID="f2d4bbaa-4991-479b-8dff-dab226a9e8f0" SourceId="1" SourceUrl="http://localhost:8085/phoneAutomation?xsd=xsd1" />
   </Metadata>

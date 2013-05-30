@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="DisplayInputCommands.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -65,12 +65,6 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost.Commands
             Console.WriteLine("listKeyCodes: Completed");
         }
 
-        enum FlickDirection
-        {
-            LeftToRight,
-            RightToLeft
-        }
-
         [CommandLineCommand("disableHardwareKeyboard")]
         [Description("disable the PC keyboard - the soft keyboard will then be available - note that other commands - textEntry, keyPress, hardwareButton - reset this as they use the PC keyboard buffers - e.g. 'disableHardwareKeyboard'")]
         public void DisableHardwareKeyboard(string ignored)
@@ -86,58 +80,82 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost.Commands
             Console.WriteLine("doSwipe has been renamed doFlick - try 'doFlick "  + whichSwipe + "'");
         }
 
-        [CommandLineCommand("doFlick")]
-        [Description("completes a flick gesture across the screen - currently only LeftToRight or RightToLeft across the horizontal and vertical middle of the screen supported - e.g. 'doFlick LeftToRight'")]
-        public void SendFlick(string whichSwipe)
-        {
-            var orientation = DisplayInputController.GuessOrientation();
+        ////[CommandLineCommand("doFlick")]
+        ////[Description("completes a flick gesture across the screen - currently only LeftToRight or RightToLeft across the horizontal and vertical middle of the screen supported - e.g. 'doFlick LeftToRight'")]
+        ////public void SendFlick(string whichSwipe)
+        ////{
+        ////    var orientation = DisplayInputController.GuessOrientation();
 
-            var parsed = (FlickDirection)Enum.Parse(typeof(FlickDirection), whichSwipe);
-            IGesture gesture = null;
-            switch (parsed)
-            {
-                case FlickDirection.LeftToRight:
-                    gesture = orientation == PhoneOrientation.Portrait480By800
-                                  ? FlickGesture.LeftToRightPortrait()
-                                  : FlickGesture.LeftToRightLandscape();
-                    break;
+        ////    var parsed = (FlickDirection)Enum.Parse(typeof(FlickDirection), whichSwipe);
+        ////    IGesture gesture = null;
+        ////    switch (parsed)
+        ////    {
+        ////        case FlickDirection.LeftToRight:
+        ////            gesture = orientation == PhoneOrientation.Portrait480By800
+        ////                          ? FlickGesture.LeftToRightPortrait()
+        ////                          : FlickGesture.LeftToRightLandscape();
+        ////            break;
 
-                case FlickDirection.RightToLeft:
-                    gesture = orientation == PhoneOrientation.Portrait480By800
-                                  ? FlickGesture.RightToLeftPortrait()
-                                  : FlickGesture.RightToLeftLandscape();
-                    break;
+        ////        case FlickDirection.RightToLeft:
+        ////            gesture = orientation == PhoneOrientation.Portrait480By800
+        ////                          ? FlickGesture.RightToLeftPortrait()
+        ////                          : FlickGesture.RightToLeftLandscape();
+        ////            break;
 
-                default:
-                    throw new ArgumentException("Unexpected swipe " + parsed);
-            }
+        ////        default:
+        ////            throw new ArgumentException("Unexpected swipe " + parsed);
+        ////    }
 
-            DisplayInputController.DoGesture(gesture);
-            Console.WriteLine("doFlick: Completed");
-        }
+        ////    DisplayInputController.DoGesture(gesture);
+        ////    Console.WriteLine("doFlick: Completed");
+        ////}
 
-        [CommandLineCommand("tapAt")]
-        [Description("tap at the specifed position - e.g. 'tapAt 100,100'")]
-        public void PressOnControl(string x_comma_y)
-        {
-            var split = x_comma_y.Split(new char[] {','}, 2);
-            if (split.Length != 2)
-            {
-                Console.WriteLine("Input incorrect - need x,y");
-                return;
-            }
+        ////[CommandLineCommand("tapAt")]
+        ////[Description("tap at the specifed position - e.g. 'tapAt 100,100'")]
+        ////public void PressOnControl(string x_comma_y)
+        ////{
+        ////    var split = x_comma_y.Split(new char[] {','}, 2);
+        ////    if (split.Length != 2)
+        ////    {
+        ////        Console.WriteLine("Input incorrect - need x,y");
+        ////        return;
+        ////    }
 
-            int x;
-            int y;
-            if (!int.TryParse(split[0], out x) || !int.TryParse(split[1], out y))
-            {
-                Console.WriteLine("Input incorrect - need integer x,y");
-                return;
-            }
+        ////    int x;
+        ////    int y;
+        ////    if (!int.TryParse(split[0], out x) || !int.TryParse(split[1], out y))
+        ////    {
+        ////        Console.WriteLine("Input incorrect - need integer x,y");
+        ////        return;
+        ////    }
 
-            IGesture gesture = TapGesture.TapOnPosition(x,y);
-            DisplayInputController.DoGesture(gesture);
-            Console.WriteLine("tapAt: Completed");
-        }
+        ////    IGesture gesture = TapGesture.TapOnPosition(x,y);
+        ////    DisplayInputController.DoGesture(gesture);
+        ////    Console.WriteLine("tapAt: Completed");
+        ////}
+
+        ////[CommandLineCommand("tapLongAt")]
+        ////[Description("tap for specified time at the specifed position x,y,seconds - e.g. 'tapAt 100,100,2'")]
+        ////public void LongPressOnControl(string x_comma_y)
+        ////{
+        ////    var split = x_comma_y.Split(new char[] { ',' }, 3);
+        ////    if (split.Length != 3)
+        ////    {
+        ////        Console.WriteLine("Input incorrect - need x,y");
+        ////        return;
+        ////    }
+
+        ////    int x;
+        ////    int y;
+        ////    if (!int.TryParse(split[0], out x) || !int.TryParse(split[1], out y))
+        ////    {
+        ////        Console.WriteLine("Input incorrect - need integer x,y");
+        ////        return;
+        ////    }
+
+        ////    TapGesture gesture = new TapGesture(x, y, new TimeSpan(TimeSpan.TicksPerSecond * Convert.ToInt16(split[2])));
+        ////    DisplayInputController.DoGesture(gesture);
+        ////    Console.WriteLine("tapLongAt: Completed");
+        ////}
     }
 }

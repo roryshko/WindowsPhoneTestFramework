@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="LookForTextCommand.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -22,7 +22,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             if (element != null)
                 SendSuccessResult();
             else
-                SendNotFoundResult();
+                SendNotFoundResult(string.Format("LookForTextCommand: Could not find the text : {0}", Text));
         }
     }
 }

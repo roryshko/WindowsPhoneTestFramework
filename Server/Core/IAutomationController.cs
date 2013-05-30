@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="IAutomationController.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -23,9 +23,16 @@ namespace WindowsPhoneTestFramework.Server.Core
 
         void Start(string initialisationString=null, AutomationIdentification automationIdentification = AutomationIdentification.TryEverything);
         void Stop();
+        void ShutDown();
 
         IApplicationAutomationController ApplicationAutomationController { get; }
         IDeviceController DeviceController { get; }
         IDisplayInputController DisplayInputController {get;}
+    }
+
+    public enum WindowsPhoneVersion
+    {
+        Seven,
+        Eight
     }
 }

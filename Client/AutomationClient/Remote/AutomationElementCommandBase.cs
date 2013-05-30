@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AutomationElementCommandBase.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -24,19 +24,20 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
         {
             get
             {
-                return string.IsNullOrEmpty(AutomationIdentifier.AutomationName)
+                return AutomationIdentifier == null ||
+                       (string.IsNullOrEmpty(AutomationIdentifier.AutomationName)
                        && string.IsNullOrEmpty(AutomationIdentifier.ElementName)
-                       && string.IsNullOrEmpty(AutomationIdentifier.DisplayedText);
+                       && string.IsNullOrEmpty(AutomationIdentifier.DisplayedText));
             }
         }
 
         protected UIElement GetUIElement(bool sendNotFoundResultOnFail = true)
         {
-            var element = AutomationElementFinder.FindElement(AutomationIdentifier);
+            var element = AutomationElementFinder.FindElement(AutomationIdentifier, Ordinal, ParentIdentifier);
             if (element == null)
             {
                 if (sendNotFoundResultOnFail)
-                    SendNotFoundResult();
+                    SendNotFoundResult(string.Format("GetUIElement: Could not find - {0}", AutomationIdentifier.ToIdOrName()));
                 return null;
             }
 
@@ -45,11 +46,11 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 
         protected FrameworkElement GetFrameworkElement(bool sendNotFoundResultOnFail = true)
         {
-            var element = AutomationElementFinder.FindElement(AutomationIdentifier) as FrameworkElement;
+            var element = AutomationElementFinder.FindElement(AutomationIdentifier, Ordinal, ParentIdentifier) as FrameworkElement;
             if (element == null)
             {
                 if (sendNotFoundResultOnFail)
-                    SendNotFoundResult();
+                    SendNotFoundResult(string.Format("GetFrameworkElement: Could not find - {0}", AutomationIdentifier.ToIdOrName()));
                 return null;
             }
 
@@ -59,24 +60,15 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
         protected FrameworkElement GetFrameworkElementParent<TParentType>(bool sendNotFoundResultOnFail = true)
             where TParentType : FrameworkElement
         {
-            var element = AutomationElementFinder.FindElementsNearestParentOfType<TParentType>(AutomationIdentifier) as FrameworkElement;
+            var element = AutomationElementFinder.FindElementsNearestParentOfType<TParentType>(AutomationElementFinder.GetRootVisual(), AutomationIdentifier) as FrameworkElement;
             if (element == null)
             {
                 if (sendNotFoundResultOnFail)
-                    SendNotFoundResult();
+                    SendNotFoundResult(string.Format("GetFrameworkElement<{0}>: Could not find - {1}", typeof(TParentType), AutomationIdentifier.ToIdOrName()));
                 return null;
             }
 
             return element;
-        }
-
-        protected FrameworkElement GetApplicationRootVisual()
-        {
-            var rootVisual = (PhoneApplicationFrame)Application.Current.RootVisual;
-            if (rootVisual == null)
-                return null;
-
-            return rootVisual;
         }
     }
 }

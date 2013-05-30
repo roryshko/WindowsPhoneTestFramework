@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>WindowsPhoneBDDClient</id>
+    <version>0.9.7</version>
+    <title>App - Windows Phone Test Framework</title>
+    <authors>slodge</authors>
+    <owners>slodge</owners>
+    <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
+    <projectUrl>https://github.com/Expensify/WindowsPhoneTestFramework</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>The Windows Phone App client library for BDD SpecFlow testing framework for Windows Phone emulator - used together with the Windows Phone BDD package</description>
+    <summary>Windows Phone App client for BDD SpecFlow testing framework for Windows Phone emulator - used together with the Windows Phone BDD package</summary>
+    <releaseNotes>First full release</releaseNotes>
+    <tags>testing specflow nunit bdd wp7 wp8 wp7dev wp8dev windowsphone</tags>
+  </metadata>
+  <files>
+    <file src="..\ClientBin\release\WindowsPhoneTestFramework.Client.AutomationClient.dll" target="lib\sl4-wp71\WindowsPhoneTestFramework.Client.AutomationClient.dll" />
+    <file src="..\License.txt" target="License.txt" />
+    <file src="..\ReadMe.md" target="ReadMe.md" />
+  </files>
+</package>

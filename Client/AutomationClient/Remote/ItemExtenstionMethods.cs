@@ -40,7 +40,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             }
 
             // automate the click
-            var peer = AutomationPeerCreator.GetPeer(element);
+            var peer = FrameworkElementAutomationPeer.CreatePeerForElement(element);
             if (peer == null)
                 throw new TestAutomationException("No automation peer found for " + targetElement.GetType().FullName);
 

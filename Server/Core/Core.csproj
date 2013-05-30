@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,7 @@
     <Compile Include="IAutomationController.cs" />
     <Compile Include="IGesture.cs" />
     <Compile Include="Loader.cs" />
+    <Compile Include="ProgressValues.cs" />
     <Compile Include="Results\InstallationResult.cs" />
     <Compile Include="IApplicationAutomationController.cs" />
     <Compile Include="Gestures\MultipointGestureBase.cs" />
@@ -63,10 +65,11 @@
     <Compile Include="Tangibles\PhoneHardwareButton.cs" />
     <Compile Include="Tangibles\PhoneOrientation.cs" />
     <Compile Include="Tangibles\PhoneOrientationExtensionMethods.cs" />
+    <Compile Include="Types\ElementColor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{4C0765F2-A904-4E2E-8FFA-9DE0AA461804}</Project>
+      <Project>{4c0765f2-a904-4e2e-8ffa-9de0aa461804}</Project>
       <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>

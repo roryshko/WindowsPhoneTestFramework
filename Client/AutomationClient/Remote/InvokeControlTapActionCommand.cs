@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="InvokeControlTapActionCommand.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -9,76 +9,68 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
 using System.Windows;
-using System.Windows.Automation.Peers;
-using System.Windows.Automation.Provider;
-using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
+using System.Windows.Controls.Primitives;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
+    using System;
+    using System.Windows.Automation.Peers;
+    using System.Windows.Automation.Provider;
+
+    /// <summary>
+    /// The invoke control tap action command.
+    /// </summary>
     public partial class InvokeControlTapActionCommand
     {
-        public static readonly List<Func<AutomationPeer, bool>> PatternTesters;
-        public static readonly List<Func<UIElement, bool>> UIElementTesters;
-
-        static InvokeControlTapActionCommand()
-        {
-            var providers =
-                from method in typeof (InvokeControlTapActionCommand).GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
-                where method.ReturnType == typeof (bool)
-                      && method.GetParameters().Length == 1
-                      && method.GetParameters()[0].ParameterType == typeof (AutomationPeer)
-                select new Func<AutomationPeer,bool>((AutomationPeer peer) => (bool)method.Invoke(null, new object[] {peer}));
-
-            PatternTesters = new List<Func<AutomationPeer, bool>>(providers);
-            UIElementTesters = new List<Func<UIElement, bool>>();
-        }
-        
+        /// <summary>
+        /// The do implementation.
+        /// </summary>
+        /// <exception cref="TestAutomationException">
+        /// No automation peer found for  + element.GetType().FullName
+        /// or
+        /// No invoke pattern found for  + element.GetType().FullName
+        /// </exception>
         protected override void DoImpl()
         {
-            var element = AutomationElementFinder.FindElement(AutomationIdentifier);
+            var element = GetUIElement();
             if (element == null)
             {
-                SendNotFoundResult();
+                SendNotFoundResult("Couldn't find element " + this.AutomationIdentifier.ElementName);
                 return;
             }
 
             // automate the click
-            var peer = AutomationPeerCreator.GetPeer(element);
+            var peer = FrameworkElementAutomationPeer.CreatePeerForElement(element);
             if (peer == null)
-                throw new TestAutomationException("No automation peer found for " + element.GetType().FullName);
-
-            foreach (var patternTester in PatternTesters)
             {
-                if (patternTester(peer))
-                {
-                    SendSuccessResult();
-                    return;
-                }
+                throw new TestAutomationException("No automation peer found for " + element.GetType().FullName);
             }
 
-            foreach (var uiElementTester in UIElementTesters)
+            if (TryTogglePatternAutomation(peer, element) || TryInvokePatternAutomation(peer))
             {
-                if (uiElementTester(element))
-                {
-                    SendSuccessResult();
-                    return;
-                }
+                SendSuccessResult();
+                return;
             }
 
             throw new TestAutomationException("No invoke pattern found for " + element.GetType().FullName);
         }
 
+        /// <summary>
+        /// Try the invoke pattern on the automation peer.
+        /// </summary>
+        /// <param name="peer">The peer.</param>
+        /// <returns>
+        /// True if the pattern was available and succeeded, else false.
+        /// </returns>
+        /// <exception cref="TestAutomationException">Thrown if the pattern will invoke, but throws an exception.</exception>
         private static bool TryInvokePatternAutomation(AutomationPeer peer)
         {
             var pattern = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
             if (pattern == null)
+            {
                 return false;
+            }
 
             try
             {
@@ -92,15 +84,35 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             return true;
         }
 
-        private static bool TryTogglePatternAutomation(AutomationPeer peer)
+        /// <summary>
+        /// Tries the toggle pattern automation.
+        /// </summary>
+        /// <param name="peer">The peer.</param>
+        /// <param name="element">The element.</param>
+        /// <returns>
+        /// True if the pattern was available and succeeded, else false.
+        /// </returns>
+        /// <exception cref="TestAutomationException">Exception while invoking pattern</exception>
+        private static bool TryTogglePatternAutomation(AutomationPeer peer, UIElement element)
         {
             var pattern = peer.GetPattern(PatternInterface.Toggle) as IToggleProvider;
             if (pattern == null)
+            {
                 return false;
+            }
 
             try
             {
                 pattern.Toggle();
+            
+                // Toggle won't fire the command, so do that manually!
+                var te = element as ToggleButton;
+
+                if (te != null && te.Command != null)
+                {
+                    te.Command.Execute(te.CommandParameter);
+                }
+
             }
             catch (Exception exception)
             {

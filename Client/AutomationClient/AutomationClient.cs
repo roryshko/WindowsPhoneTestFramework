@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AutomationClient.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -13,6 +13,7 @@
 //#define USE_CONNECTION_CHECK_BEFORE_STARTING
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
@@ -21,15 +22,27 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
 {
     public class AutomationClient : IAutomationClient
     {
-        private const int GetNextCommandTimeoutInMilliseconds = 2000;
+        private const int GetNextCommandTimeoutInMilliseconds = 500;
         private const int ErrorSleepTimeoutInMilliseconds = 500;
-        private const int CheckServerSleepTimeoutInMilliseconds = 500;
+        private const int CheckServerSleepTimeoutInMilliseconds = 5000;
         private const int NullCommandSleepTimeoutInMilliseconds = 100;
 
         private readonly IConfiguration _configuration;
         private readonly ManualResetEvent _stopPlease;
         private Thread _thread;
+
+        public delegate void ApplicationSettingsChange(Dictionary<string, string> settings);
         
+        public static event ApplicationSettingsChange ApplicationSettingsChanged;
+
+        internal static void RaiseApplicationSettingsChanged(Dictionary<string, string> settings)
+        {
+            if (ApplicationSettingsChanged != null)
+            {
+                ApplicationSettingsChanged(settings);
+            }
+        }
+
         public AutomationClient(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -112,7 +125,13 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
                 commandProcessed.Set();
             };
 
+            var nextCommandTimeout = GetNextCommandTimeoutInMilliseconds;
+            if (Environment.OSVersion.Version.Major == 7)
+            {
+                nextCommandTimeout = nextCommandTimeout*4;
+            }
             serviceClient.GetNextCommandAsync(GetNextCommandTimeoutInMilliseconds);
+
             commandProcessed.WaitOne();
         }
 

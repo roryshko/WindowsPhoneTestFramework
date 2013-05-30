@@ -1,60 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" />
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Results" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Results" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Results" />
-  <xs:element name="GetNextCommand">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="timeoutInMilliseconds" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetNextCommandResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" minOccurs="0" name="GetNextCommandResult" nillable="true" type="q1:CommandBase" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ContinueProcessing">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="commandId" type="q2:guid" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ContinueProcessingResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ContinueProcessingResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SubmitResult">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Results" minOccurs="0" name="result" nillable="true" type="q3:ResultBase" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SubmitResultResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RawSubmitResult">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="jsonResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RawSubmitResultResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="RawSubmitResultResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="FailedResultBase">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="FailureText" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FailedResultBase" nillable="true" type="tns:FailedResultBase" />
+  <xs:complexType name="ResultBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResultBase" nillable="true" type="tns:ResultBase" />
+  <xs:complexType name="ActionFailedResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:FailedResultBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ActionFailedResult" nillable="true" type="tns:ActionFailedResult" />
+  <xs:complexType name="DictionaryResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultBase">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Results" nillable="true" type="q1:ArrayOfKeyValueOfstringstring" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DictionaryResult" nillable="true" type="tns:DictionaryResult" />
+  <xs:complexType name="ProgressResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Current" type="xs:double" />
+          <xs:element minOccurs="0" name="Max" type="xs:double" />
+          <xs:element minOccurs="0" name="Min" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ProgressResult" nillable="true" type="tns:ProgressResult" />
+  <xs:complexType name="ExceptionFailedResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:FailedResultBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ExceptionMessage" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExceptionType" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ExceptionFailedResult" nillable="true" type="tns:ExceptionFailedResult" />
+  <xs:complexType name="NotFoundFailedResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:FailedResultBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="NotFoundFailedResult" nillable="true" type="tns:NotFoundFailedResult" />
+  <xs:complexType name="PictureResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="EncodedPictureBytes" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PictureResult" nillable="true" type="tns:PictureResult" />
+  <xs:complexType name="PositionResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Height" type="xs:double" />
+          <xs:element minOccurs="0" name="Left" type="xs:double" />
+          <xs:element minOccurs="0" name="Top" type="xs:double" />
+          <xs:element minOccurs="0" name="Width" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PositionResult" nillable="true" type="tns:PositionResult" />
+  <xs:complexType name="SuccessResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ResultText" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SuccessResult" nillable="true" type="tns:SuccessResult" />
+  <xs:complexType name="SuccessResultColor">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResultBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ResultColor" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SuccessResultColor" nillable="true" type="tns:SuccessResultColor" />
+  <xs:complexType name="TimeoutFailedResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:FailedResultBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TimeoutFailedResult" nillable="true" type="tns:TimeoutFailedResult" />
 </xs:schema>

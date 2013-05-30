@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="EmulatorDisplayInputControllerBase.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -32,7 +32,7 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
         private const VirtualKeyCode IgnoreThisKeyCode = VirtualKeyCode.NONAME;
 
         // pauses
-        protected static readonly TimeSpan DefaultPauseDurationAfterAction = TimeSpan.FromMilliseconds(100.0);
+        protected static readonly TimeSpan DefaultPauseDurationAfterAction = TimeSpan.FromMilliseconds(500.0);
         protected static readonly TimeSpan DefaultLongPressPauseDurationDuringAction = TimeSpan.FromMilliseconds(2000.0);
         public TimeSpan PauseDurationAfterSendingKeyPress { get; set; }
         public TimeSpan PauseDurationAfterSettingForegroundWindow { get; set; }
@@ -105,7 +105,7 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
             var lastMovedToPoint = startPoint;
             _inputSimulator.Mouse.LeftButtonDown();
 
-            foreach (var point in array.Skip(1).Take(array.Length - 2))
+            foreach (var point in array.Skip(1).Take(array.Length - 1))
             {
                 _inputSimulator.Mouse.MoveMouseTo(point.X, point.Y);
                 lastMovedToPoint = point;
@@ -174,7 +174,7 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
             SendKeyPress(ConvertKeyCode(keyboardKeyCode));
         }
 
-        public void SendKeyPress(VirtualKeyCode virtualKeyCode)
+        public virtual void SendKeyPress(VirtualKeyCode virtualKeyCode)
         {
             if (virtualKeyCode == IgnoreThisKeyCode)
                 return;
@@ -183,7 +183,7 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
             Pause(PauseDurationAfterSendingKeyPress);
         }
 
-        public void SendKeyLongPress(KeyboardKeyCode keyboardKeyCode, TimeSpan duration)
+        public virtual void SendKeyLongPress(KeyboardKeyCode keyboardKeyCode, TimeSpan duration)
         {
             SendKeyLongPress(ConvertKeyCode(keyboardKeyCode), duration);            
         }

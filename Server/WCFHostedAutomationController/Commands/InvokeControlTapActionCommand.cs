@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="InvokeControlTapActionCommand.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -10,11 +10,13 @@
 // ----------------------------------------------------------------------
 
 using System.Runtime.Serialization;
+using WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Interfaces;
 
 namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands
 {
     [DataContract]
     public class InvokeControlTapActionCommand : AutomationElementCommandBase
     {
+
     }
 }

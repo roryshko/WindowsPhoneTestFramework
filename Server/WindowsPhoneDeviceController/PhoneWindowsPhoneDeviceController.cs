@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="WindowsPhoneDriver.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -10,13 +10,16 @@
 // ------------------------------------------------------------------------
 
 
+using WindowsPhoneTestFramework.Server.DisplayInputControllerCore;
 namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
 {
     public class PhoneWindowsPhoneDeviceController : WindowsPhoneDeviceControllerBase
     {
         public PhoneWindowsPhoneDeviceController()
-            : base("Windows Phone Device")
+            : base("Device")
         {
+            DisplayInputController = new DeviceDisplayInputController();
         }
+
     }
 }

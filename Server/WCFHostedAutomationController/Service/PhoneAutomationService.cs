@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="PhoneAutomationService.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -31,10 +31,10 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
             Error
         }
 
-        private const int WatchdogPeriodInMilliseconds = 100;
+        private const int WatchdogPeriodInMilliseconds = 200;
  
-        private static readonly TimeSpan DefaultCommandTimeout = TimeSpan.FromSeconds(5.0);
-        private static readonly TimeSpan DefaultResultTimeout = TimeSpan.FromSeconds(15.0);
+        private static readonly TimeSpan DefaultCommandTimeout = TimeSpan.FromSeconds(20.0);
+        private static readonly TimeSpan DefaultResultTimeout = TimeSpan.FromSeconds(60.0);
 
         private readonly ManualResetEvent _commandAvailableEvent = new ManualResetEvent(false);
         private readonly Timer _checkTimer;

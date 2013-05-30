@@ -47,11 +47,10 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuMac
             Console.WriteLine("-> service will identify controls using " + commandLine.AutomationIdentification);
             _serviceHost = new ServiceHostController()
                                {
-                                   BindingAddress = new Uri(commandLine.Binding),
                                    AutomationIdentification = commandLine.AutomationIdentification
                                };
             _serviceHost.Trace += (sender, args) => Console.WriteLine("-> " + args.Message); 
-            _serviceHost.Start();
+            _serviceHost.Start(new Uri(commandLine.Binding));
             Console.WriteLine("-> service started");
             Console.WriteLine();
         }

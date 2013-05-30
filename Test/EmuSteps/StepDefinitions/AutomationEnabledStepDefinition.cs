@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AutomationEnabledStepDefinition.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -17,40 +17,52 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class AutomationEnabledStepDefinition :EmuDefinitionBase
     {
-        [Then(@"I see the controls are enabled")]
+        [StepDefinition(@"I see the controls are enabled")]
         public void ThenISeeTheNamedFieldsAreEnabled(Table table)
         {
-            IterateOverNameTable(table, @"I see the control ""{0}"" is enabled");
+            IterateOverNameTable(table, @"I see the {0} is enabled");
         }
 
-        [Then(@"I see the controls are disabled")]
+        [StepDefinition(@"I see the controls are disabled")]
         public void ThenISeeTheNamedFieldsAreDisabled(Table table)
         {
-            IterateOverNameTable(table, @"I see the control ""{0}"" is disabled");
+            IterateOverNameTable(table, @"I see the {0} is disabled");
         }
 
-        [Then(@"I see the control ""([^\""]*)"" is enabled")]
-        public void ThenISeeTheNamedFieldIsEnabled(string namedField)
+        [StepDefinition(@"I see the ([^\""]*) is (enabled|disabled)")]
+        public void ThenISeeTheNamedFieldIsEnabled(string namedField, string enabled)
         {
-            ThenISeeTheNamedFieldIsEnabled(namedField, true);
+            var expectedIsEnabled = enabled == "enabled";
+            ThenISeeTheNamedFieldIsEnabled(namedField, expectedIsEnabled);
         }
 
-        [Then(@"I see the control ""([^\""]*)"" is disabled")]
-        public void ThenISeeTheNamedFieldIsDisabled(string namedField)
+        [StepDefinition(@"I wait for the ([^\""]*) to be enabled")]
+        public void ThenIWaitForTheControlToBeEnabled(string namedField)
         {
-            ThenISeeTheNamedFieldIsEnabled(namedField, false);
-        }
+            namedField = ControlName(namedField, string.Empty);
 
-        #region private helper methods
+            Emu.ApplicationAutomationController.WaitForControl(namedField);
+            var result = Emu.ApplicationAutomationController.WaitForControlToBeEnabled(namedField);
+
+            Assert.IsTrue(result, "Control wasn't enabled by the timeout");
+        }
 
         private void ThenISeeTheNamedFieldIsEnabled(string namedField, bool expectedIsEnabled)
         {
             bool actualIsEnabled;
-            var result = Emu.ApplicationAutomationController.TryGetControlIsEnabled(namedField, out actualIsEnabled);
-            Assert.IsTrue(result, "Failed to get enabled state for '{0}' - looking for '{1}'", actualIsEnabled, expectedIsEnabled);
-            Assert.AreEqual(expectedIsEnabled, actualIsEnabled, "Enabeld state didn't match - field '{0}' - expected '{1}' - actual '{2}'", namedField, expectedIsEnabled, actualIsEnabled);
-        }
+            namedField = ControlName(namedField, string.Empty);
 
-        #endregion
+            Emu.ApplicationAutomationController.WaitForControl(namedField);
+            var result = Emu.ApplicationAutomationController.TryGetControlIsEnabled(namedField, out actualIsEnabled);
+
+            Assert.IsTrue(result, "Failed to get enabled state for '{0}' - looking for '{1}'", actualIsEnabled, expectedIsEnabled);
+            Assert.AreEqual(
+                expectedIsEnabled,
+                actualIsEnabled,
+                "Enabeld state didn't match - field '{0}' - expected '{1}' - actual '{2}'",
+                namedField,
+                expectedIsEnabled,
+                actualIsEnabled);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AutomationMiscStepDefinitions.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -11,23 +11,52 @@
 
 using NUnit.Framework;
 using TechTalk.SpecFlow;
+using WindowsPhoneTestFramework.Server.Core;
 
 namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
     [Binding]
     public class AutomationMiscStepDefinitions : EmuDefinitionBase
     {
-        [Then(@"I set focus to the control ""([^\""]*)""")]
-        public void ThenISetFocusToTheControl(string whichControl)
+        [StepDefinition(@"I navigate (back|forward|home|to start)")]
+        public void INavigate(string direction)
         {
-            Assert.IsTrue(Emu.ApplicationAutomationController.SetFocus(whichControl));
+            Assert.IsTrue(Emu.ApplicationAutomationController.Navigate(direction), "Unable to navigate {0}", direction);
         }
 
-        [Then(@"I see my app is not running$")]
+        [StepDefinition(@"I set focus to the control ""([^\""]*)""")]
+        public void ThenISetFocusToTheControl(string control)
+        {
+            Assert.IsTrue(Emu.ApplicationAutomationController.SetFocus(control), "Unable to set focus to {0}", control);
+        }
+
+        [StepDefinition(@"I see my app is not running$")]
         public void AndMyAppIsNotRunning()
         {
             var result = Emu.ApplicationAutomationController.LookIsAlive();
             Assert.IsFalse(result, "App is still alive");
+        }
+
+        [StepDefinition("I move the (.*)(panorama|pivot|item) (left|right)")]
+        public void MovePivot(string named, string type, string direction)
+        {
+            var name = ControlName(named, type);
+
+            var result = Emu.ApplicationAutomationController.Pivot(name, direction == "left" ? PivotType.Last : PivotType.Next);
+            Assert.IsTrue(result, "Unable to move the {0} {1} {2}", named, type, direction);
+        }
+
+        [StepDefinition("I move the (.*)(panorama|pivot) to (?:the |)(.*)")]
+        public void MoveToNamedPivot(string named, string type, string item)
+        {
+            var name = ControlName(named, type);
+            var itemName = ControlName(item, string.Empty);
+
+            var controlFound = Emu.ApplicationAutomationController.WaitForControl(name);
+            Assert.That(controlFound, "Unable to find the {0} {1}", named, type);
+
+            var result = Emu.ApplicationAutomationController.Pivot(name, itemName);
+            Assert.IsTrue(result, "Unable to move the {0} {1} to the {2}", named, type, item);
         }
     }
 }

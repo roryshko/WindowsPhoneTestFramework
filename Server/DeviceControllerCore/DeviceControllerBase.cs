@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="DeviceControllerBase.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -43,6 +43,10 @@ namespace WindowsPhoneTestFramework.Server.DeviceController
         public abstract StopResult Stop(ApplicationDefinition applicationDefinition);
         public abstract StartResult Start(ApplicationDefinition applicationDefinition);
 
+        public abstract string GetIsolatedStorage(ApplicationDefinition applicationDefinition);
+
+        public abstract void RestoreIsolatedStorage(ApplicationDefinition applicationDefinition, string isolatedStorage);
+
         public InstallationResult ForceInstall(ApplicationDefinition applicationDefinition)
         {
             ForceUninstall(applicationDefinition);
@@ -60,5 +64,8 @@ namespace WindowsPhoneTestFramework.Server.DeviceController
             Stop(applicationDefinition);
             return Start(applicationDefinition);
         }
+
+
+        public abstract bool ForceDeviceShutDown();
     }
 }
