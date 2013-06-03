@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="CommandBase.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -10,6 +10,8 @@
 // ------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
@@ -51,9 +53,17 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                                  Id = Id,
                                  ExceptionMessage = exception.Message,
                                  ExceptionType = exception.GetType().FullName,
-                                 FailureText = string.Format("Exception: {0}: {1}", exception.GetType().Name, exception.Message)
+                                 FailureText = BuildExceptionMessage(exception)
                              };
             Send(result);
+        }
+
+        private static string BuildExceptionMessage(Exception exception)
+        {
+            return string.Format("Exception: {0}: {1} \n\t{2}", exception.GetType().Name, exception.Message, exception.StackTrace)
+                   + ((exception.InnerException != null)
+                       ? "\n\twith Inner " + BuildExceptionMessage(exception.InnerException)
+                       : string.Empty);
         }
 
         protected void SkipResult()
@@ -67,15 +77,37 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             Send(result);
         }
 
-        protected void SendNotFoundResult()
+        protected void SendNotFoundResult(string failureText = null)
         {
             var result = new NotFoundFailedResult() { Id = Id };
+            if (!string.IsNullOrWhiteSpace(failureText))
+            {
+                result.FailureText = failureText;
+            }
+
+            Send(result);
+        }
+
+        protected void SendDictionaryResult(Dictionary<string, string> dict)
+        {
+            var result = new DictionaryResult()
+                {
+                    Id = this.Id,
+                    Results = dict
+                };
+
             Send(result);
         }
 
         protected void SendTextResult(string text)
         {
-            var result = new SuccessResult() { Id = Id, ResultText = text};
+            var result = new SuccessResult() { Id = Id, ResultText = text };
+            Send(result);
+        }
+
+        protected void SendColorResult(string colorHex)
+        {
+            var result = new SuccessResultColor() { Id = Id, ResultColor = colorHex };
             Send(result);
         }
 
@@ -89,6 +121,18 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                                  Width = width,
                                  Height = height,
                              };
+            Send(result);
+        }
+
+        protected void SendProgressResult(double min, double max, double current)
+        {
+            var result = new ProgressResult
+            {
+                Id = Id,
+                Min = min,
+                Max = max,
+                Current = current
+            };
             Send(result);
         }
 
@@ -121,7 +165,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             if (_resultSent)
             {
                 // TODO - log this!
-                throw new InvalidOperationException("Tried to send too many results");
+                throw new InvalidOperationException("Tried to send too many dict");
             }
 
             _resultSent = true;

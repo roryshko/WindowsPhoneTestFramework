@@ -1,4 +1,4 @@
-﻿Feature: ChildPage
+Feature: ChildPage
     In order to use ExampleApp
     As a WP7 user
     I want to be enter text in the fields on the child pivot page
@@ -25,6 +25,15 @@ Scenario: The Pivot Page output field reverses what I type in input
     And I see the control "TextBoxOutput" contains "dlroW olleH"
     Then take a picture
 
+Scenario: The Pivot Page output field reverses what I type in input using different steps
+    Then I see the control "TextBoxInput" contains ""
+    And I see the control "TextBoxOutput" contains ""
+    And take a picture
+    Then I enter "Hello World" into the "TextBoxInput"
+    Then I see the control "TextBoxInput" contains "Hello World"
+    And I see the control "TextBoxOutput" contains "dlroW olleH"
+    Then take a picture
+
 Scenario: An example broken test
     Then I see the control "TextBoxInput" contains ""
     And I see the control "TextBoxOutput" contains ""
@@ -42,7 +51,7 @@ Scenario: The Pivot Page has a Pivot which responds to flicks
     And I see "Input"
     #And I don't see "You are on pivot 2"
     #And I don't see "You are on pivot 3"
-    Then I flick "RightToLeft"
+    Then I move the main pivot right
     And I wait 2 seconds
     And take a picture
     Then I see the control "item2" is left of the control "item3"
@@ -50,7 +59,7 @@ Scenario: The Pivot Page has a Pivot which responds to flicks
     #And I don't see "Input"
     And I see the text "You are on pivot 2"
     #And I don't see "You are on pivot 3"
-    Then I flick "RightToLeft"
+    Then I move the main pivot right
     And I wait 2 seconds
     And take a picture
     Then I see the control "item3" is left of the control "item1"
@@ -58,7 +67,7 @@ Scenario: The Pivot Page has a Pivot which responds to flicks
     #And I don't see "Input"
     #And I don't see "You are on pivot 2"
     And I see the text "You are on pivot 3"
-    Then I flick "LeftToRight"
+    Then I move the main pivot left
     And I wait 2 seconds
     And take a picture
     Then I see the control "item2" is left of the control "item3"

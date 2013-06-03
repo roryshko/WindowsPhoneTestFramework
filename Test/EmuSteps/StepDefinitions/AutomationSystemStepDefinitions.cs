@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AutomationSystemStepDefinitions.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -30,7 +30,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         }
          */
 
-        [Then(@"take a picture$")]
+        [StepDefinition(@"take a picture$")]
         public void ThenTakeAPicture()
         {
             var fileName = StepFlowContextHelpers.GetNextPictureName();
@@ -39,6 +39,12 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             picture.Save(fileName, ImageFormat.Png);
 
             StepFlowOutputHelpers.Write("Picture saved to _startEmuShot_{0}_endEmuShot_", fileName);
+        }
+
+        [StepDefinition("Background Audio is stopped")]
+        public void StopBackgroundAudio()
+        {
+            Emu.ApplicationAutomationController.StopBackgroundAudio();
         }
     }
 }

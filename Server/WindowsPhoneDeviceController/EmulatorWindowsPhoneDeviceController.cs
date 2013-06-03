@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="EmulatorDriver.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -9,15 +9,16 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
+using System.Configuration;
 namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
 {
     public class EmulatorWindowsPhoneDeviceController : WindowsPhoneDeviceControllerBase
     {
-        public EmulatorWindowsPhoneDeviceController()
+        public EmulatorWindowsPhoneDeviceController(string target)
             // this name should work for both English and non-English SDKs
             // e.g. Windows Phone Emulator
             // e.g. Windows Phone Emulator(DE)
-            : base("Windows Phone Emulator")
+            : base(target)
         {            
             DisplayInputController = new WindowsPhoneWindowsEmulatorDisplayInputController();
         }

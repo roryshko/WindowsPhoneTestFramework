@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="SetValueCommand.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -20,7 +20,9 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
         {
             var element = GetUIElement();
             if (element == null)
+            {
                 return;
+            }
 
             if (ValueCommandHelper.TrySetValue(element, TextValue))
             {
@@ -95,7 +97,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 
 
             // if text, password IsChecked, Value are all missing... then give up
-            SendNotFoundResult();
+            SendNotFoundResult(string.Format("SetValueCommand: Could not set the value :{0} in control :{1}", TextValue, AutomationIdentifier.ToIdOrName()));
         }
     }
 }

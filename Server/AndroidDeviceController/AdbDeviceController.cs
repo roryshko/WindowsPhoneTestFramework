@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AdbDeviceController.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -32,17 +32,20 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
         private static readonly TimeSpan DoNotWait = TimeSpan.MinValue;
         private static readonly TimeSpan InfiniteWait = TimeSpan.MaxValue;
         private static readonly TimeSpan DefaultWait = TimeSpan.FromSeconds(10.0);
-        private static readonly TimeSpan DefaultInstallWait =  TimeSpan.FromMinutes(2.0);
+        private static readonly TimeSpan DefaultInstallWait = TimeSpan.FromMinutes(2.0);
         private static readonly TimeSpan DefaultUninstallWait = TimeSpan.FromMinutes(2.0);
         private static readonly TimeSpan DefaultWaitForDeviceWait = TimeSpan.FromMinutes(3.0);
         private static readonly TimeSpan DefaultPauseAfterEmulatorComesOnline = TimeSpan.FromSeconds(30.0);
-        
+
         private readonly AdbDeviceControllerConfiguration _configuration;
 
-        public IAndroidDisplayInputController AndroidDisplayInputController { get { return DisplayInputController as IAndroidDisplayInputController; } }
+        public IAndroidDisplayInputController AndroidDisplayInputController
+        {
+            get { return DisplayInputController as IAndroidDisplayInputController; }
+        }
 
         public AdbDeviceController(AdbDeviceControllerConfiguration configuration)
-        {            
+        {
             _configuration = configuration;
 
             // for now hard code the windows emulator display input controller...
@@ -98,7 +101,8 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
                 {
                     return false;
                 }
-                InvokeTrace("Pausing for {0} seconds - allow emulator to complete initialization", DefaultPauseAfterEmulatorComesOnline.TotalSeconds);
+                InvokeTrace("Pausing for {0} seconds - allow emulator to complete initialization",
+                            DefaultPauseAfterEmulatorComesOnline.TotalSeconds);
                 Thread.Sleep(DefaultPauseAfterEmulatorComesOnline);
                 return true;
             }
@@ -135,7 +139,9 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
 
         public InstallationResult Install(string packagePath)
         {
-            var results = ExecuteAdb(DefaultInstallWait, string.Format("-s {0} install {1}", _configuration.RunningEmulatorAdbName, packagePath));
+            var results = ExecuteAdb(DefaultInstallWait,
+                                     string.Format("-s {0} install {1}", _configuration.RunningEmulatorAdbName,
+                                                   packagePath));
 
             // observed return codes are:
             //    Failure [INSTALL_FAILED_ALREADY_EXISTS]
@@ -158,7 +164,8 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
 
         private static string CreateErrorMessage(string actionName, IEnumerable<string> fullResults)
         {
-            return string.Format("Failed to {0} - unknown why - full text:{1}", actionName, String.Join(";", fullResults));
+            return string.Format("Failed to {0} - unknown why - full text:{1}", actionName,
+                                 String.Join(";", fullResults));
         }
 
         public override UninstallationResult Uninstall(ApplicationDefinition applicationDefinition)
@@ -174,7 +181,8 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
 
         private UninstallationResult Uninstall(string packageName)
         {
-            var results = ExecuteAdb(DefaultUninstallWait, "-s {0} uninstall {1}", _configuration.RunningEmulatorAdbName, packageName);
+            var results = ExecuteAdb(DefaultUninstallWait, "-s {0} uninstall {1}", _configuration.RunningEmulatorAdbName,
+                                     packageName);
 
             if (results.Count == 0)
             {
@@ -211,9 +219,9 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
 
             // TODO - check return here?
             ExecuteAdb(DoNotWait,
-                        "-s {0} shell am instrument -w {1}/android.test.InstrumentationTestRunner",
-                        _configuration.RunningEmulatorAdbName,
-                        adbDefinition.StubPackageName);
+                       "-s {0} shell am instrument -w {1}/android.test.InstrumentationTestRunner",
+                       _configuration.RunningEmulatorAdbName,
+                       adbDefinition.StubPackageName);
 
             InvokeTrace("Not currently checking the start response!");
 
@@ -230,9 +238,9 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
         private bool StartNewEmulator()
         {
             var result = ExecuteEmulator(string.Format("-no-boot-anim -ports {0},{1} @{2}",
-                                              _configuration.ConsolePort,
-                                              _configuration.AdbPort,
-                                              _configuration.AvdName));
+                                                       _configuration.ConsolePort,
+                                                       _configuration.AdbPort,
+                                                       _configuration.AvdName));
 
             return !(result.Any(line => line.StartsWith("PANIC")));
         }
@@ -267,23 +275,24 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
             return ExecuteExecutable(_configuration.EmulatorPath, InfiniteWait, argumentsBase, argumentsParams);
         }
 
-        private List<string> ExecuteExecutable(string executablePath, TimeSpan timeout, string argumentsBase, params object[] argumentsParams)
+        private List<string> ExecuteExecutable(string executablePath, TimeSpan timeout, string argumentsBase,
+                                               params object[] argumentsParams)
         {
             var result = new List<string>();
             var processStartInfo = new ProcessStartInfo()
-                                       {
-                                           Arguments = string.Format(argumentsBase, argumentsParams),
-                                           FileName = executablePath,
-                                           CreateNoWindow = false,
-                                           RedirectStandardInput = true,
-                                           RedirectStandardError = true,
-                                           RedirectStandardOutput = true,
-                                           UseShellExecute = false,
-                                       };
+                {
+                    Arguments = string.Format(argumentsBase, argumentsParams),
+                    FileName = executablePath,
+                    CreateNoWindow = false,
+                    RedirectStandardInput = true,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                };
             var process = new Process()
-                              {
-                                  StartInfo = processStartInfo
-                              };
+                {
+                    StartInfo = processStartInfo
+                };
 
             if (timeout != DoNotWait)
                 process.OutputDataReceived += (sender, args) => result.Add(args.Data);
@@ -315,6 +324,23 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
             InvokeTrace("Call completed" + message);
 
             return result;
+        }
+
+        public override string GetIsolatedStorage(ApplicationDefinition applicationDefinition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void RestoreIsolatedStorage(ApplicationDefinition applicationDefinition, string isolatedStorage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool ForceDeviceShutDown()
+        {
+            // see - main answer in - http://stackoverflow.com/questions/2720164/android-process-killer
+            InvokeTrace("ForceDeviceShutDown command ignored for Android");
+            return true;
         }
     }
 }

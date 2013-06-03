@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="WindowsPhoneWindowsEmulatorDisplayInputController.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -9,7 +9,9 @@
 // Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 // ------------------------------------------------------------------------
 
+using System.Configuration;
 using System.Drawing;
+using System.Linq;
 using WindowsInput;
 using WindowsInput.Native;
 using WindowsPhoneTestFramework.Server.Core.Tangibles;
@@ -24,10 +26,18 @@ namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
             : base(new InputSimulator())
         {
             EmulatorWindowClassName = "XDE_LCDWindow";
-            EmulatorWindowWindowName = string.Empty;
+            var windowClassName = ConfigurationManager.AppSettings.Get("EmuSteps.Application.WindowsPhone.WindowClassName");
+            if (!string.IsNullOrWhiteSpace(windowClassName))
+            {
+                EmulatorWindowClassName = windowClassName;
+            }
 
-            //EmulatorSkinWindowWindowName = "Windows Phone Emulator";
-            //EmulatorSkinWindowClassName = "XDE_SkinWindow";
+            EmulatorWindowWindowName = string.Empty;
+            var windowName = ConfigurationManager.AppSettings.Get("EmuSteps.Application.WindowsPhone.WindowName");
+            if (!string.IsNullOrWhiteSpace(windowName))
+            {
+                EmulatorWindowWindowName = windowName;
+            }
 
             EmulatorProcessName = "XDE";
         }

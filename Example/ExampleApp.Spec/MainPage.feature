@@ -1,4 +1,4 @@
-﻿Feature: MainPage
+Feature: MainPage
 	In order to use ExampleApp
 	As a WP7 user
 	I want to be read the main page
@@ -20,7 +20,7 @@ Scenario: Fast Application Switching works on Main Page
 	Then I wait 1 seconds
 	Then I press the back button for 2 seconds
 	Then I wait 1 seconds
-	Then I flick "LeftToRight"
+	Then I move the main pivot right
 	Then I wait 1 seconds
 	Then I tap on the middle of the screen
 	Then I wait 1 seconds

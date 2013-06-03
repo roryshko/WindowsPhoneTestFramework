@@ -9,9 +9,6 @@ There are some Wiki Pages now on https://github.com/Expensify/WindowsPhoneTestFr
 
 Important note - there are several changes going through the tip of the source tree at present as we add Android and iOS support - please be patient as we make these big changes!
 
-			
-##General setup
-
 Before you try the general steps, consider using NuGet!
 
 For adding BDD to a class library project, see https://github.com/Expensify/WindowsPhoneTestFramework/wiki/Writing-a-new-SpecFlow-test-project-for-WindowsPhoneTestFramework
@@ -19,11 +16,11 @@ For adding BDD to a class library project, see https://github.com/Expensify/Wind
 For adding the test client to a WP7 project, see https://github.com/Expensify/WindowsPhoneTestFramework/wiki/Adding-testing-to-an-application
 
 			
-##NuGet setup - wp7 app
+##NuGet setup - Windows Phone app
 
 Use the "App - Windows Phone Test Framework" installer on nuget.org/List/Packages/WP7TestClient
 
-Once you have installed from NuGet into your WP7 App, then:
+Once you have installed from NuGet into your WP App, then:
 
 1. in the App.xaml.cs constructor, add
 
@@ -32,8 +29,7 @@ Once you have installed from NuGet into your WP7 App, then:
             WindowsPhoneTestFramework.Client.AutomationClient.Automation.Instance.Initialise();
             #endif // DEBUG
 	```
-
-
+	
 ##NuGet setup - Class Library test project (BDD)
 
 Use the "BDD - Windows Phone Test Framework" installer on nuget.org/List/Packages/WP7Test
@@ -48,32 +44,49 @@ Once you have installed from NuGet into your test class library, then:
 	
 	- For finding the ApplicationId, see ProductId inside the WMAppManifest.xml file for your app.
 	
-3. Add a new feature:
+	- For WP8 projects, some further changes to the app.config are required, the following section needs to be present:
 
 	```
-	Feature: App Test
-		In order to test my app
-		As a WP7 Developer
-		I want to see it start and take a picture of it
-
-	Scenario: Start the app
-		Given my app is uninstalled
-		And my app is installed
-		And my app is running
-		Then I wait 5 seconds
-		Then take a picture
+    <dependentAssembly>
+		<!-- Microsoft.SmartDevice.Connectivity, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a -->
+		<assemblyIdentity name="Microsoft.SmartDevice.Connectivity" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />	
+		<bindingRedirect oldVersion="10.0.0.0" newVersion="11.0.0.0" />
+    </dependentAssembly>
+	```
+	 
+	And the values for WindowsName / WindowClassName need to be this:
+	 
+	```
+	<add key="EmuSteps.Application.WindowsPhone.WindowName" value="XDE" />
+    <add key="EmuSteps.Application.WindowsPhone.WindowClassName" value="WindowsForms10.Window.8.app.0.30d38e8_r14_ad1" />
 	```
 	
-4. Run the tests
+3. Add a new feature:
 
+    ```
+        Feature: App Test
+            In order to test my app
+            As a WP7 Developer
+            I want to see it start and take a picture of it
+    ```
+    ```
+        Scenario: Start the app
+            Given my app is uninstalled
+            And my app is installed
+            And my app is running
+            Then I wait 5 seconds
+            Then take a picture
+    ```
+
+4. Run the tests
 
 #Prerequisites
 
 To get this to work, you need to install:
 
-- wp7 7.1 mango dev tools - so far not tested on the free Express versions
+- windows phone 7.1 mango dev tools or wp8 dev tools
 
-- nunit
+- nunit (specflow will use nunit by default)
 
 - specflow
 
@@ -138,11 +151,24 @@ To work out how to use the test platform in your own apps:
 
 2. Try looking at the gherkin code in the ExampleApp.Spec features
 
+#Bonus Feature
+
+The framework has the capability to run more than one emulator at the same time.
+This is done by changing the TargetDevice from 
+    
+    "Emulator" 
+
+to a list of Device, port number pairs like so: 
+    
+    "Emulator WVGA,8085;Emulator WVGA 512MB,8086;Emulator WXGA,8087"
+
+This means if you have a tool that can support running tests in parrallel (like SpecRun) you can take advantage of this feature. It is up to your test runner to handle running the tests in parallel.
+
+Please note, if you do this, you will be running multiple instances of the service on different ports, and will need to run the command mentioned earlier for each port.
 
 #Questions
 
 Please ask them on http://www.stackoverflow.com
-
 
 #Contributing
 

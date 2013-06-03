@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="StepFlowContextHelpers.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -19,7 +19,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
 {
     public static class StepFlowContextHelpers
     {
-        private const string EmuShotPrefix = "_EmuShot_";
+        private const string EmuShotPrefix = "ScreenShot_";
         private const string EmuControllerKey = "Emu.AutomationController";
         private const string EmuPictureIndexKey = "Emu.PictureIndex";
         private const string EmuRandomGeneratorKey = "Emu.RandomGenerator";
@@ -40,8 +40,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
                 emu.Start(
                     configuration.ControllerInitialisationString,
                     configuration.AutomationIdentification);
-                if (emu.DisplayInputController != null)
-                    emu.DisplayInputController.EnsureWindowIsInForeground();
+
                 context[EmuControllerKey] = emu;
                 return emu;
             }
@@ -54,29 +53,36 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
 
         public static string GetNextPictureName(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
+            return GetNextSupportingInfoFileName(featureContext, scenarioContext, EmuShotPrefix, "png");
+        }
+
+        public static string GetNextSupportingInfoFileName(FeatureContext featureContext, ScenarioContext scenarioContext,
+                                                            string prefix, string extension)
+        {
             Assert.NotNull(featureContext);
             Assert.NotNull(scenarioContext);
 
             lock (featureContext)
-            lock (scenarioContext)
-            {
-                object objectPictureIndex;
-                if (!scenarioContext.TryGetValue(EmuPictureIndexKey, out objectPictureIndex))
-                    objectPictureIndex = 0;
-                var pictureIndex = (int) objectPictureIndex;
-                scenarioContext[EmuPictureIndexKey] = ++pictureIndex;
+                lock (scenarioContext)
+                {
+                    object objectPictureIndex;
+                    if (!scenarioContext.TryGetValue(EmuPictureIndexKey, out objectPictureIndex))
+                        objectPictureIndex = 0;
+                    var pictureIndex = (int) objectPictureIndex;
+                    scenarioContext[EmuPictureIndexKey] = ++pictureIndex;
 
-                var fileName = String.Format("{0}{1}_{2}_{3}.png",
-                                                EmuShotPrefix,
-                                                featureContext.FeatureInfo.Title,
-                                                scenarioContext.ScenarioInfo.Title,
-                                                pictureIndex);
+                    var fileName = String.Format("{0}{1}_{2}_{3}.{4}",
+                                                 prefix,
+                                                 featureContext.FeatureInfo.Title,
+                                                 scenarioContext.ScenarioInfo.Title,
+                                                 pictureIndex,
+                                                 extension);
 
-                foreach (var ch in Path.GetInvalidFileNameChars())
-                    fileName = fileName.Replace(ch, '_');
+                    foreach (var ch in Path.GetInvalidFileNameChars())
+                        fileName = fileName.Replace(ch, '_');
 
-                return fileName;
-            }
+                    return fileName;
+                }
         }
 
         public static Random GetRandom()

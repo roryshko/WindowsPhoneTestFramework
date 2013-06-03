@@ -34,6 +34,12 @@
   <ItemGroup>
     <Reference Include="Microsoft.Smartdevice.Connectivity, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="Microsoft.Smartdevice.Connectivity, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Microsoft.Smartdevice.Connectivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -64,6 +70,11 @@
     </ProjectReference>
     <ProjectReference Include="..\DisplayInputControllerCore\DisplayInputControllerCore.csproj">
       <Project>{A2C1E054-51F1-49FC-B602-98FFF0E9D218}</Project>
+      <Project>{3c004657-8682-4230-9af9-15a179542ca4}</Project>
+      <Name>DeviceControllerCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DisplayInputControllerCore\DisplayInputControllerCore.csproj">
+      <Project>{a2c1e054-51f1-49fc-b602-98fff0e9d218}</Project>
       <Name>DisplayInputControllerCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">

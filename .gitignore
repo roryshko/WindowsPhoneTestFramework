@@ -1,9 +1,12 @@
 [Oo]bj/
 [Bb]in/
+[Dd]ebug*/
 [Cc]lient[Bb]in/
+[Rr]elease*/
 *.suo
 *.user
 /TestResults
 _ReSharper.*
 *.vspscc
 *.vssscc
+/packages

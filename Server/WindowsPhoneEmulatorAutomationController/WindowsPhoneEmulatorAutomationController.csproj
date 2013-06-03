@@ -33,15 +33,29 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="Microsoft.Smartdevice.Connectivity, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Microsoft.Smartdevice.Connectivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsInput, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\WindowsInput.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomationController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Win8EmulatorWindowsPhoneDeviceController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
@@ -51,6 +65,10 @@
     <ProjectReference Include="..\DeviceControllerCore\DeviceControllerCore.csproj">
       <Project>{3C004657-8682-4230-9AF9-15A179542CA4}</Project>
       <Name>DeviceControllerCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DisplayInputControllerCore\DisplayInputControllerCore.csproj">
+      <Project>{A2C1E054-51F1-49FC-B602-98FFF0E9D218}</Project>
+      <Name>DisplayInputControllerCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{4C0765F2-A904-4E2E-8FFA-9DE0AA461804}</Project>
@@ -62,6 +80,11 @@
     </ProjectReference>
     <ProjectReference Include="..\WindowsPhoneDeviceController\WindowsPhoneDeviceController.csproj">
       <Project>{924F63A9-9125-4E62-AF3F-ED28B9354E9E}</Project>
+      <Project>{b0f9a9e3-d4ac-44c5-aec2-de83534c7e73}</Project>
+      <Name>WCFHostedAutomationController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WindowsPhoneDeviceController\WindowsPhoneDeviceController.csproj">
+      <Project>{924f63a9-9125-4e62-af3f-ed28b9354e9e}</Project>
       <Name>WindowsPhoneDeviceController</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AutomationUniqueStepDefinitions.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -21,20 +21,20 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class ExpensifyUniqueStepDefinitions : EmuDefinitionBase
     {
-        [Then(@"I create some unique text called ""([^\""]*)""")]
+        [StepDefinition(@"I create some unique text called ""([^\""]*)""")]
         public void StepICreateANewUniqueStringCalled(string key)
         {
             StepICreateANewUniqueStringCalled(key, string.Empty);
         }
 
-        [Then(@"I create some unique text called ""([^\""]*)"" with prefix ""([^\""]*)""")]
+        [StepDefinition(@"I create some unique text called ""([^\""]*)"" with prefix ""([^\""]*)""")]
         public void StepICreateANewUniqueStringCalled(string key, string prefix)
         {
             var value = prefix + Guid.NewGuid().ToString("N");
             value.StoreAsNamedUnique(key);
         }
 
-        [Then(@"I create a unique currency amount called ""([^\""]*)"" between ""([^\""]*)"" and ""([^\""]*)""")]
+        [StepDefinition(@"I create a unique currency amount called ""([^\""]*)"" between ""([^\""]*)"" and ""([^\""]*)""")]
         public void StepICreateANewUniqueCurrencyValueCalledAndBetween(string key, string lowerText, string upperText)
         {
             double lower;
@@ -47,7 +47,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             currencyValue.ToString("0.00").StoreAsNamedUnique(key);
         }
 
-        [Then(@"I enter the unique value ""([^\""]*)"" into the control ""([^\""]*)""")]
+        [StepDefinition(@"I enter the unique value ""([^\""]*)"" into the control ""([^\""]*)""")]
         public void StepIEnterTheUniqueValueIntoControl(string whichKey, string whichControl)
         {
             var value = whichKey.ReplaceUniqueKey();

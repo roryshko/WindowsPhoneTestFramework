@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AutomationUsingProgramBase.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -10,15 +10,21 @@
 // ------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+
+using Args;
+
 using WindowsPhoneTestFramework.Server.Core;
 
 namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
 {
+    using WindowsPhoneTestFramework.Server.Core.Types;
+
     public class PhoneAutomationCommands
     {
         public IApplicationAutomationController ApplicationAutomationController { get; set; }
@@ -35,8 +41,61 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
         [Description("invoke the action that a tap would normally do on the identified control - for a button this is Click, for a checkbox this is Toggle, for other controls you'll need to setup the mapping yourself using AddAutomationPeerHandlerForTapAction and AddUIElementHandlerForTapAction methods - e.g. 'invoke Button1'")]
         public void InvokeTap(string whatToClick)
         {
-            var result = ApplicationAutomationController.InvokeControlTapAction(whatToClick);
-            Console.WriteLine("invokeTap:" + result.ToString());
+            var args = whatToClick.Split(':');
+            //controlId:ordinal:parentId
+            // TODO add this logic to the other commands which take three arguments
+            if (args.Length == 1)
+            {
+                var result = ApplicationAutomationController.InvokeControlTapAction(args[0]);
+                Console.WriteLine("invokeTap:" + result.ToString());
+            }
+            else if (args.Length == 3)
+            {
+                var result = ApplicationAutomationController.InvokeControlTapAction(args[0], int.Parse(args[1]), args[2]);
+                Console.WriteLine("invokeTap: {0}", result);
+            }
+            else
+            {
+                Console.WriteLine("This method needs one or three arguments: controlId | controlId:ordinal:parentId");
+            }
+        }
+
+        [CommandLineCommand("scrollIntoView")]
+        [Description("scroll the identified control into view - e.g. 'scrollIntoView Button1'")]
+        public void scrollIntoView(string whatToScroll)
+        {
+            var args = whatToScroll.Split(':');
+            //controlId:ordinal:parentId
+            // TODO add this logic to the other commands which take three arguments
+            if (args.Length == 1)
+            {
+                var result = ApplicationAutomationController.ScrollIntoView(args[0]);
+                Console.WriteLine("scrollIntoView:" + result.ToString());
+            }
+            else if (args.Length == 3)
+            {
+                var result = ApplicationAutomationController.ScrollIntoView(args[0], int.Parse(args[1]), args[2]);
+                Console.WriteLine("scrollIntoView: {0}", result);
+            }
+            else
+            {
+                Console.WriteLine("This method needs one or three arguments: controlId | controlId:ordinal:parentId");
+            }
+        }
+
+        [CommandLineCommand("navigate")]
+        [Description("invoke a navigation - - e.g. 'navigate Back'")]
+        public void Navigate(string direction)
+        {
+            if (!string.IsNullOrWhiteSpace(direction))
+            {
+                var result = ApplicationAutomationController.Navigate(direction);
+                Console.WriteLine("navigate: " + result.ToString());
+            }
+            else
+            {
+                Console.WriteLine("This method needs one argument: back | forward");
+            }
         }
 
         [CommandLineCommand("ping")]
@@ -132,7 +191,23 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
         [Description("gets the position of the specified control as device screen location - e.g. 'getPosition TextBox1'")]
         public void GetPosition(string whichControl)
         {
-            var position = ApplicationAutomationController.GetPositionOfControl(whichControl);
+            var position = RectangleF.Empty;
+            var args = whichControl.Split(':');
+            //controlId:ordinal:parentId
+            // TODO add this logic to the other commands which take three arguments
+            if (args.Length == 1)
+            {
+                position = ApplicationAutomationController.GetPositionOfControl(args[0]);
+            }
+            else if (args.Length == 3)
+            {
+                position = ApplicationAutomationController.GetPositionOfControl(args[0], int.Parse(args[1]), args[2]);
+            }
+            else
+            {
+                Console.WriteLine("This method needs one or three arguments: controlId | controlId:ordinal:parentId");
+            }
+
             if (position == RectangleF.Empty)
             {
                 Console.WriteLine("getPosition: failed");
@@ -140,6 +215,28 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
             }
 
             Console.WriteLine(string.Format("getPosition: {0:0.0} {1:0.0} {2:0.0} {3:0.0}", position.Left, position.Top, position.Width, position.Height));
+        }
+
+        [CommandLineCommand("getProgress")]
+        [Description("gets the progress of the specified control, which must be based on RangeBase - e.g. 'getProgress ProgressBar1'")]
+        public void GetProgress(string whichControl)
+        {
+            var progress = ApplicationAutomationController.GetProgressOfControl(whichControl);
+            if (progress.Max == double.MinValue)
+            {
+                Console.WriteLine("getProgress: failed");
+                return;
+            }
+
+            Console.WriteLine(string.Format("getProgress: min {0:0.0} max {1:0.0} current {2:0.0} ", progress.Min, progress.Max, progress.Current));
+        }
+
+        [CommandLineCommand("selectListItem")]
+        [Description("Selects the item at the given index within the specified control - e.g. 'selectListItem ResultsList1 2'")]
+        public void SelectListItem(string whichControl, string index)
+        {
+            var result = ApplicationAutomationController.SelectListItem(whichControl, int.Parse(index));
+            Console.WriteLine("selectListItem: " + result);
         }
 
         [CommandLineCommand("scrollH")]
@@ -156,22 +253,6 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
         {
             var result = ApplicationAutomationController.VerticalScroll(whichControl, int.Parse(howMuch));
             Console.WriteLine("scrollH: " + result);
-        }
-
-        [CommandLineCommand("scrollIntoView")]
-        [Description("scrolls the list item containing a control into view - e.g. 'scrollIntoView textBlock101'")]
-        public void ScrollIntoView(string whichControl)
-        {
-            var result = ApplicationAutomationController.ScrollIntoViewListItem(whichControl);
-            Console.WriteLine("scrollIntoView: " + result);
-        }
-
-        [CommandLineCommand("select")]
-        [Description("select the list item containing a control - e.g. 'select textBlock101'")]
-        public void Select(string whichControl)
-        {
-            var result = ApplicationAutomationController.SelectListItem(whichControl);
-            Console.WriteLine("select: " + result);
         }
 
         [CommandLineCommand("screenshot")]
@@ -199,9 +280,9 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
 
                     if (!process.Start())
                         return;
-					
-					/*
-					System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5.0));
+
+                    /*
+                    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5.0));
 
                     if (!process.WaitForExit(60000)) // one minute
                         process.Kill();
@@ -214,6 +295,128 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
                     Console.WriteLine(string.Format("Exception seen {0} - {1}", exception.GetType().FullName, exception.Message));
                 }
             }
+        }
+
+        [CommandLineCommand("elementColor")]
+        [Description("get the r,g,b or background element")]
+        public void ElementColor(string controlId)
+        {
+            string result = ApplicationAutomationController.GetControlColor(controlId);
+            Console.WriteLine("select: " + result);
+        }
+
+        [CommandLineCommand("tapAppBar")]
+        [Description("taps the app bar menu item with the given text")]
+        public void TapAppBar(string text)
+        {
+            var result = ApplicationAutomationController.InvokeAppBarTap(text);
+            Console.WriteLine(result ? "passed" : "failed");
+        }
+
+        [CommandLineCommand("pivot")]
+        [Description("Pivots a pivot control to the next / last, or named pivot")]
+        public void Pivot(string text)
+        {
+            var args = text.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var pivotName = args[0];
+            var itemName = args[1];
+
+            switch (itemName)
+            {
+                case "next":
+                    ApplicationAutomationController.Pivot(pivotName, PivotType.Next);
+                    break;
+                case "last":
+                    ApplicationAutomationController.Pivot(pivotName, PivotType.Last);
+                    break;
+                default:
+                    ApplicationAutomationController.Pivot(pivotName, itemName);
+                    break;
+            }
+        }
+
+        [CommandLineCommand("toggle")]
+        [Description("Toggles a named toggle button")]
+        public void Toggle(string text)
+        {
+            var args = text.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var toggleButtonName = args[0];
+
+            var result = ApplicationAutomationController.Toggle(toggleButtonName);
+            Console.WriteLine("toggle:  {0}", result ? "passed" : "failed");
+        }
+
+        [CommandLineCommand("getSettings")]
+        [Description("Gets the app settings for the current applicaiton")]
+        public void GetAppSettings(string text)
+        {
+            Dictionary<string, string> dictionary;
+            var result = ApplicationAutomationController.TryGetAllApplicationSettings(out dictionary);
+
+            Console.WriteLine("got settings: {0}", result ? "passed" : "failed");
+
+            if (result)
+            {
+                foreach (var pair in dictionary)
+                {
+                    Console.WriteLine("{0} : {1}", pair.Key, pair.Value);
+                }
+            }
+        }
+
+        [CommandLineCommand("setSettings")]
+        [Description("Sets all app settings for the current application, takes a list of the form Key:Value|Key2:Value2")]
+        public void SetAppSettings(string text)
+        {
+            var pairs = text.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(
+                pairString =>
+                {
+                    var splitPair = pairString.Split(':');
+                    return new { Key = splitPair[0], Value = splitPair[1] };
+                }).ToDictionary(p => p.Key, p => p.Value);
+
+            var result = ApplicationAutomationController.SetApplicationSettings(pairs);
+
+            Console.WriteLine("set settings: {0}", result ? "passed" : "failed");
+        }
+
+        [CommandLineCommand("setSetting")]
+        [Description("Sets all app settings for the current application, takes a co delimited pair key and value")]
+        public void SetAppSetting(string key, string value)
+        {
+            var result = ApplicationAutomationController.SetApplicationSettings(key, value);
+
+            Console.WriteLine("set settings: {0}", result ? "passed" : "failed");
+
+        }
+
+        [CommandLineCommand("stopBackgroundAudio")]
+        public void StopBackgroundAudio(string text)
+        {
+            var result = ApplicationAutomationController.StopBackgroundAudio();
+
+            Console.WriteLine("stop audio: {0}", result ? "success" : "fail");
+        }
+
+        [CommandLineCommand("getPerformanceInfo")]
+        public void GetPerformanceInfo(string text)
+        {
+            Dictionary<string, string> dictionary;
+            var result = ApplicationAutomationController.TryGetPerformanceInformation(out dictionary);
+
+            Console.WriteLine("get performance information {0}", result ? "success" : "failure");
+        }
+
+        [CommandLineCommand("getIsChecked")]
+        public void getVisualState(string text)
+        {
+            var args = text.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var control = args[0];
+
+            var result = ApplicationAutomationController.GetIsChecked(control);
+
+            Console.WriteLine("Visual state of {0} is {1}", control, result);
         }
     }
 }

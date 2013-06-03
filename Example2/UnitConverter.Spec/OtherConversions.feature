@@ -1,4 +1,4 @@
-﻿Feature: Beyond Distance and Temperature
+Feature: Beyond Distance and Temperature
 	In order to use the converter appliction
 	As a WP7 user
 	I want to convert Speed, Time, Volume, Angle, Weight, Area
@@ -20,10 +20,10 @@ Scenario: I can change to Speed
 	Then I wait 1 seconds
 	Then take a picture
 	Then I wait for the control "pivot" to appear
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
 	Then I tap in the middle of the control "From:Units_Speed_MilesPerHour"
@@ -58,13 +58,13 @@ Scenario: I can change to Time
 	Then I wait 1 seconds
 	Then take a picture
 	Then I wait for the control "pivot" to appear
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
 	Then I tap in the middle of the control "From:Units_Time_Hours"
@@ -99,16 +99,16 @@ Scenario: I can change to Volume
 	Then I wait 1 seconds
 	Then take a picture
 	Then I wait for the control "pivot" to appear
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
 	Then I tap in the middle of the control "From:Units_Volume_Quarts"
@@ -143,19 +143,19 @@ Scenario: I can change to Angle
 	Then I wait 1 seconds
 	Then take a picture
 	Then I wait for the control "pivot" to appear
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
 	Then I tap in the middle of the control "From:Units_Angle_Radians"
@@ -191,22 +191,22 @@ Scenario: I can change to Weight
 	Then I wait 1 seconds
 	Then take a picture
 	Then I wait for the control "pivot" to appear
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
 	Then I tap in the middle of the control "From:Units_Weight_MetricTons"
@@ -241,25 +241,25 @@ Scenario: I can change to Area
 	Then I wait 1 seconds
 	Then take a picture
 	Then I wait for the control "pivot" to appear
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
-	Then I flick "RightToLeft"
+	Then I move the pivot right
 	Then I wait 1 seconds
 	Then take a picture
 	Then I tap in the middle of the control "From:Units_Area_Acre"

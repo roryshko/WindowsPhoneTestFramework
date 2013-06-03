@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="ServiceHostController.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -22,12 +22,9 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 {
     public class ServiceHostController : TraceBase, IDisposable
     {
-        public static readonly Uri DefaultBindingAddress = new Uri("http://localhost:8085/phoneAutomation");
-
         private ServiceHost _serviceHost;
         private IApplicationAutomationController _automationController;
 
-        public Uri BindingAddress { get; set; }
         public AutomationIdentification AutomationIdentification { get; set; }
 
         public IApplicationAutomationController AutomationController
@@ -43,7 +40,6 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         public ServiceHostController()
         {
-            BindingAddress = DefaultBindingAddress;
             AutomationIdentification = AutomationIdentification.TryEverything;
         }
 		
@@ -66,7 +62,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             }
         }
 
-        public void Start()
+        public void Start(Uri bindingAddress)
         {
             if (_serviceHost != null)
                 throw new InvalidOperationException("_serviceHost already started");
@@ -79,7 +75,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             // build the service
             var phoneAutomationService = new PhoneAutomationService();
             phoneAutomationService.Trace += (sender, args) => InvokeTrace(args);
-            var serviceHost = new ServiceHost(phoneAutomationService, BindingAddress);
+            var serviceHost = new ServiceHost(phoneAutomationService, bindingAddress);
 			
 			if (!IsRunningOnMono())
 			{
@@ -101,14 +97,14 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 	            serviceHost.AddServiceEndpoint(
 	                                            typeof(IPhoneAutomationService),
 	                                            GetHttpBinding(),
-	                                            BindingAddress + "/automate");
+                                                bindingAddress + "/automate");
 			}
 			
             // build JSON ServiceEndpoint
             var jsonServiceEndpoint = serviceHost.AddServiceEndpoint(
                                                         typeof(IPhoneAutomationService),
                                                         GetWebHttpBinding(),
-                                                        BindingAddress + "/jsonAutomate");
+                                                        bindingAddress + "/jsonAutomate");
             var webHttpBehavior = new WebHttpBehavior()
                                       {
                                           DefaultOutgoingRequestFormat = WebMessageFormat.Json,

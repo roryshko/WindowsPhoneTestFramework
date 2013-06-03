@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="SetFocusCommand.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -10,6 +10,7 @@
 // ------------------------------------------------------------------------
 
 using System.Windows.Controls;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
@@ -24,7 +25,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             var control = element as Control;
             if (control == null)
             {
-                SendNotFoundResult();
+                SendNotFoundResult(string.Format("SetFocusCommand: Could not find the control : {0}", AutomationIdentifier.ToIdOrName()));
                 return;
             }
 

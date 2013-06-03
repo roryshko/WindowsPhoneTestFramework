@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="IDeviceController.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -31,5 +31,15 @@ namespace WindowsPhoneTestFramework.Server.Core
         StopResult Stop(ApplicationDefinition applicationDefinition);
         StartResult Start(ApplicationDefinition applicationDefinition);
         StartResult ForceStart(ApplicationDefinition applicationDefinition);
+
+        /// <summary>
+        /// Shuts down the current device
+        /// </summary>
+        /// <returns>True the device process was shut down</returns>
+        bool ForceDeviceShutDown();
+
+        string GetIsolatedStorage(ApplicationDefinition applicationDefinition);
+
+        void RestoreIsolatedStorage(ApplicationDefinition applicationDefinition, string isolatedStorage);
     }
 }

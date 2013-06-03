@@ -2,6 +2,7 @@ using System;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
@@ -12,7 +13,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             var element = GetFrameworkElementParent<ListBoxItem>();
             if (element == null)
             {
-                SendNotFoundResult();
+                SendNotFoundResult(string.Format("ListBoxItemScrollIntoViewCommand: Could not find element : {0}", AutomationIdentifier.ToIdOrName()));
                 return;
             }
 

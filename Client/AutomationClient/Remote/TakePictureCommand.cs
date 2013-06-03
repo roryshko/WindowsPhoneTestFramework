@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="TakePictureCommand.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -13,7 +13,8 @@ using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using Microsoft.Phone.Controls;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
+////using Microsoft.Phone.Controls;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
@@ -28,7 +29,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 toSnap = GetFrameworkElement(false);
 
             if (toSnap == null)
-                toSnap = GetApplicationRootVisual();
+                toSnap = AutomationElementFinder.GetRootVisual();
 
             if (toSnap == null)
                 return null;

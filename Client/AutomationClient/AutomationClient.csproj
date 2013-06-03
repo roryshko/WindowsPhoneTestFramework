@@ -18,12 +18,15 @@
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <ValidateXaml>false</ValidateXaml>
+    <ThrowErrorsInValidation>false</ThrowErrorsInValidation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\ClientBin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -34,7 +37,18 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\ClientBin\Release\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BDD|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -42,6 +56,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows" />
@@ -50,17 +66,35 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
     <Reference Include="mscorlib.extensions" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Automation.cs" />
     <Compile Include="AutomationClient.cs" />
     <Compile Include="Helpers\AutomationElementFinder.cs" />
     <Compile Include="Helpers\AutomationPeerCreator.cs" />
+    <Compile Include="Helpers\AutomationIdentifierExtensions.cs" />
     <Compile Include="IAutomationClient.cs" />
     <Compile Include="IConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Helpers\IValueManipulator.cs" />
+    <Compile Include="Remote\ControlContainsImageCommand.cs" />
+    <Compile Include="Remote\GetPerformanceCommand.cs" />
+    <Compile Include="Remote\GetIsCheckedCommand.cs" />
+    <Compile Include="Remote\ScrollIntoViewCommand.cs" />
+    <Compile Include="Remote\BackgroundAudioCommand.cs" />
+    <Compile Include="Remote\SetApplicationSettingsCommand.cs" />
+    <Compile Include="Remote\GetApplicationSettingsCommand.cs" />
+    <Compile Include="Remote\LookForAppBarItemCommand.cs" />
+    <Compile Include="Remote\NavigateCommand.cs" />
+    <Compile Include="Remote\SelectorItemCommand.cs" />
+    <Compile Include="Remote\GetProgressCommand.cs" />
+    <Compile Include="Remote\InvokeAppBarTapCommand.cs" />
+    <Compile Include="Remote\GetApplicationSettingCommand.cs" />
+    <Compile Include="Remote\PivotCommand.cs" />
+    <Compile Include="Remote\SetApplicationSettingCommand.cs" />
+    <Compile Include="Remote\GetColorCommand.cs" />
     <Compile Include="Remote\ItemExtenstionMethods.cs" />
     <Compile Include="Remote\ListBoxItemScrollIntoViewCommand.cs" />
     <Compile Include="Remote\ListBoxItemSelectCommand.cs" />
@@ -82,6 +116,7 @@
     <Compile Include="Remote\ResultBase.cs" />
     <Compile Include="Remote\TakePictureCommand.cs" />
     <Compile Include="Helpers\ValueCommandHelper.cs" />
+    <Compile Include="Remote\ToggleButtonCommand.cs" />
     <Compile Include="TestAutomationException.cs" />
     <Compile Include="Service References\Remote\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -93,6 +128,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\Remote\phoneAutomation5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\Remote\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -125,6 +163,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Remote\PhoneAutomationService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

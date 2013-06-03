@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="AutomationElementCommandBase.cs" company="Expensify">
 //     (c) Copyright Expensify. http://www.expensify.com
 //     This source is subject to the Microsoft Public License (Ms-PL)
@@ -19,5 +19,11 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Command
     {
         [DataMember]
         public AutomationIdentifier AutomationIdentifier { get; set; }
+
+        [DataMember]
+        public int Ordinal { get; set; }
+
+        [DataMember]
+        public AutomationIdentifier ParentIdentifier { get; set; }
     }
 }
