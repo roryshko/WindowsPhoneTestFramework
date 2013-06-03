@@ -90,7 +90,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             return (int) (percentage*oneHundredPercentValue/100.0);
         }
 
-        [Then(@"/^I tap on screen (\d+)% from the left and (\d+)% from the top$/")]
+        [Then(@"I tap on screen (\d+)% from the left and (\d+)% from the top$")]
         public void ThenITapOnPercentPosition(int xPercent, int yPercent)
         {
             var orientation = Emu.DisplayInputController.GuessOrientation();
@@ -98,7 +98,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             ThenITapOnPosition(PercentToPosition(xPercent, screenSize.Width), PercentToPosition(yPercent, screenSize.Height));
         }
 
-        [Then(@"/^I tap on screen (\d+) from the left and (\d+) from the top$/")]
+        [Then(@"I tap on screen (\d+) from the left and (\d+) from the top$")]
         public void ThenITapOnPosition(int x, int y)
         {
             IGesture gesture = TapGesture.TapOnPosition(x, y);
