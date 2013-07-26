@@ -1,18 +1,21 @@
-﻿using System;
-using System.Net;
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="GetColorCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
-    using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
-
     public partial class GetColorCommand
     {
         protected override void DoImpl()
@@ -21,25 +24,28 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 
             if (element == null)
             {
-                element = (FrameworkElement)AutomationElementFinder.FindElementByDisplayedText(AutomationIdentifier.AutomationName);
+                element =
+                    (FrameworkElement)
+                    AutomationElementFinder.FindElementByDisplayedText(AutomationIdentifier.AutomationName);
             }
 
-            if(element != null)
+            if (element != null)
             {
                 //Find out its background color
-                if(element is Border)
+                if (element is Border)
                 {
-                    Border elementControl = (Border)element;
+                    var elementControl = (Border) element;
 
                     if (elementControl.Background is SolidColorBrush)
                     {
-                        SendColorResult(((SolidColorBrush)elementControl.Background).Color.ToString());
+                        SendColorResult(((SolidColorBrush) elementControl.Background).Color.ToString());
                         return;
                     }
                 }
             }
 
-            SendNotFoundResult(string.Format("GetColorCommand: Could not find the element - {0}", AutomationIdentifier.ToIdOrName()));
+            SendNotFoundResult(string.Format("GetColorCommand: Could not find the element - {0}",
+                                             AutomationIdentifier.ToIdOrName()));
         }
     }
 }

@@ -1,10 +1,16 @@
-﻿using System;
-using System.IO;
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="GetApplicationSettingsCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
+
 using System.IO.IsolatedStorage;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Xml.Serialization;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
@@ -20,6 +26,5 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                     .Where(pair => pair.Value is string)
                     .ToDictionary(pair => pair.Key, pair => pair.Value.ToString()));
         }
-
     }
 }

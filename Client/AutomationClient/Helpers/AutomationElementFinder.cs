@@ -1,56 +1,58 @@
-// ----------------------------------------------------------------------
-// <copyright file="AutomationElementFinder.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="AutomationElementFinder.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Automation;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
+using Microsoft.Phone.Controls;
 using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
 {
-    using System.Collections;
-    using System.Windows.Controls.Primitives;
-    using Microsoft.Phone.Controls;
-
     public static class AutomationElementFinder
     {
-        public readonly static List<string> StringPropertyNamesToTestForText = new List<string>()
-                                                                       {
-                                                                            "Text",
-                                                                            "Password",
-                                                                            "Message",
-                                                                            "Source"
-                                                                       };
-        public readonly static List<string> ObjectPropertyNamesToTestForText = new List<string>()
-                                                                       {
-                                                                            "Content"
-                                                                       };
-        public readonly static List<string> PropertyNamesToTestForValue = new List<string>()
-                                                                       {
-                                                                            "Text",
-                                                                            "Password",
-                                                                            "IsChecked",
-                                                                            "Value"
-                                                                       };
+        public static readonly List<string> StringPropertyNamesToTestForText = new List<string>
+            {
+                "Text",
+                "Password",
+                "Message",
+                "Source"
+            };
 
-        public static UIElement FindElement(AutomationIdentifier controlIdentifier, int ordinal = 0, AutomationIdentifier parentIdentifier = null)
+        public static readonly List<string> ObjectPropertyNamesToTestForText = new List<string>
+            {
+                "Content"
+            };
+
+        public static readonly List<string> PropertyNamesToTestForValue = new List<string>
+            {
+                "Text",
+                "Password",
+                "IsChecked",
+                "Value"
+            };
+
+        public static UIElement FindElement(AutomationIdentifier controlIdentifier, int ordinal = 0,
+                                            AutomationIdentifier parentIdentifier = null)
         {
             // get the parent element as uielement
             var rootVisual = GetRootVisual();
-            var parent = parentIdentifier == null ? rootVisual :
-                FindElementsNearestParentOfType<UIElement>(rootVisual, parentIdentifier);
+            var parent = parentIdentifier == null
+                             ? rootVisual
+                             : FindElementsNearestParentOfType<UIElement>(rootVisual, parentIdentifier);
 
             // get the control that is a child of parent as uielement
             var control = FindElementsNearestParentOfType<UIElement>(parent, controlIdentifier, ordinal);
@@ -58,16 +60,20 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             return control;
         }
 
-        public static UIElement FindElementsNearestParentOfType<TParentType>(UIElement root, AutomationIdentifier identifier, int index = 0)
+        public static UIElement FindElementsNearestParentOfType<TParentType>(UIElement root,
+                                                                             AutomationIdentifier identifier,
+                                                                             int index = 0)
             where TParentType : UIElement
         {
             if (!string.IsNullOrEmpty(identifier.AutomationName))
             {
-                var candidate = FindElementsNearestParentByAutomationProperty<TParentType>(root, identifier.AutomationName, index);
+                var candidate = FindElementsNearestParentByAutomationProperty<TParentType>(root,
+                                                                                           identifier.AutomationName,
+                                                                                           index);
                 if (candidate != null)
                     return candidate;
-            } 
-            
+            }
+
             if (!string.IsNullOrEmpty(identifier.AutomationName))
             {
                 var candidate = FindElementsNearestParentByAutomationTag<TParentType>(root, identifier.AutomationName);
@@ -99,10 +105,10 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             if (propertyInfo == null)
                 return default(T);
 
-            if (!typeof(T).IsAssignableFrom(propertyInfo.PropertyType))
+            if (!typeof (T).IsAssignableFrom(propertyInfo.PropertyType))
                 return default(T);
 
-            return (T)propertyInfo.GetValue(target, new object[0]);
+            return (T) propertyInfo.GetValue(target, new object[0]);
         }
 
         public static bool SetElementProperty<T>(object target, string name, T value)
@@ -112,7 +118,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             if (propertyInfo == null)
                 return false;
 
-            if (!typeof(T).IsAssignableFrom(propertyInfo.PropertyType))
+            if (!typeof (T).IsAssignableFrom(propertyInfo.PropertyType))
                 return false;
 
             propertyInfo.SetValue(target, value, new object[0]);
@@ -133,7 +139,11 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             public UIElement IdentifiedElement { get; private set; }
             public TElementType NearestParent { get; private set; }
 
-            public bool HasNearestParent { get { return NearestParent != null; } }
+            public bool HasNearestParent
+            {
+                get { return NearestParent != null; }
+            }
+
             public bool TryInsertNearestParent(UIElement nearestParentCandidate)
             {
                 if (HasNearestParent)
@@ -142,7 +152,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                 var cast = nearestParentCandidate as TElementType;
                 if (cast == null)
                     return false;
-                
+
                 NearestParent = cast;
                 return true;
             }
@@ -154,7 +164,9 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             }
         }
 
-        private static SearchResult<TElementType> SearchFrameworkElementTreeFor<TElementType>(UIElement parentElement, Func<UIElement, bool> elementTest)
+        private static SearchResult<TElementType> SearchFrameworkElementTreeFor<TElementType>(UIElement parentElement,
+                                                                                              Func<UIElement, bool>
+                                                                                                  elementTest)
             where TElementType : UIElement
         {
             if (parentElement == null)
@@ -181,30 +193,32 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             return null;
         }
 
-        public static UIElement FindElementsNearestParentByAutomationProperty<TElementType>(UIElement root, string controlName, int index)
+        public static UIElement FindElementsNearestParentByAutomationProperty<TElementType>(UIElement root,
+                                                                                            string controlName,
+                                                                                            int index)
             where TElementType : UIElement
         {
             var count = -1;
 
             Func<UIElement, bool> elementTest = (element) =>
-            {
-                var frameworkElement = element as FrameworkElement;
-                if (frameworkElement == null)
-                    return false;
+                {
+                    var frameworkElement = element as FrameworkElement;
+                    if (frameworkElement == null)
+                        return false;
 
-                var name = frameworkElement.GetValue(AutomationProperties.NameProperty);
-                if (name == null)
-                    return false;
+                    var name = frameworkElement.GetValue(AutomationProperties.NameProperty);
+                    if (name == null)
+                        return false;
 
-                if (string.IsNullOrWhiteSpace(name.ToString()))
-                    return false;
+                    if (string.IsNullOrWhiteSpace(name.ToString()))
+                        return false;
 
-                if (name.ToString() != controlName)
-                    return false;
+                    if (name.ToString() != controlName)
+                        return false;
 
-                count++;
-                return index < 0 || count == index;
-            };
+                    count++;
+                    return index < 0 || count == index;
+                };
 
             var searchResult = SearchFrameworkElementTreeFor<TElementType>(root, elementTest);
 
@@ -223,10 +237,10 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             return searchResult.NearestParent;
         }
 
-        public static UIElement FindElementsNearestParentByAutomationTag<TElementType>(UIElement root, string automationName)
+        public static UIElement FindElementsNearestParentByAutomationTag<TElementType>(UIElement root,
+                                                                                       string automationName)
             where TElementType : UIElement
         {
-
             Func<UIElement, bool> elementTest = (element) =>
                 {
                     var frameworkElement = element as FrameworkElement;
@@ -258,7 +272,8 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             return searchResult.NearestParent;
         }
 
-        public static UIElement FindElementsNearestParentByElementName<TElementType>(UIElement root, string elementName, int index)
+        public static UIElement FindElementsNearestParentByElementName<TElementType>(UIElement root, string elementName,
+                                                                                     int index)
             where TElementType : UIElement
         {
             var count = -1;
@@ -299,10 +314,10 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             return FindElementsNearestParentByDisplayedText<UIElement>(GetRootVisual(), displayedText);
         }
 
-        public static UIElement FindElementsNearestParentByDisplayedText<TElementType>(UIElement root, string displayedText)
+        public static UIElement FindElementsNearestParentByDisplayedText<TElementType>(UIElement root,
+                                                                                       string displayedText)
             where TElementType : UIElement
         {
-
             Func<UIElement, bool> elementTest = (element) =>
                 {
                     var frameworkElement = element as FrameworkElement;
@@ -315,14 +330,16 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                     foreach (var textName in StringPropertyNamesToTestForText)
                     {
                         var stringPropertyValue = GetElementProperty<string>(frameworkElement, textName);
-                        if (!string.IsNullOrEmpty(stringPropertyValue)) if (stringPropertyValue.Contains(displayedText)) return true;
+                        if (!string.IsNullOrEmpty(stringPropertyValue))
+                            if (stringPropertyValue.Contains(displayedText)) return true;
                     }
 
                     foreach (var objectName in ObjectPropertyNamesToTestForText)
                     {
                         var objectPropertyValue = GetElementProperty<object>(frameworkElement, objectName);
                         if (objectPropertyValue != null && objectPropertyValue is string
-                            && !string.IsNullOrEmpty(objectPropertyValue.ToString())) if (objectPropertyValue.ToString().Contains(displayedText)) return true;
+                            && !string.IsNullOrEmpty(objectPropertyValue.ToString()))
+                            if (objectPropertyValue.ToString().Contains(displayedText)) return true;
                     }
 
                     return false;
@@ -335,7 +352,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                 foreach (Popup popup in VisualTreeHelper.GetOpenPopups())
                 {
                     searchResult = SearchFrameworkElementTreeFor<TElementType>(popup.Child, elementTest);
-                    if(searchResult != null) break;
+                    if (searchResult != null) break;
                 }
             }
 
@@ -344,9 +361,9 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
 
             return searchResult.NearestParent;
         }
-		
-		public static UIElement FindElementsChildByType<TElementType>(UIElement parentElement)
-            where TElementType : UIElement        
+
+        public static UIElement FindElementsChildByType<TElementType>(UIElement parentElement)
+            where TElementType : UIElement
         {
             if (parentElement == null)
                 return null;
@@ -365,16 +382,16 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                 }
             }
 
-            return null; 
+            return null;
         }
-		
+
         public static string GetTextForFrameworkElement(FrameworkElement frameworkElement)
         {
             foreach (var textName in StringPropertyNamesToTestForText)
             {
                 var stringPropertyValue = GetElementProperty<string>(frameworkElement, textName);
                 if (stringPropertyValue != null)
-                   return stringPropertyValue;
+                    return stringPropertyValue;
             }
 
             foreach (var objectName in ObjectPropertyNamesToTestForText)
@@ -395,7 +412,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                 var objectPropertyValue = GetElementProperty<object>(frameworkElement, objectName);
                 if (objectPropertyValue != null)
                 {
-                    return (string) objectPropertyValue.ToString();
+                    return objectPropertyValue.ToString();
                 }
             }
 

@@ -1,20 +1,20 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="WindowsEmulatorDisplayInputControllerBase.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="WindowsEmulatorDisplayInputControllerBase.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System.Drawing;
 using WindowsInput;
 
 namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
 {
-    public abstract class WindowsEmulatorDisplayInputControllerBase : EmulatorDisplayInputControllerBase 
+    public abstract class WindowsEmulatorDisplayInputControllerBase : EmulatorDisplayInputControllerBase
     {
         // Emulator Win32 Windows process name, window class names and window titles
         // - these are made public in case your environment uses different class/window names
@@ -24,7 +24,7 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
 
         protected WindowsEmulatorDisplayInputControllerBase(IInputSimulator inputSimulator)
             : base(inputSimulator)
-        {            
+        {
         }
 
         protected override void SetEmulatorWindowInForeground()
@@ -55,7 +55,8 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
         protected override void ReleaseEmulatorWindowFromForeground()
         {
             if (!NativeMethods.RevokeWindowTopMost(EmulatorProcessName))
-                InvokeTrace("Failed to revoke emulator window topmost"); // this is ignored for now... no need to throw an exception here
+                InvokeTrace("Failed to revoke emulator window topmost");
+                    // this is ignored for now... no need to throw an exception here
         }
 
         protected override Rectangle GetEmulatorWindowRect()
@@ -65,6 +66,5 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
                 throw new ManipulationFailedException("Failed to get emulator window rectangle");
             return rect;
         }
-
     }
 }

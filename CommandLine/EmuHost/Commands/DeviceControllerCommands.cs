@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="DeviceControllerCommands.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="DeviceControllerCommands.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.ComponentModel;
@@ -25,22 +25,25 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost.Commands
 
         private ApplicationDefinition CurrentApplicationDefinition
         {
-            get 
-            { 
+            get
+            {
                 var toReturn = new ApplicationDefinition();
 
                 var properties =
-                    from property in CommandLine.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty)
+                    from property in
+                        CommandLine.GetType()
+                                   .GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty)
                     let argAttribute =
-                        (ApplicationDefinitionArgAttribute)property.GetCustomAttributes(typeof (ApplicationDefinitionArgAttribute), false).FirstOrDefault()
+                        (ApplicationDefinitionArgAttribute)
+                        property.GetCustomAttributes(typeof (ApplicationDefinitionArgAttribute), false).FirstOrDefault()
                     where argAttribute != null
                     let propertyValue = property.GetValue(CommandLine, null)
                     where propertyValue != null
                     select new
-                               {
-                                   StringValue = propertyValue.ToString(),
-                                   FullName = argAttribute.FullName
-                               };
+                        {
+                            StringValue = propertyValue.ToString(),
+                            argAttribute.FullName
+                        };
 
                 foreach (var property in properties)
                     toReturn.Fields[property.FullName] = property.StringValue;

@@ -1,13 +1,13 @@
-// ----------------------------------------------------------------------
-// <copyright file="AutomationEnabledStepDefinition.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="AutomationEnabledStepDefinition.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -15,7 +15,7 @@ using TechTalk.SpecFlow;
 namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
     [Binding]
-    public class AutomationEnabledStepDefinition :EmuDefinitionBase
+    public class AutomationEnabledStepDefinition : EmuDefinitionBase
     {
         [StepDefinition(@"I see the controls are enabled")]
         public void ThenISeeTheNamedFieldsAreEnabled(Table table)
@@ -55,7 +55,8 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Emu.ApplicationAutomationController.WaitForControl(namedField);
             var result = Emu.ApplicationAutomationController.TryGetControlIsEnabled(namedField, out actualIsEnabled);
 
-            Assert.IsTrue(result, "Failed to get enabled state for '{0}' - looking for '{1}'", actualIsEnabled, expectedIsEnabled);
+            Assert.IsTrue(result, "Failed to get enabled state for '{0}' - looking for '{1}'", actualIsEnabled,
+                          expectedIsEnabled);
             Assert.AreEqual(
                 expectedIsEnabled,
                 actualIsEnabled,

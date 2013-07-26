@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="SwipeGesture.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Authors - K2DaC, slodge
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="TapGesture.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -22,13 +22,13 @@ namespace WindowsPhoneTestFramework.Server.Core.Gestures
         public Point TapPosition { get; set; }
 
         public TapGesture(int x, int y)
-            : this (x, y, DefaultTapDuration)
-        {            
+            : this(x, y, DefaultTapDuration)
+        {
         }
 
         public TapGesture(int x, int y, TimeSpan tapDuration)
         {
-            TapPosition = new Point(x, y);       
+            TapPosition = new Point(x, y);
             NumberOfIntermediatePoints = 0;
             PeriodBetweenPoints = tapDuration;
         }
@@ -40,11 +40,11 @@ namespace WindowsPhoneTestFramework.Server.Core.Gestures
 
         protected override IEnumerable<Point> GetScreenPoints()
         {
-            return new Point[]
-                       {
-                           TapPosition,
-                           TapPosition
-                       };
+            return new[]
+                {
+                    TapPosition,
+                    TapPosition
+                };
         }
     }
 }

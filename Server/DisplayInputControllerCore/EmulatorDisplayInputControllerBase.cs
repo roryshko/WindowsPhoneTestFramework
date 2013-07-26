@@ -1,13 +1,13 @@
-// ----------------------------------------------------------------------
-// <copyright file="EmulatorDisplayInputControllerBase.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="EmulatorDisplayInputControllerBase.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -97,7 +97,8 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
             var array = points.ToArray();
 
             if (array.Length < 2)
-                throw new ManipulationFailedException("Requested PerformMouseDownMoveUp with too few points - {0}", array.Length);
+                throw new ManipulationFailedException("Requested PerformMouseDownMoveUp with too few points - {0}",
+                                                      array.Length);
 
             // mouse down at the start point
             var startPoint = array.First();
@@ -130,11 +131,11 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
             var rect = GetEmulatorWindowRect();
             var screenRect = NativeMethods.GetDesktopRectangle();
             var emulatorScaleRatio = EstimateScaleRatio(rect);
-            return new Point()
-                       {
-                           X = (int)(VirtualScreenWidth * (rect.X + emulatorScaleRatio * point.X) / screenRect.Width),
-                           Y = (int)(VirtualScreenHeight * (rect.Y + emulatorScaleRatio * point.Y) / screenRect.Height)
-                       };
+            return new Point
+                {
+                    X = (int) (VirtualScreenWidth*(rect.X + emulatorScaleRatio*point.X)/screenRect.Width),
+                    Y = (int) (VirtualScreenHeight*(rect.Y + emulatorScaleRatio*point.Y)/screenRect.Height)
+                };
         }
 
         public IEnumerable<Point> TranslatePhonePositionsToHostPositions(IEnumerable<Point> points)
@@ -150,10 +151,10 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
             switch (orientation)
             {
                 case PhoneOrientation.Landscape800By480:
-                    return (double)rect.Width / 800.0;
+                    return rect.Width/800.0;
 
                 case PhoneOrientation.Portrait480By800:
-                    return (double)rect.Width / 480.0;
+                    return rect.Width/480.0;
             }
 
             throw new ManipulationFailedException("Unexpected orientation " + orientation);
@@ -161,12 +162,13 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
 
         private static PhoneOrientation GuessOrientation(Rectangle rect)
         {
-            var ratio = ((double)rect.Width) / ((double)rect.Height);
-            if (Math.Abs(ratio - 800.0 / 480.0) < 0.01)
+            var ratio = (rect.Width)/((double) rect.Height);
+            if (Math.Abs(ratio - 800.0/480.0) < 0.01)
                 return PhoneOrientation.Landscape800By480;
-            if (Math.Abs(ratio - 480.0 / 800.0) < 0.01)
+            if (Math.Abs(ratio - 480.0/800.0) < 0.01)
                 return PhoneOrientation.Portrait480By800;
-            throw new ManipulationFailedException("Unable to guess ratio for width {0} height {1}", rect.Width, rect.Height);
+            throw new ManipulationFailedException("Unable to guess ratio for width {0} height {1}", rect.Width,
+                                                  rect.Height);
         }
 
         public void SendKeyPress(KeyboardKeyCode keyboardKeyCode)
@@ -185,7 +187,7 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
 
         public virtual void SendKeyLongPress(KeyboardKeyCode keyboardKeyCode, TimeSpan duration)
         {
-            SendKeyLongPress(ConvertKeyCode(keyboardKeyCode), duration);            
+            SendKeyLongPress(ConvertKeyCode(keyboardKeyCode), duration);
         }
 
         public void SendKeyLongPress(VirtualKeyCode virtualKeyCode, TimeSpan duration)
@@ -208,7 +210,7 @@ namespace WindowsPhoneTestFramework.Server.DisplayInputControllerCore
 
         private static VirtualKeyCode ConvertKeyCode(KeyboardKeyCode inputCode)
         {
-            return (VirtualKeyCode)inputCode;
+            return (VirtualKeyCode) inputCode;
         }
 
         protected static void Pause(TimeSpan duration)

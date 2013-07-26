@@ -1,9 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="GetIsCheckedCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
+
+using System;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
@@ -29,7 +37,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 
                 try
                 {
-                    var val = (bool)isChecked;
+                    var val = (bool) isChecked;
                     SendTextResult(val.ToString());
                     return;
                 }

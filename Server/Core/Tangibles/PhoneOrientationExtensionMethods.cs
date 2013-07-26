@@ -1,16 +1,15 @@
-// ----------------------------------------------------------------------
-// <copyright file="PhoneOrientationExtensionMethods.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="PhoneOrientationExtensionMethods.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
-using System.Diagnostics;
 using System.Drawing;
 
 namespace WindowsPhoneTestFramework.Server.Core.Tangibles
@@ -64,16 +63,26 @@ namespace WindowsPhoneTestFramework.Server.Core.Tangibles
             }
 
             if (position.X + position.Width <= 0)
-                throw new ArgumentOutOfRangeException("bottom", string.Format("IsVisible position.X ({0}) + position.Width ({1}) <= 0 ", position.X, position.Width));
+                throw new ArgumentOutOfRangeException("bottom",
+                                                      string.Format(
+                                                          "IsVisible position.X ({0}) + position.Width ({1}) <= 0 ",
+                                                          position.X, position.Width));
 
             if (position.Y + position.Height <= 0)
-                throw new ArgumentOutOfRangeException("right", string.Format("IsVisible position.Y ({0}) + position.Height ({1}) <= 0 ", position.Y, position.Height));
+                throw new ArgumentOutOfRangeException("right",
+                                                      string.Format(
+                                                          "IsVisible position.Y ({0}) + position.Height ({1}) <= 0 ",
+                                                          position.Y, position.Height));
 
             if (position.X >= width)
-                throw new ArgumentOutOfRangeException("left", string.Format("IsVisible position.X ({0}) > width ({1})", position.X, width));
+                throw new ArgumentOutOfRangeException("left",
+                                                      string.Format("IsVisible position.X ({0}) > width ({1})",
+                                                                    position.X, width));
 
             if (position.Y >= height)
-                throw new ArgumentOutOfRangeException("top", string.Format("IsVisible position.Y ({0}) > height ({1})", position.Y, height));
+                throw new ArgumentOutOfRangeException("top",
+                                                      string.Format("IsVisible position.Y ({0}) > height ({1})",
+                                                                    position.Y, height));
         }
     }
 }

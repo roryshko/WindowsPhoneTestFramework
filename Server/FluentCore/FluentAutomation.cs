@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="FluentAutomation.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="FluentAutomation.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Drawing;
@@ -15,8 +15,8 @@ using WindowsPhoneTestFramework.Server.Core;
 
 namespace WindowsPhoneTestFramework.Server.FluentCore
 {
-    #warning Still need to add Device and UI features to this code!
-    #warning Also missing latest newest commands - e.g. scroll and select list items
+#warning Still need to add Device and UI features to this code!
+#warning Also missing latest newest commands - e.g. scroll and select list items
 
     public abstract class FluentBase
     {
@@ -52,7 +52,7 @@ namespace WindowsPhoneTestFramework.Server.FluentCore
         public void WaitFor()
         {
             if (!Automation.ApplicationAutomationController.WaitIsAlive())
-                throw new AutomationException("Wait failed");            
+                throw new AutomationException("Wait failed");
         }
 
         public bool IsRunning
@@ -201,13 +201,13 @@ namespace WindowsPhoneTestFramework.Server.FluentCore
         public void Tap()
         {
             if (!Automation.ApplicationAutomationController.InvokeControlTapAction(_controlId))
-                throw new AutomationException("Unable to tap " + _controlId);            
+                throw new AutomationException("Unable to tap " + _controlId);
         }
 
         public void WaitFor()
         {
             if (!Automation.ApplicationAutomationController.WaitForControl(_controlId))
-                throw new AutomationException("Wait failed for " + _controlId);            
+                throw new AutomationException("Wait failed for " + _controlId);
         }
 
         public void WaitFor(TimeSpan timeOut)
@@ -218,10 +218,7 @@ namespace WindowsPhoneTestFramework.Server.FluentCore
 
         public bool IsPresent
         {
-            get
-            {
-                return Automation.ApplicationAutomationController.LookForControl(_controlId);
-            }
+            get { return Automation.ApplicationAutomationController.LookForControl(_controlId); }
         }
 
         public void SetFocus()

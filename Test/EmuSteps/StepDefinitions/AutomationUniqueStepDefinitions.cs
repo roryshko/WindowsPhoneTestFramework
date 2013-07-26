@@ -1,17 +1,15 @@
-// ----------------------------------------------------------------------
-// <copyright file="AutomationUniqueStepDefinitions.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
-
+//  ----------------------------------------------------------------------
+//  <copyright file="AutomationUniqueStepDefinitions.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
-using System.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using WindowsPhoneTestFramework.Test.EmuSteps.ExtensionMethods;
@@ -34,7 +32,8 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             value.StoreAsNamedUnique(key);
         }
 
-        [StepDefinition(@"I create a unique currency amount called ""([^\""]*)"" between ""([^\""]*)"" and ""([^\""]*)""")]
+        [StepDefinition(
+            @"I create a unique currency amount called ""([^\""]*)"" between ""([^\""]*)"" and ""([^\""]*)""")]
         public void StepICreateANewUniqueCurrencyValueCalledAndBetween(string key, string lowerText, string upperText)
         {
             double lower;
@@ -42,8 +41,8 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsTrue(double.TryParse(lowerText, out lower));
             Assert.IsTrue(double.TryParse(upperText, out upper));
             var random = StepFlowContextHelpers.GetRandom();
-            var doubleValue = random.NextDouble() * (upper - lower) + lower;
-            var currencyValue = Math.Round((decimal)doubleValue, 2);
+            var doubleValue = random.NextDouble()*(upper - lower) + lower;
+            var currencyValue = Math.Round((decimal) doubleValue, 2);
             currencyValue.ToString("0.00").StoreAsNamedUnique(key);
         }
 

@@ -1,13 +1,13 @@
-// ----------------------------------------------------------------------
-// <copyright file="PhoneAutomationService.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="PhoneAutomationService.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.ServiceModel;
@@ -21,7 +21,8 @@ using WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Utils;
 namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, IncludeExceptionDetailInFaults = true)]
-    public class PhoneAutomationService : TraceBase, IPhoneAutomationService, IPhoneAutomationServiceControl, IDisposable
+    public class PhoneAutomationService : TraceBase, IPhoneAutomationService, IPhoneAutomationServiceControl,
+                                          IDisposable
     {
         private enum State
         {
@@ -32,7 +33,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
         }
 
         private const int WatchdogPeriodInMilliseconds = 200;
- 
+
         private static readonly TimeSpan DefaultCommandTimeout = TimeSpan.FromSeconds(20.0);
         private static readonly TimeSpan DefaultResultTimeout = TimeSpan.FromSeconds(60.0);
 
@@ -52,8 +53,8 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
 
         static PhoneAutomationService()
         {
-            KnownTypeProvider.RegisterDerivedTypesOf<CommandBase>(typeof(CommandBase).Assembly);
-            KnownTypeProvider.RegisterDerivedTypesOf<ResultBase>(typeof(ResultBase).Assembly);
+            KnownTypeProvider.RegisterDerivedTypesOf<CommandBase>(typeof (CommandBase).Assembly);
+            KnownTypeProvider.RegisterDerivedTypesOf<ResultBase>(typeof (ResultBase).Assembly);
         }
 
         public bool Verbose { get; set; }
@@ -62,15 +63,15 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
         {
             Clear();
             _checkTimer = new Timer(WatchdogTimerTick, null, WatchdogPeriodInMilliseconds, WatchdogPeriodInMilliseconds);
-			CurrentInstance = this;
+            CurrentInstance = this;
         }
-		
+
 
         public void Dispose()
         {
-			if (_checkTimer != null)
-				_checkTimer.Dispose();
-			
+            if (_checkTimer != null)
+                _checkTimer.Dispose();
+
             if (CurrentInstance == this)
                 CurrentInstance = null;
         }
@@ -82,7 +83,8 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
             AddCommand(command, onResult, DefaultCommandTimeout, DefaultResultTimeout);
         }
 
-        public void AddCommand(CommandBase command, Action<ResultBase> onResult, TimeSpan sendCommandWithin, TimeSpan expectResultWithin)
+        public void AddCommand(CommandBase command, Action<ResultBase> onResult, TimeSpan sendCommandWithin,
+                               TimeSpan expectResultWithin)
         {
             lock (this)
             {
@@ -119,7 +121,6 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
 
         public CommandBase GetNextCommand(int timeoutInMilliseconds)
         {
-
             if (_commandAvailableEvent.WaitOne(timeoutInMilliseconds))
             {
                 lock (this)
@@ -179,27 +180,26 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
                 InvokeCallbackAndClear(result);
             }
         }
-		
+
         public bool RawSubmitResult(String jsonResult)
-		{
+        {
             var result = MonoHacks.DeserialiseResultBase(jsonResult);
-			if (result == null)
-			{
-				// TODO - barf loudly!
-				return false;
-			}
-			
-			var resultBase = result as ResultBase;
-			if (resultBase == null)
-			{
-				// TODO - barf loudly!
-				return false;
-			}
-			
-			SubmitResult(resultBase);
-			return true;
-		}
-	
+            if (result == null)
+            {
+                // TODO - barf loudly!
+                return false;
+            }
+
+            var resultBase = result;
+            if (resultBase == null)
+            {
+                // TODO - barf loudly!
+                return false;
+            }
+
+            SubmitResult(resultBase);
+            return true;
+        }
 
         #endregion // IPhoneAutomationService
 
@@ -215,14 +215,14 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
                         if (DateTime.UtcNow - _timeCommandAdded > _timeAllowedForSend)
                         {
                             InvokeTrace("Command timed out waiting for send");
-                            InvokeCallbackAndClear(new TimeoutFailedResult() { Id = _currentCommand.Id });
+                            InvokeCallbackAndClear(new TimeoutFailedResult {Id = _currentCommand.Id});
                         }
                         break;
                     case State.CommandSent:
                         if (DateTime.UtcNow - _timeCommandSent > _timeAllowedForResult)
                         {
                             InvokeTrace("Command timed out waiting for response");
-                            InvokeCallbackAndClear(new TimeoutFailedResult() { Id = _currentCommand.Id });
+                            InvokeCallbackAndClear(new TimeoutFailedResult {Id = _currentCommand.Id});
                         }
                         break;
                     default:
@@ -234,7 +234,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
 
         private void InvokeCallbackAndClear(ResultBase result)
         {
-            lock(this)
+            lock (this)
             {
                 if (_resultCallback != null)
                 {
@@ -251,10 +251,9 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
         private bool IsCurrentCommand(Guid commandId)
         {
             return _currentCommand != null
-                    && _currentCommand.Id == commandId;
+                   && _currentCommand.Id == commandId;
         }
 
         #endregion // Private methods
-
     }
 }

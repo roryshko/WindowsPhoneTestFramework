@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="InvokeControlTapActionCommand.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="SelectorItemCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Windows.Automation.Peers;
@@ -41,7 +41,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             }
 
             var button = AutomationElementFinder.FindElementsChildByType<Button>(listBoxItem);
-            if (button != null)  // Workaround for nasty lists that use buttons instead of the list select method
+            if (button != null) // Workaround for nasty lists that use buttons instead of the list select method
             {
                 // automate the invoke
                 var buttonPeer = FrameworkElementAutomationPeer.CreatePeerForElement(button);
@@ -61,11 +61,9 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 {
                     SendExceptionFailedResult(exception);
                 }
-
             }
             else
             {
-
                 // automate the select
                 var listBoxPeer = FrameworkElementAutomationPeer.CreatePeerForElement(listBoxItem);
                 var pattern = listBoxPeer.GetPattern(PatternInterface.SelectionItem) as ISelectionItemProvider;

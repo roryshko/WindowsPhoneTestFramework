@@ -1,18 +1,17 @@
-// ----------------------------------------------------------------------
-// <copyright file="AutomationController.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="AutomationController.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Configuration;
 using System.Threading;
-
 using WindowsPhoneTestFramework.Server.Core;
 using WindowsPhoneTestFramework.Server.Utils;
 using WindowsPhoneTestFramework.Server.WCFHostedAutomationController;
@@ -25,6 +24,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
         private const string DefaultPort = "8085";
 
         private string _name;
+
         public string Name
         {
             get
@@ -36,10 +36,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
 
                 return _name;
             }
-            set
-            {
-                _name = value;
-            }
+            set { _name = value; }
         }
 
         public string Port
@@ -66,7 +63,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
 
             else
             {
-                var pairs = names.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                var pairs = names.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries);
 
                 GetNextAvailableDevice(pairs, 0);
 
@@ -77,7 +74,8 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
 
                 if (string.IsNullOrEmpty(_name))
                 {
-                    throw new InvalidOperationException("Timed out waiting for an emulator to be available... Too many tests running in parallel.");
+                    throw new InvalidOperationException(
+                        "Timed out waiting for an emulator to be available... Too many tests running in parallel.");
                 }
             }
         }
@@ -107,7 +105,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
 
         private void PopulateNames(string pair, Mutex mut)
         {
-            var split = pair.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var split = pair.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
 
             if (split.Length == 1)
             {
@@ -127,7 +125,12 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
             _mutex = mut;
         }
 
-        public string Version { get { return "0.1"; } } // not started counting yet!
+        public string Version
+        {
+            get { return "0.1"; }
+        }
+
+        // not started counting yet!
 
         private ServiceHostController _hostController;
 
@@ -135,9 +138,17 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
 
         private Mutex _mutex;
 
-        public IApplicationAutomationController ApplicationAutomationController { get { return _hostController == null ? null : _hostController.AutomationController; } }
+        public IApplicationAutomationController ApplicationAutomationController
+        {
+            get { return _hostController == null ? null : _hostController.AutomationController; }
+        }
+
         public IDeviceController DeviceController { get; set; }
-        public IDisplayInputController DisplayInputController { get { return DeviceController.DisplayInputController; } }
+
+        public IDisplayInputController DisplayInputController
+        {
+            get { return DeviceController.DisplayInputController; }
+        }
 
         public void Dispose()
         {
@@ -151,7 +162,8 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
             GC.SuppressFinalize(this);
         }
 
-        public void Start(string initialisationString = null, AutomationIdentification automationIdentification = AutomationIdentification.TryEverything)
+        public void Start(string initialisationString = null,
+                          AutomationIdentification automationIdentification = AutomationIdentification.TryEverything)
         {
             if (_hostController != null)
                 throw new InvalidOperationException("hostController already initialised");
@@ -159,7 +171,9 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
             if (DeviceController != null)
                 throw new InvalidOperationException("Driver already initialised");
 
-            var bindingAddressUri = string.IsNullOrEmpty(initialisationString) ? BuildBindingAddress() : new Uri(initialisationString);
+            var bindingAddressUri = string.IsNullOrEmpty(initialisationString)
+                                        ? BuildBindingAddress()
+                                        : new Uri(initialisationString);
 
             StartDriver();
             StartPhoneAutomationController(automationIdentification, bindingAddressUri);
@@ -174,7 +188,12 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
 
         public static WindowsPhoneVersion ExecutingEmulatorVersion
         {
-            get { return typeof(Microsoft.SmartDevice.Connectivity.Platform).Assembly.GetName().Version.Major == 11 ? WindowsPhoneVersion.Eight : WindowsPhoneVersion.Seven; }
+            get
+            {
+                return typeof (Microsoft.SmartDevice.Connectivity.Platform).Assembly.GetName().Version.Major == 11
+                           ? WindowsPhoneVersion.Eight
+                           : WindowsPhoneVersion.Seven;
+            }
         }
 
         private void StartDriver()
@@ -187,8 +206,8 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
             else
             {
                 driver = ExecutingEmulatorVersion == WindowsPhoneVersion.Seven
-                                 ? new EmulatorWindowsPhoneDeviceController(Name)
-                                 : new Win8EmulatorWindowsPhoneDeviceController(Name, Port);
+                             ? new EmulatorWindowsPhoneDeviceController(Name)
+                             : new Win8EmulatorWindowsPhoneDeviceController(Name, Port);
             }
 
             driver.Trace += (sender, args) => InvokeTrace(args);
@@ -200,14 +219,15 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
             DeviceController = driver;
         }
 
-        protected void StartPhoneAutomationController(AutomationIdentification automationIdentification, Uri bindingAddress)
+        protected void StartPhoneAutomationController(AutomationIdentification automationIdentification,
+                                                      Uri bindingAddress)
         {
             try
             {
-                var hostController = new ServiceHostController()
-                {
-                    AutomationIdentification = automationIdentification,
-                };
+                var hostController = new ServiceHostController
+                    {
+                        AutomationIdentification = automationIdentification,
+                    };
 
                 hostController.Trace += (sender, args) => InvokeTrace(args);
 

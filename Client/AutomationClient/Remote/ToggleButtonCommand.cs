@@ -1,13 +1,22 @@
-﻿using System.Linq;
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="ToggleButtonCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
+
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls.Primitives;
-using Microsoft.Phone.Controls;
 using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
-    public partial class ToggleButtonCommand :  AutomationElementCommandBase    
+    public partial class ToggleButtonCommand : AutomationElementCommandBase
     {
         protected override void DoImpl()
         {
@@ -15,7 +24,8 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 
             if (element == null)
             {
-                SendNotFoundResult(string.Format("ToggleButtonCommand: Could not find the element : {0}", AutomationIdentifier.ToIdOrName()));
+                SendNotFoundResult(string.Format("ToggleButtonCommand: Could not find the element : {0}",
+                                                 AutomationIdentifier.ToIdOrName()));
                 return;
             }
 

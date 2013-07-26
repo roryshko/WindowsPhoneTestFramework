@@ -1,13 +1,13 @@
-// ----------------------------------------------------------------------
-// <copyright file="StepFlowContextHelpers.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="StepFlowContextHelpers.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.IO;
@@ -24,7 +24,8 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
         private const string EmuPictureIndexKey = "Emu.PictureIndex";
         private const string EmuRandomGeneratorKey = "Emu.RandomGenerator";
 
-        public static IAutomationController GetEmuAutomationController(ScenarioContext context, IConfiguration configuration)
+        public static IAutomationController GetEmuAutomationController(ScenarioContext context,
+                                                                       IConfiguration configuration)
         {
             Assert.That(context != null);
             Assert.That(configuration != null);
@@ -56,8 +57,9 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
             return GetNextSupportingInfoFileName(featureContext, scenarioContext, EmuShotPrefix, "png");
         }
 
-        public static string GetNextSupportingInfoFileName(FeatureContext featureContext, ScenarioContext scenarioContext,
-                                                            string prefix, string extension)
+        public static string GetNextSupportingInfoFileName(FeatureContext featureContext,
+                                                           ScenarioContext scenarioContext,
+                                                           string prefix, string extension)
         {
             Assert.NotNull(featureContext);
             Assert.NotNull(scenarioContext);
@@ -116,7 +118,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
                 IAutomationController emu = null;
                 if (!context.TryGetValue(EmuControllerKey, out emu))
                     return;
-                
+
                 if (emu.DisplayInputController != null)
                     emu.DisplayInputController.ReleaseWindowFromForeground();
 

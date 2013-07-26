@@ -1,15 +1,14 @@
-// ----------------------------------------------------------------------
-// <copyright file="GetTextCommand.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="GetTextCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
-using System.Windows;
 using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
@@ -24,7 +23,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 return;
             }
 
-            var text =  AutomationElementFinder.GetTextForFrameworkElement(element);
+            var text = AutomationElementFinder.GetTextForFrameworkElement(element);
             if (text != null)
             {
                 SendTextResult(text);
@@ -32,7 +31,8 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             }
 
             // if text is missing... then give up
-            SendNotFoundResult(string.Format("GetTextCommand: Could not find the element : {0}", AutomationIdentifier.ToIdOrName()));
+            SendNotFoundResult(string.Format("GetTextCommand: Could not find the element : {0}",
+                                             AutomationIdentifier.ToIdOrName()));
         }
     }
 }

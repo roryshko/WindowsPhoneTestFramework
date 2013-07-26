@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="AppConfigFileBasedConfiguration.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="AppConfigFileBasedConfiguration.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Configuration;
@@ -23,7 +23,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
         private const string EmuStepsAutomationControllerKeyName = EmuStepsPrefix + "AutomationController";
         private const string EmuStepsAutomationIdentificationKeyName = EmuStepsPrefix + "AutomationIdentification";
 
-        public string AutomationControllerName{get; set; }
+        public string AutomationControllerName { get; set; }
         public string ControllerInitialisationString { get; set; }
 
         public AutomationIdentification AutomationIdentification { get; set; }
@@ -40,7 +40,8 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
                 ControllerInitialisationString = string.Empty;
 
             AutomationIdentification automationIdentification;
-            if (Enum.TryParse(ConfigurationManager.AppSettings[EmuStepsAutomationIdentificationKeyName], true, out automationIdentification))
+            if (Enum.TryParse(ConfigurationManager.AppSettings[EmuStepsAutomationIdentificationKeyName], true,
+                              out automationIdentification))
                 AutomationIdentification = automationIdentification;
             else
                 AutomationIdentification = AutomationIdentification.TryEverything;

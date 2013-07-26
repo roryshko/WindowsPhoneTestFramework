@@ -1,23 +1,22 @@
-// ----------------------------------------------------------------------
-// <copyright file="InvokeControlTapActionCommand.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="InvokeControlTapActionCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
+using System;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls.Primitives;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
-    using System;
-    using System.Windows.Automation.Peers;
-    using System.Windows.Automation.Provider;
-
     /// <summary>
     /// The invoke control tap action command.
     /// </summary>
@@ -104,7 +103,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             try
             {
                 pattern.Toggle();
-            
+
                 // Toggle won't fire the command, so do that manually!
                 var te = element as ToggleButton;
 
@@ -112,7 +111,6 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 {
                     te.Command.Execute(te.CommandParameter);
                 }
-
             }
             catch (Exception exception)
             {

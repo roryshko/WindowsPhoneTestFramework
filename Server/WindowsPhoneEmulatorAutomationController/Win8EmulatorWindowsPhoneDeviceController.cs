@@ -1,14 +1,22 @@
+//  ----------------------------------------------------------------------
+//  <copyright file="Win8EmulatorWindowsPhoneDeviceController.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net;
-
 using Microsoft.SmartDevice.Connectivity;
-
 using WindowsInput.Native;
-
 using WindowsPhoneTestFramework.Server.Core;
 using WindowsPhoneTestFramework.Server.Core.Results;
 using WindowsPhoneTestFramework.Server.Core.Tangibles;
@@ -72,7 +80,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
 
             string hostName = Dns.GetHostEntry("127.0.0.1").HostName + ":" + this.Port;
 
-            File.WriteAllLines(BddhostFilePath, new[] { hostName });
+            File.WriteAllLines(BddhostFilePath, new[] {hostName});
 
             store.SendFile(BddhostFilePath, BddhostFilePath, true);
 
@@ -146,7 +154,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
         /// </param>
         public override void SendKeyLongPress(KeyboardKeyCode virtualKeyCode, TimeSpan duration)
         {
-            var keyParams = new Dictionary<string, object> { { "keyCode", virtualKeyCode } };
+            var keyParams = new Dictionary<string, object> {{"keyCode", virtualKeyCode}};
 
             this.InvokeMethod("PressKey", keyParams);
 
@@ -167,7 +175,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
         {
             const string MethodName = "TypeKey";
 
-            var parameters = new Dictionary<string, object> { { "keyCode", hardwareButtonToKeyCode } };
+            var parameters = new Dictionary<string, object> {{"keyCode", hardwareButtonToKeyCode}};
 
             this.InvokeMethod(MethodName, parameters);
         }
@@ -239,7 +247,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
 
             ManagementBaseObject outParams = this.keyboard.Value.InvokeMethod(methodName, inParams, null);
 
-            if ((UInt32)outParams["ReturnValue"] != 0)
+            if ((UInt32) outParams["ReturnValue"] != 0)
             {
                 throw new InvalidOperationException("methodFailed");
             }

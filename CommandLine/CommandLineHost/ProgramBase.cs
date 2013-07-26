@@ -1,13 +1,13 @@
-// ----------------------------------------------------------------------
-// <copyright file="ProgramBase.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="ProgramBase.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -21,15 +21,15 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost
 {
     public class ProgramBase : IDisposable
     {
-        private Dictionary<string, DescribedMethod> _actions;
+        private readonly Dictionary<string, DescribedMethod> _actions;
 
         public ProgramBase()
         {
             _actions = new Dictionary<string, DescribedMethod>();
-            AddCommands(new ConsoleCommands()
-                            {
-                                ActionList = _actions                                
-                            });
+            AddCommands(new ConsoleCommands
+                {
+                    ActionList = _actions
+                });
         }
 
         public void Dispose()
@@ -56,7 +56,7 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost
                 if (nextCommand == null)
                     continue;
 
-                var split = nextCommand.Split(new char[] { ' ' }, 2);
+                var split = nextCommand.Split(new[] {' '}, 2);
                 string command = split[0];
                 string argument = string.Empty;
                 if (split.Length == 2)
@@ -92,7 +92,8 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost
             }
             catch (Exception exception)
             {
-                Console.WriteLine(string.Format("Exception seen - {0} - {1}", exception.GetType().FullName, exception.Message));
+                Console.WriteLine(string.Format("Exception seen - {0} - {1}", exception.GetType().FullName,
+                                                exception.Message));
             }
         }
 
@@ -100,20 +101,22 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost
         {
             var actions =
                 from method in
-                    commandObject.GetType().GetMethods(BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.FlattenHierarchy)
+                    commandObject.GetType()
+                                 .GetMethods(BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.Public |
+                                             BindingFlags.FlattenHierarchy)
                 let commandLineCommand =
                     (CommandLineCommandAttribute)
-                    method.GetCustomAttributes(typeof(CommandLineCommandAttribute), false).FirstOrDefault()
+                    method.GetCustomAttributes(typeof (CommandLineCommandAttribute), false).FirstOrDefault()
                 let description =
                     (DescriptionAttribute)
-                    method.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault()
+                    method.GetCustomAttributes(typeof (DescriptionAttribute), false).FirstOrDefault()
                 where commandLineCommand != null
                 select new
-                {
-                    Name = commandLineCommand.Name,
-                    Description = description == null ? string.Empty : description.Description,
-                    Method = method
-                };
+                    {
+                        commandLineCommand.Name,
+                        Description = description == null ? string.Empty : description.Description,
+                        Method = method
+                    };
 
             foreach (var thing in actions)
             {
@@ -122,24 +125,25 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost
             }
         }
 
-        private static DescribedMethod CreateDescribedMethod(object commandObject, string commandLineCommand, string description, MethodInfo methodInfo)
+        private static DescribedMethod CreateDescribedMethod(object commandObject, string commandLineCommand,
+                                                             string description, MethodInfo methodInfo)
         {
-            return new DescribedMethod()
-                       {
-                           Name = commandLineCommand,
-                           Description = description,
-                           Action = input =>
-                                        {
-                                            try
-                                            {
-                                                methodInfo.Invoke(commandObject, input.Split(','));
-                                            }
-                                            catch (TargetInvocationException tie)
-                                            {
-                                                throw tie.InnerException;
-                                            }
-                                        }
-                       };
+            return new DescribedMethod
+                {
+                    Name = commandLineCommand,
+                    Description = description,
+                    Action = input =>
+                        {
+                            try
+                            {
+                                methodInfo.Invoke(commandObject, input.Split(','));
+                            }
+                            catch (TargetInvocationException tie)
+                            {
+                                throw tie.InnerException;
+                            }
+                        }
+                };
         }
     }
 }

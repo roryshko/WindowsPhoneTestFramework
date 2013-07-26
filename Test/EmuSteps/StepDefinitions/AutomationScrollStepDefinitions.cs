@@ -1,19 +1,17 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="AutomationPressStepDefinitions.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="AutomationScrollStepDefinitions.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
-using NUnit.Framework;
-using System;
 using System.Threading;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
-using WindowsPhoneTestFramework.Server.Core.Tangibles;
 
 namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
@@ -28,9 +26,12 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 
             WaitForParent(parentname);
 
-            Assert.IsTrue(Emu.ApplicationAutomationController.WaitForControl(itemname, index, parentname), "Failed while waiting for element to press {0} of name '{1}', in {2}", index, itemname, parentname);
+            Assert.IsTrue(Emu.ApplicationAutomationController.WaitForControl(itemname, index, parentname),
+                          "Failed while waiting for element to press {0} of name '{1}', in {2}", index, itemname,
+                          parentname);
             Thread.Sleep(500);
-            Assert.IsTrue(Emu.ApplicationAutomationController.ScrollIntoView(itemname, index, parentname), "Failed to scroll to element {0} of name '{1}', in {2}", index, itemname, parentname);
+            Assert.IsTrue(Emu.ApplicationAutomationController.ScrollIntoView(itemname, index, parentname),
+                          "Failed to scroll to element {0} of name '{1}', in {2}", index, itemname, parentname);
             Thread.Sleep(1000);
         }
     }

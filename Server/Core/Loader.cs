@@ -1,14 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="Loader.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
-
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="Loader.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Linq;
@@ -35,7 +34,8 @@ namespace WindowsPhoneTestFramework.Server.Core
                 case "wp7emulator":
                 case "wp-emulator":
                 case "wpemulator":
-                    assemblyNameToLoad = "WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emulator.dll";
+                    assemblyNameToLoad =
+                        "WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emulator.dll";
                     break;
                 case "android":
                 case "droid":
@@ -63,7 +63,7 @@ namespace WindowsPhoneTestFramework.Server.Core
                     .GetTypes()
                     .Where(t => t.IsPublic)
                     .FirstOrDefault(t => t.GetInterfaces().Any(x => x == typeof (IAutomationController)));
-                
+
                 if (type == null)
                     throw new TypeLoadException("no Controller type found in assembly");
 
@@ -73,9 +73,9 @@ namespace WindowsPhoneTestFramework.Server.Core
                 return (IAutomationController) toReturn;
             }
             catch (Exception exception)
-            {                
+            {
                 throw new AutomationException("Failed to create automation controller ", exception);
-            }            
+            }
         }
     }
 }

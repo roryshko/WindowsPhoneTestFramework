@@ -1,22 +1,19 @@
-// ----------------------------------------------------------------------
-// <copyright file="WindowsPhoneWindowsEmulatorDisplayInputController.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-//     
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="WindowsPhoneWindowsEmulatorDisplayInputController.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System.Configuration;
-using System.Drawing;
-using System.Linq;
 using WindowsInput;
 using WindowsInput.Native;
 using WindowsPhoneTestFramework.Server.Core.Tangibles;
 using WindowsPhoneTestFramework.Server.DisplayInputControllerCore;
-using NativeMethods = WindowsPhoneTestFramework.Server.DisplayInputControllerCore.NativeMethods;
 
 namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
 {
@@ -26,7 +23,8 @@ namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
             : base(new InputSimulator())
         {
             EmulatorWindowClassName = "XDE_LCDWindow";
-            var windowClassName = ConfigurationManager.AppSettings.Get("EmuSteps.Application.WindowsPhone.WindowClassName");
+            var windowClassName =
+                ConfigurationManager.AppSettings.Get("EmuSteps.Application.WindowsPhone.WindowClassName");
             if (!string.IsNullOrWhiteSpace(windowClassName))
             {
                 EmulatorWindowClassName = windowClassName;
@@ -90,5 +88,5 @@ namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
 
             return vk;
         }
-   }
+    }
 }

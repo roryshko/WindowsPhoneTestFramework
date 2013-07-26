@@ -1,7 +1,17 @@
-﻿using System;
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="BackgroundAudioCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
+
+using System;
 using System.Text;
 using Microsoft.Phone.BackgroundAudio;
-using Microsoft.Xna.Framework.Media;
 using XnaMediaPlayer = Microsoft.Xna.Framework.Media.MediaPlayer;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
@@ -13,7 +23,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
         protected override void DoImpl()
         {
             bool success = false;
-            StringBuilder message = new StringBuilder();
+            var message = new StringBuilder();
 
             try
             {

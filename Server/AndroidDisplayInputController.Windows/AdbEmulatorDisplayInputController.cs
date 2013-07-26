@@ -1,16 +1,14 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="AdbEmulatorDisplayInputController.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="AdbEmulatorDisplayInputController.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
-using System;
-using System.Drawing;
 using WindowsInput;
 using WindowsInput.Native;
 using WindowsPhoneTestFramework.Server.Core.Tangibles;
@@ -26,9 +24,10 @@ namespace WindowsPhoneTestFramework.Server.AndroidDisplayInputController.Windows
         void SetEmulatorWindowName(string name);
     }
 
-    public class AdbEmulatorDisplayInputController : WindowsEmulatorDisplayInputControllerBase, IAndroidDisplayInputController
+    public class AdbEmulatorDisplayInputController : WindowsEmulatorDisplayInputControllerBase,
+                                                     IAndroidDisplayInputController
     {
-        public AdbEmulatorDisplayInputController() 
+        public AdbEmulatorDisplayInputController()
             : base(new InputSimulator())
         {
             EmulatorWindowClassName = "SDL_app";
@@ -44,7 +43,7 @@ namespace WindowsPhoneTestFramework.Server.AndroidDisplayInputController.Windows
         {
             // a "PageUp" key press seems to do the trick
             EnsureWindowIsInForeground();
-            SendKeyPress(KeyboardKeyCode.PRIOR);            
+            SendKeyPress(KeyboardKeyCode.PRIOR);
         }
 
         public void SetEmulatorWindowName(string name)
@@ -90,6 +89,7 @@ namespace WindowsPhoneTestFramework.Server.AndroidDisplayInputController.Windows
             DPad center click	KEYPAD_5
             Onion alpha increase/decrease	KEYPAD_MULTIPLY(*) / KEYPAD_DIVIDE(/)
          */
+
         protected override VirtualKeyCode HardwareButtonToKeyCode(PhoneHardwareButton whichHardwareButton)
         {
             VirtualKeyCode vk;
@@ -106,7 +106,7 @@ namespace WindowsPhoneTestFramework.Server.AndroidDisplayInputController.Windows
                     break;
                 case PhoneHardwareButton.Camera:
                     // TODO - need CTRL also!
-                    vk = VirtualKeyCode.F3; 
+                    vk = VirtualKeyCode.F3;
                     break;
                 case PhoneHardwareButton.VolumeUp:
                     vk = VirtualKeyCode.OEM_PLUS;

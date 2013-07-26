@@ -1,23 +1,21 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ScrollIntoViewCommand.cs" company="Nokia">
-//     (c) Copyright Nokia. http://www.nokia.com
-//     This source is subject to the usual licenses
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Ed Blacker, Sunships Ltd. http://www.sunships.ltd.uk
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="ScrollIntoViewCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
 using System.Windows;
 using System.Windows.Automation;
-using System.Windows.Controls;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
+using System.Windows.Controls;
 using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
@@ -26,7 +24,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
     {
         public static readonly List<Func<AutomationPeer, bool>> PatternTesters;
         public static readonly List<Func<UIElement, bool>> UIElementTesters;
-        
+
         protected override void DoImpl()
         {
             var element = GetUIElement(true);
@@ -52,7 +50,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 
             try
             {
-                var parentPos = AutomationElementFinder.Position(parent as FrameworkElement);
+                var parentPos = AutomationElementFinder.Position(parent);
                 var elementPos = AutomationElementFinder.Position(element as FrameworkElement);
                 if (elementPos.Top - parentPos.Top < parentPos.Height)
                 {
@@ -61,7 +59,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 }
 
                 var scrollHeight = elementPos.Top - (parentPos.Top + (parentPos.Height/2.0));
-                var scrollPercentage = (scrollHeight * 100.0) / parentPos.Height;
+                var scrollPercentage = (scrollHeight*100.0)/parentPos.Height;
                 pattern.SetScrollPercent(ScrollPatternIdentifiers.NoScroll, scrollPercentage);
             }
             catch (Exception exception)
@@ -72,6 +70,5 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             SendSuccessResult();
             return;
         }
-
     }
 }

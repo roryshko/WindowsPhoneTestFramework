@@ -1,10 +1,21 @@
+//  ----------------------------------------------------------------------
+//  <copyright file="PivotCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
+
+using System.Linq;
+using System.Windows.Automation;
+using Microsoft.Phone.Controls;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
+
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
-    using System.Linq;
-    using System.Windows.Automation;
-    using Microsoft.Phone.Controls;
-    using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
-
     public partial class PivotCommand : AutomationElementCommandBase
     {
         protected override void DoImpl()
@@ -12,7 +23,8 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             var element = GetFrameworkElement(false);
             if (element == null)
             {
-                SendNotFoundResult(string.Format("PivotCommand: Could not find the element : {0}", AutomationIdentifier.ToIdOrName()));
+                SendNotFoundResult(string.Format("PivotCommand: Could not find the element : {0}",
+                                                 AutomationIdentifier.ToIdOrName()));
                 return;
             }
 
@@ -48,7 +60,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             bool result = false;
             if (PivotNext)
             {
-                pivot.SelectedIndex = (pivot.SelectedIndex + 1) % pivot.Items.Count;
+                pivot.SelectedIndex = (pivot.SelectedIndex + 1)%pivot.Items.Count;
                 result = true;
             }
             else if (PivotLast)
@@ -72,7 +84,10 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 foreach (var pivotItem in pivot.Items.Cast<PivotItem>())
                 {
                     if (pivotItem.Name.ToLowerInvariant().StartsWith(PivotName.ToLowerInvariant()) ||
-                        pivotItem.GetValue(AutomationProperties.NameProperty).ToString().ToLowerInvariant().StartsWith(PivotName.ToLowerInvariant()))
+                        pivotItem.GetValue(AutomationProperties.NameProperty)
+                                 .ToString()
+                                 .ToLowerInvariant()
+                                 .StartsWith(PivotName.ToLowerInvariant()))
                     {
                         pivotFound = true;
                         break;
@@ -103,7 +118,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             bool result = false;
             if (PivotNext)
             {
-                pano.DefaultItem = pano.Items[(pano.SelectedIndex + 1) % pano.Items.Count];
+                pano.DefaultItem = pano.Items[(pano.SelectedIndex + 1)%pano.Items.Count];
                 result = true;
             }
             else if (PivotLast)
@@ -121,8 +136,13 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             }
             else if (!string.IsNullOrWhiteSpace(PivotName))
             {
-                var panoToGo = pano.Items.Cast<PanoramaItem>().FirstOrDefault(item => item.Name.ToLowerInvariant().StartsWith(PivotName.ToLowerInvariant())
-                                                                || item.GetValue(AutomationProperties.NameProperty).ToString().StartsWith(PivotName.ToLowerInvariant()));
+                var panoToGo =
+                    pano.Items.Cast<PanoramaItem>()
+                        .FirstOrDefault(item => item.Name.ToLowerInvariant().StartsWith(PivotName.ToLowerInvariant())
+                                                ||
+                                                item.GetValue(AutomationProperties.NameProperty)
+                                                    .ToString()
+                                                    .StartsWith(PivotName.ToLowerInvariant()));
 
                 if (panoToGo != null)
                 {

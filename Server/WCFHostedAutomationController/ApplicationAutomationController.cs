@@ -1,13 +1,13 @@
-// ----------------------------------------------------------------------
-// <copyright file="ApplicationAutomationController.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="ApplicationAutomationController.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -49,11 +49,11 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         public string GetIsChecked(string control)
         {
-            var command = new GetCheckedStatusCommand() { AutomationIdentifier = CreateAutomationIdentifier(control) };
+            var command = new GetCheckedStatusCommand {AutomationIdentifier = CreateAutomationIdentifier(control)};
             var result = SyncExecuteCommand(command);
 
             var successResult = result as SuccessResult;
-            
+
             return successResult == null ? null : successResult.ResultText;
         }
 
@@ -76,7 +76,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         public bool LookForText(string text)
         {
-            var command = new LookForTextCommand { Text = text };
+            var command = new LookForTextCommand {Text = text};
             var result = SyncLookExecuteCommand(command);
             return result is SuccessResult;
         }
@@ -105,7 +105,8 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         public bool WaitForControlOrText(string textOrControlId, int ordinal, string parentId)
         {
-            return WaitForControlOrText(textOrControlId, Constants.DefaultWaitForClientAppActionTimeout, ordinal, parentId);
+            return WaitForControlOrText(textOrControlId, Constants.DefaultWaitForClientAppActionTimeout, ordinal,
+                                        parentId);
         }
 
         public bool WaitForControlOrText(string textOrControlId, TimeSpan timeout, int ordinal, string parentId)
@@ -141,22 +142,26 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         public bool TryGetTextFromControl(string controlId, out string text, int ordinal, string parentId)
         {
-            return TryGetTextFromAutomationIdentifier(CreateAutomationIdentifier(controlId), out text, ordinal, CreateAutomationIdentifier(parentId));
+            return TryGetTextFromAutomationIdentifier(CreateAutomationIdentifier(controlId), out text, ordinal,
+                                                      CreateAutomationIdentifier(parentId));
         }
 
         public bool SetTextOnControl(string controlId, string text, int ordinal, string parentId)
         {
-            return SetTextOnAutomationIdentification(CreateAutomationIdentifier(controlId), text, ordinal, CreateAutomationIdentifier(parentId));
+            return SetTextOnAutomationIdentification(CreateAutomationIdentifier(controlId), text, ordinal,
+                                                     CreateAutomationIdentifier(parentId));
         }
 
         public bool TryGetValueFromControl(string controlId, out string text, int ordinal, string parentId)
         {
-            return TryGetValueFromAutomationIdentifier(CreateAutomationIdentifier(controlId), out text, ordinal, CreateAutomationIdentifier(parentId));
+            return TryGetValueFromAutomationIdentifier(CreateAutomationIdentifier(controlId), out text, ordinal,
+                                                       CreateAutomationIdentifier(parentId));
         }
 
         public bool SetValueOnControl(string controlId, string value, int ordinal, string parentId)
         {
-            return SetValueOnAutomationIdentification(CreateAutomationIdentifier(controlId), value, ordinal, CreateAutomationIdentifier(parentId));
+            return SetValueOnAutomationIdentification(CreateAutomationIdentifier(controlId), value, ordinal,
+                                                      CreateAutomationIdentifier(parentId));
         }
 
         public bool InvokeControlTapAction(string controlId, int ordinal, string parentId)
@@ -165,11 +170,11 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             var parentIdentifier = CreateAutomationIdentifier(parentId);
 
             var command = new InvokeControlTapActionCommand
-                              {
-                                  AutomationIdentifier = controlIdentifier,
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = parentIdentifier
-                              };
+                {
+                    AutomationIdentifier = controlIdentifier,
+                    Ordinal = ordinal,
+                    ParentIdentifier = parentIdentifier
+                };
             var result = SyncExecuteCommand(command);
             return result is SuccessResult;
         }
@@ -180,13 +185,13 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             var parentIdentifier = CreateAutomationIdentifier(parentId);
 
             var command = new ScrollIntoViewCommand
-            {
-                AutomationIdentifier = controlIdentifier,
-                Ordinal = ordinal,
-                ParentIdentifier = parentIdentifier
-            };
+                {
+                    AutomationIdentifier = controlIdentifier,
+                    Ordinal = ordinal,
+                    ParentIdentifier = parentIdentifier
+                };
             var result = SyncExecuteCommand(command);
-            return result is SuccessResult;            
+            return result is SuccessResult;
         }
 
         public bool WaitForMessageBox(string title, string message, string[] buttons)
@@ -194,15 +199,15 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             return WaitForTestSuccess(() => FindMessageBox(title, message, buttons),
                                       Constants.DefaultWaitForClientAppActionTimeout);
         }
-        
+
         public bool InvokeMessageboxTapAction(string buttonText)
         {
             var automationIdentifier = CreateAutomationIdentifier(buttonText);
             var command = new InvokeControlTapActionCommand
-            {
-                AutomationIdentifier = automationIdentifier,
-                ParentIdentifier = new AutomationIdentifier("MessageBox", AutomationIdentification.TryElementName)
-            };
+                {
+                    AutomationIdentifier = automationIdentifier,
+                    ParentIdentifier = new AutomationIdentifier("MessageBox", AutomationIdentification.TryElementName)
+                };
 
             var result = SyncExecuteCommand(command);
             return result is SuccessResult;
@@ -211,11 +216,11 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public bool FindMessageBox(string title, string message, string[] buttons)
         {
             var automationIdentifier = CreateAutomationIdentifier(title);
-            var command = new GetPositionCommand()
-            {
-                AutomationIdentifier = automationIdentifier,
-                ParentIdentifier = new AutomationIdentifier("MessageBox", AutomationIdentification.TryElementName)
-            };
+            var command = new GetPositionCommand
+                {
+                    AutomationIdentifier = automationIdentifier,
+                    ParentIdentifier = new AutomationIdentifier("MessageBox", AutomationIdentification.TryElementName)
+                };
             var positionResult = SyncExecuteCommand(command) as PositionResult;
             if (positionResult == null)
             {
@@ -228,11 +233,11 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public bool TakePicture(string controlId, out Bitmap bitmap, int ordinal, string parentId)
         {
             var command = new TakePictureCommand
-                              {
-                                  AutomationIdentifier = CreateAutomationIdentifier(controlId),
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = CreateAutomationIdentifier(parentId)
-                              };
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(controlId),
+                    Ordinal = ordinal,
+                    ParentIdentifier = CreateAutomationIdentifier(parentId)
+                };
 
             var result = SyncExecuteCommand(command);
             var pictureResult = result as PictureResult;
@@ -280,21 +285,28 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public bool ScrollIntoViewListItem(string controlWithinItemId)
         {
             var command = new ListBoxItemScrollIntoViewCommand
-                { AutomationIdentifier = CreateAutomationIdentifier(controlWithinItemId), };
+                {AutomationIdentifier = CreateAutomationIdentifier(controlWithinItemId),};
             var result = SyncExecuteCommand(command);
             return result is SuccessResult;
         }
 
         public bool SelectListItem(string selectorName, int indexOfItemToSelect)
         {
-            var command = new SelectorItemCommand { AutomationIdentifier = CreateAutomationIdentifier(selectorName), IndexOfItemToSelect = indexOfItemToSelect};
+            var command = new SelectorItemCommand
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(selectorName),
+                    IndexOfItemToSelect = indexOfItemToSelect
+                };
             var result = SyncExecuteCommand(command);
             return result is SuccessResult;
         }
 
         public bool SelectListItem(string controlWithinItemId)
         {
-            var command = new ListBoxItemSelectCommand { AutomationIdentifier = CreateAutomationIdentifier(controlWithinItemId), };
+            var command = new ListBoxItemSelectCommand
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(controlWithinItemId),
+                };
             var result = SyncExecuteCommand(command);
             return result is SuccessResult;
         }
@@ -306,22 +318,25 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         public RectangleF GetPositionOfControl(string controlId, int ordinal, string parentId)
         {
-            return GetPositionOfAutomationIdentifier(CreateAutomationIdentifier(controlId), ordinal, CreateAutomationIdentifier(parentId));
+            return GetPositionOfAutomationIdentifier(CreateAutomationIdentifier(controlId), ordinal,
+                                                     CreateAutomationIdentifier(parentId));
         }
 
         public RectangleF GetPositionOfControlOrText(string textOrControlId, int ordinal, string parentId)
         {
-            return GetPositionOfAutomationIdentifier(CreateControlOrTextAutomationIdentifier(textOrControlId), ordinal, CreateControlOrTextAutomationIdentifier(parentId));
+            return GetPositionOfAutomationIdentifier(CreateControlOrTextAutomationIdentifier(textOrControlId), ordinal,
+                                                     CreateControlOrTextAutomationIdentifier(parentId));
         }
 
-        private RectangleF GetPositionOfAutomationIdentifier(AutomationIdentifier controlIdentifier, int ordinal, AutomationIdentifier parentIdentifier)
+        private RectangleF GetPositionOfAutomationIdentifier(AutomationIdentifier controlIdentifier, int ordinal,
+                                                             AutomationIdentifier parentIdentifier)
         {
             var command = new GetPositionCommand
-                              {
-                                  AutomationIdentifier = controlIdentifier,
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = parentIdentifier
-                              };
+                {
+                    AutomationIdentifier = controlIdentifier,
+                    Ordinal = ordinal,
+                    ParentIdentifier = parentIdentifier
+                };
 
             var result = SyncExecuteCommand(command);
             var positionResult = result as PositionResult;
@@ -332,20 +347,20 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             }
 
             return new RectangleF(
-                (float)positionResult.Left,
-                (float)positionResult.Top,
-                (float)positionResult.Width,
-                (float)positionResult.Height);
+                (float) positionResult.Left,
+                (float) positionResult.Top,
+                (float) positionResult.Width,
+                (float) positionResult.Height);
         }
 
         public bool SetFocus(string controlId, int ordinal, string parentId)
         {
             var command = new SetFocusCommand
-                              {
-                                  AutomationIdentifier = CreateAutomationIdentifier(controlId),
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = CreateAutomationIdentifier(parentId)
-                              };
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(controlId),
+                    Ordinal = ordinal,
+                    ParentIdentifier = CreateAutomationIdentifier(parentId)
+                };
 
             var result = SyncExecuteCommand(command);
             return result is SuccessResult;
@@ -368,7 +383,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         private ProgressValues GetProgressOfAutomationIdentifier(AutomationIdentifier automationIdentifier)
         {
-            var command = new GetProgressCommand { AutomationIdentifier = automationIdentifier };
+            var command = new GetProgressCommand {AutomationIdentifier = automationIdentifier};
             var result = SyncExecuteCommand(command);
             var progressResult = result as ProgressResult;
             if (progressResult == null)
@@ -400,11 +415,11 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         {
             isEnabled = false;
             var command = new GetIsEnabledCommand
-                              {
-                                  AutomationIdentifier = CreateAutomationIdentifier(controlId),
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = CreateAutomationIdentifier(parentId)
-                              };
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(controlId),
+                    Ordinal = ordinal,
+                    ParentIdentifier = CreateAutomationIdentifier(parentId)
+                };
 
             var result = SyncExecuteCommand(command);
             var successResult = result as SuccessResult;
@@ -414,11 +429,11 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public string GetControlColor(string controlIdOrText, int ordinal, string parentId)
         {
             var command = new GetColorCommand
-                              {
-                                  AutomationIdentifier = CreateAutomationIdentifier(controlIdOrText),
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = CreateAutomationIdentifier(parentId)
-                              };
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(controlIdOrText),
+                    Ordinal = ordinal,
+                    ParentIdentifier = CreateAutomationIdentifier(parentId)
+                };
 
             var result = SyncExecuteCommand(command);
             var successResult = result as SuccessResultColor;
@@ -428,12 +443,12 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public bool ControlContainsImage(string controlId, string imageName, int ordinal, string parentId)
         {
             var command = new ControlContainsImageCommand
-                              {
-                                  AutomationIdentifier = CreateAutomationIdentifier(controlId),
-                                  ImageName = imageName,
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = CreateAutomationIdentifier(parentId)
-                              };
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(controlId),
+                    ImageName = imageName,
+                    Ordinal = ordinal,
+                    ParentIdentifier = CreateAutomationIdentifier(parentId)
+                };
 
             var result = SyncExecuteCommand(command);
             return result is SuccessResult;
@@ -441,7 +456,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         public bool TryGetApplicationSettings(string key, out string value)
         {
-            var command = new GetApplicationSettingCommand { Key = key };
+            var command = new GetApplicationSettingCommand {Key = key};
             var result = SyncExecuteCommand(command);
             var successResult = result as SuccessResult;
             if (successResult == null)
@@ -499,13 +514,12 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
                     var islong = long.TryParse(pair.Value, out v);
                     if (islong)
                     {
-                        Console.WriteLine("{0} : {1}", pair.Key, string.Format("{0}MB", v / 1000000));
+                        Console.WriteLine("{0} : {1}", pair.Key, string.Format("{0}MB", v/1000000));
                     }
                     else
                     {
                         Console.WriteLine("{0} : {1}", pair.Key, pair.Value);
                     }
-
                 }
             }
 
@@ -514,7 +528,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         public bool SetApplicationSettings(string key, string value)
         {
-            var command = new SetApplicationSettingCommand { Key = key, Value = value };
+            var command = new SetApplicationSettingCommand {Key = key, Value = value};
             var result = SyncExecuteCommand(command);
             return result is SuccessResult;
         }
@@ -525,7 +539,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             {
                 return false;
             }
-            
+
             Console.WriteLine("Setting app settings.");
 
             foreach (var pair in values)
@@ -533,7 +547,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
                 Console.WriteLine("{0} : {1}", pair.Key, pair.Value);
             }
 
-            var command = new SetApplicationSettingsCommand { Settings = values };
+            var command = new SetApplicationSettingsCommand {Settings = values};
 
             var result = this.SyncExecuteCommand(command);
 
@@ -542,32 +556,33 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         public bool StopBackgroundAudio()
         {
-            var command = new BackgroundAudioCommand { Command = AudioInstruction.Stop };
+            var command = new BackgroundAudioCommand {Command = AudioInstruction.Stop};
 
             return SyncExecuteCommand(command) is SuccessResult;
         }
 
         public bool InvokeAppBarTap(string text)
         {
-            var command = new InvokeAppBarTapCommand { AutomationIdentifier = CreateAutomationIdentifier(text) };
+            var command = new InvokeAppBarTapCommand {AutomationIdentifier = CreateAutomationIdentifier(text)};
 
             return SyncExecuteCommand(command) is SuccessResult;
         }
 
         public bool LookForAppBarItem(string text)
         {
-            var command = new LookForAppBarItemCommand { AutomationIdentifier = CreateAutomationIdentifier(text) };
+            var command = new LookForAppBarItemCommand {AutomationIdentifier = CreateAutomationIdentifier(text)};
             return SyncExecuteCommand(command) is SuccessResult;
         }
 
         public bool WaitForAppBarItem(string text, TimeSpan? timeout)
         {
-            return WaitForTestSuccess(() => LookForAppBarItem(text), timeout ?? Constants.DefaultWaitForClientAppActionTimeout);
+            return WaitForTestSuccess(() => LookForAppBarItem(text),
+                                      timeout ?? Constants.DefaultWaitForClientAppActionTimeout);
         }
 
         public bool Navigate(string direction)
         {
-            var command = new NavigateCommand { Direction = direction };
+            var command = new NavigateCommand {Direction = direction};
 
             return SyncExecuteCommand(command) is SuccessResult;
         }
@@ -575,11 +590,11 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public bool Pivot(string pivotName, PivotType pivot)
         {
             var command = new PivotCommand
-                              {
-                                  AutomationIdentifier = CreateAutomationIdentifier(pivotName),
-                                  PivotLast = pivot == PivotType.Last,
-                                  PivotNext = pivot == PivotType.Next
-                              };
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(pivotName),
+                    PivotLast = pivot == PivotType.Last,
+                    PivotNext = pivot == PivotType.Next
+                };
 
             var result = SyncExecuteCommand(command);
             Thread.Sleep(TimeSpan.FromSeconds(3)); // Wait for pivot animations to complete
@@ -590,10 +605,10 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public bool Pivot(string pivotName, string itemName)
         {
             var command = new PivotCommand
-            {
-                AutomationIdentifier = CreateAutomationIdentifier(pivotName),
-                PivotName = itemName
-            };
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(pivotName),
+                    PivotName = itemName
+                };
 
             var result = SyncExecuteCommand(command);
             Thread.Sleep(TimeSpan.FromSeconds(3)); // Wait for pivot animations to complete
@@ -604,9 +619,9 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public bool Toggle(string buttonName)
         {
             var command = new ToggleButtonCommand
-                              {
-                                  AutomationIdentifier = CreateAutomationIdentifier(buttonName)
-                              };
+                {
+                    AutomationIdentifier = CreateAutomationIdentifier(buttonName)
+                };
 
             return SyncExecuteCommand(command) is SuccessResult;
         }
@@ -617,7 +632,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
 
         private static AutomationIdentifier CreateTextOnlyAutomationIdentifier(string text)
         {
-            return new AutomationIdentifier { DisplayedText = text };
+            return new AutomationIdentifier {DisplayedText = text};
         }
 
         private AutomationIdentifier CreateControlOrTextAutomationIdentifier(string textOrControlId)
@@ -632,15 +647,16 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             return (! string.IsNullOrEmpty(id)) ? new AutomationIdentifier(id, automationIdentification) : null;
         }
 
-        private bool LookForAutomationIdentifer(AutomationIdentifier controlIdentifier, int ordinal, AutomationIdentifier parentIdentifier)
+        private bool LookForAutomationIdentifer(AutomationIdentifier controlIdentifier, int ordinal,
+                                                AutomationIdentifier parentIdentifier)
         {
             var command = new GetPositionCommand
-                              {
-                                  AutomationIdentifier = controlIdentifier,
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = parentIdentifier,
-                                  ReturnEmptyIfNotVisible = true
-                              };
+                {
+                    AutomationIdentifier = controlIdentifier,
+                    Ordinal = ordinal,
+                    ParentIdentifier = parentIdentifier,
+                    ReturnEmptyIfNotVisible = true
+                };
 
             var result = SyncLookExecuteCommand(command) as PositionResult;
             if (result == null)
@@ -705,51 +721,53 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
                 {
                     return true;
                 }
-            }
-            while (DateTime.UtcNow - start < timeout);
+            } while (DateTime.UtcNow - start < timeout);
 
             return false;
         }
 
-        private bool SetTextOnAutomationIdentification(AutomationIdentifier controlIdentifier, string text, int ordinal, AutomationIdentifier parentIdentifier)
+        private bool SetTextOnAutomationIdentification(AutomationIdentifier controlIdentifier, string text, int ordinal,
+                                                       AutomationIdentifier parentIdentifier)
         {
             var command = new SetTextCommand
-                              {
-                                  AutomationIdentifier = controlIdentifier,
-                                  Text = text,
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = parentIdentifier
-                              };
+                {
+                    AutomationIdentifier = controlIdentifier,
+                    Text = text,
+                    Ordinal = ordinal,
+                    ParentIdentifier = parentIdentifier
+                };
 
             var result = SyncExecuteCommand(command);
             var successResult = result as SuccessResult;
             return successResult != null;
         }
 
-        private bool SetValueOnAutomationIdentification(AutomationIdentifier controlIdentifier, string textValue, int ordinal, AutomationIdentifier parentIdentifier)
+        private bool SetValueOnAutomationIdentification(AutomationIdentifier controlIdentifier, string textValue,
+                                                        int ordinal, AutomationIdentifier parentIdentifier)
         {
             var command = new SetValueCommand
-                              {
-                                  AutomationIdentifier = controlIdentifier,
-                                  TextValue = textValue,
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = parentIdentifier
-                              };
+                {
+                    AutomationIdentifier = controlIdentifier,
+                    TextValue = textValue,
+                    Ordinal = ordinal,
+                    ParentIdentifier = parentIdentifier
+                };
 
             var result = SyncExecuteCommand(command);
             var successResult = result as SuccessResult;
             return successResult != null;
         }
 
-        private bool TryGetTextFromAutomationIdentifier(AutomationIdentifier controlIdentifier, out string text, int ordinal, AutomationIdentifier parentIdentifier)
+        private bool TryGetTextFromAutomationIdentifier(AutomationIdentifier controlIdentifier, out string text,
+                                                        int ordinal, AutomationIdentifier parentIdentifier)
         {
             text = null;
             var command = new GetTextCommand
-                              {
-                                  AutomationIdentifier = controlIdentifier,
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = parentIdentifier
-                              };
+                {
+                    AutomationIdentifier = controlIdentifier,
+                    Ordinal = ordinal,
+                    ParentIdentifier = parentIdentifier
+                };
 
             var result = SyncExecuteCommand(command);
             var successResult = result as SuccessResult;
@@ -762,15 +780,16 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             return true;
         }
 
-        private bool TryGetValueFromAutomationIdentifier(AutomationIdentifier controlIdentifier, out string value, int ordinal, AutomationIdentifier parentIdentifier)
+        private bool TryGetValueFromAutomationIdentifier(AutomationIdentifier controlIdentifier, out string value,
+                                                         int ordinal, AutomationIdentifier parentIdentifier)
         {
             value = null;
             var command = new GetValueCommand
-                              {
-                                  AutomationIdentifier = controlIdentifier,
-                                  Ordinal = ordinal,
-                                  ParentIdentifier = parentIdentifier
-                              };
+                {
+                    AutomationIdentifier = controlIdentifier,
+                    Ordinal = ordinal,
+                    ParentIdentifier = parentIdentifier
+                };
 
             var result = SyncExecuteCommand(command);
             var successResult = result as SuccessResult;

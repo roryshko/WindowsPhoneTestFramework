@@ -1,13 +1,13 @@
-// ----------------------------------------------------------------------
-// <copyright file="AutomationPositionStepDefinitionsBase.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="AutomationPositionStepDefinitionsBase.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Drawing;
@@ -30,8 +30,10 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             var phoneOrientation = Emu.DisplayInputController.GuessOrientation();
             try
             {
-                StepFlowOutputHelpers.Write("IsVisible checking position {0}, {1}, {2}, {3} in orientation {4}", position.Left, position.Top, position.Width, position.Height, phoneOrientation);
-                position.IsVisible(phoneOrientation);                
+                StepFlowOutputHelpers.Write("IsVisible checking position {0}, {1}, {2}, {3} in orientation {4}",
+                                            position.Left, position.Top, position.Width, position.Height,
+                                            phoneOrientation);
+                position.IsVisible(phoneOrientation);
             }
             catch (Exception ex)
             {
@@ -43,12 +45,14 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 
         protected void AssertPositionIsNotVisible(RectangleF position, string textTest)
         {
-            Assert.False(IsPositionVisible(position), "Position of is offscreen, text:'{0}', position:{1}", textTest, position);
+            Assert.False(IsPositionVisible(position), "Position of is offscreen, text:'{0}', position:{1}", textTest,
+                         position);
         }
 
         protected void AssertPositionIsVisible(RectangleF position, string textTest)
         {
-            Assert.True(IsPositionVisible(position), "Position of is offscreen, text:'{0}', position:{1}", textTest, position);
+            Assert.True(IsPositionVisible(position), "Position of is offscreen, text:'{0}', position:{1}", textTest,
+                        position);
         }
     }
 }

@@ -1,13 +1,13 @@
-// ----------------------------------------------------------------------
-// <copyright file="AutomationMiscStepDefinitions.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="AutomationMiscStepDefinitions.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -42,7 +42,8 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         {
             var name = ControlName(named, type);
 
-            var result = Emu.ApplicationAutomationController.Pivot(name, direction == "left" ? PivotType.Last : PivotType.Next);
+            var result = Emu.ApplicationAutomationController.Pivot(name,
+                                                                   direction == "left" ? PivotType.Last : PivotType.Next);
             Assert.IsTrue(result, "Unable to move the {0} {1} {2}", named, type, direction);
         }
 

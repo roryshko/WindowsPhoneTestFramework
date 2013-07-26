@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="GenericCommand.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="GenericCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,8 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
     public partial class GenericCommand
     {
-        private readonly static Dictionary<string, Func<GenericCommand, Action>> _handlerFactories = new Dictionary<string, Func<GenericCommand, Action>>();
+        private static readonly Dictionary<string, Func<GenericCommand, Action>> _handlerFactories =
+            new Dictionary<string, Func<GenericCommand, Action>>();
 
         public static void AddHandlerFactory(string key, Func<GenericCommand, Action> handlerFactory)
         {

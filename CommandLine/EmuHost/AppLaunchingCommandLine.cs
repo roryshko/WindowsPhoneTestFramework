@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="AppLaunchingCommandLine.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="AppLaunchingCommandLine.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.ComponentModel;
@@ -21,7 +21,9 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost
     {
         [ArgsMemberSwitch("controller")]
         [DefaultValue("WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emulator.dll")]
-        [Description("Assembly to use as controller - by default this is WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emulator.dll")]
+        [Description(
+            "Assembly to use as controller - by default this is WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emulator.dll"
+            )]
         public string Controller { get; set; }
 
         [ArgsMemberSwitch("init")]

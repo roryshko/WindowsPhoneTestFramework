@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="Program.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="Program.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.IO;
@@ -75,7 +75,8 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost
             }
             catch (Exception exception)
             {
-                Console.WriteLine(string.Format("Exception seen {0} {1}", exception.GetType().FullName, exception.Message));
+                Console.WriteLine(string.Format("Exception seen {0} {1}", exception.GetType().FullName,
+                                                exception.Message));
             }
         }
 
@@ -87,26 +88,25 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost
             _commandLine = commandLine;
             StartEmuAutomationController();
 
-            var driverCommands = new DeviceControllerCommands()
-                                     {
-                                         DeviceController = _automationController.DeviceController,
-                                         CommandLine = _commandLine
-                                     };
+            var driverCommands = new DeviceControllerCommands
+                {
+                    DeviceController = _automationController.DeviceController,
+                    CommandLine = _commandLine
+                };
             AddCommands(driverCommands);
 
-            var inputCommands = new DisplayInputCommands()
-                                    {
-                                        DisplayInputController = _automationController.DisplayInputController
-                                    };
+            var inputCommands = new DisplayInputCommands
+                {
+                    DisplayInputController = _automationController.DisplayInputController
+                };
             AddCommands(inputCommands);
 
-            var phoneAutomationCommands = new PhoneAutomationCommands()
-                                              {
-                                                  ApplicationAutomationController =
-                                                      _automationController.ApplicationAutomationController
-                                              };
+            var phoneAutomationCommands = new PhoneAutomationCommands
+                {
+                    ApplicationAutomationController =
+                        _automationController.ApplicationAutomationController
+                };
             AddCommands(phoneAutomationCommands);
-
         }
 
         private void StartEmuAutomationController()
@@ -134,6 +134,5 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost
             }
             base.Dispose(isDisposing);
         }
-
     }
 }

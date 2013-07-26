@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="Configuration.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="Configuration.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Net;
@@ -33,18 +33,12 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
 
         private Uri RemoteUri
         {
-            get
-            {
-                return new Uri(RemoteUrl);
-            }
+            get { return new Uri(RemoteUrl); }
         }
 
         private Uri RootRemoteUri
         {
-            get
-            {
-                return new Uri(RemoteUri, "/");
-            }
+            get { return new Uri(RemoteUri, "/"); }
         }
 
         public bool TestIfRemoteAvailable()
@@ -59,37 +53,37 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
                 var manualResetEvent = new ManualResetEvent(false);
                 var request = WebRequest.Create(RootRemoteUri);
 
-                request.BeginGetResponse((asyncResult)=>
-                                             {
-                                                 try
-                                                 {
-                                                     var response =
-                                                         request.EndGetResponse(asyncResult) as HttpWebResponse;
-                                                     
-                                                     // for our normal WCF servers, we really shouldn't get here... 
-                                                     // ...but if we do then something is listening on that port!
-                                                     successful = true;
-                                                 }
-                                                 catch (WebException webException)
-                                                 {
-                                                     // if we have a webException, check that it is due to us sending a bad request
-                                                     successful =
-                                                         TestForHttpBadRequest(webException.Response as HttpWebResponse);
-                                                 }
-                                                 catch (ThreadAbortException)
-                                                 {
-                                                     successful = false;
-                                                     throw;
-                                                 }
-                                                 catch (Exception)
-                                                 {
-                                                     successful = false;
-                                                 }
-                                                 finally
-                                                 {
-                                                     manualResetEvent.Set();
-                                                 }
-                                             }, null);
+                request.BeginGetResponse((asyncResult) =>
+                    {
+                        try
+                        {
+                            var response =
+                                request.EndGetResponse(asyncResult) as HttpWebResponse;
+
+                            // for our normal WCF servers, we really shouldn't get here... 
+                            // ...but if we do then something is listening on that port!
+                            successful = true;
+                        }
+                        catch (WebException webException)
+                        {
+                            // if we have a webException, check that it is due to us sending a bad request
+                            successful =
+                                TestForHttpBadRequest(webException.Response as HttpWebResponse);
+                        }
+                        catch (ThreadAbortException)
+                        {
+                            successful = false;
+                            throw;
+                        }
+                        catch (Exception)
+                        {
+                            successful = false;
+                        }
+                        finally
+                        {
+                            manualResetEvent.Set();
+                        }
+                    }, null);
 
                 if (!manualResetEvent.WaitOne(DefaultTestRemoteTimeout))
                 {
@@ -119,12 +113,12 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
 
         public PhoneAutomationServiceClient CreateClient()
         {
-            var binding = new BasicHttpBinding()
-                              {
-                                  Name = "binding1_IPhoneAutomationService",
-                                  MaxBufferSize = 2147483647,
-                                  MaxReceivedMessageSize = 2147483647,
-                              };
+            var binding = new BasicHttpBinding
+                {
+                    Name = "binding1_IPhoneAutomationService",
+                    MaxBufferSize = 2147483647,
+                    MaxReceivedMessageSize = 2147483647,
+                };
             binding.Security.Mode = BasicHttpSecurityMode.None;
 
             var endpoint = new EndpointAddress(RemoteUrl);

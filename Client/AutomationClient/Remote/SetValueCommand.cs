@@ -1,13 +1,13 @@
-// ----------------------------------------------------------------------
-// <copyright file="SetValueCommand.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+//  ----------------------------------------------------------------------
+//  <copyright file="SetValueCommand.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
@@ -30,13 +30,13 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 return;
             }
 
-            if (AutomationElementFinder.SetElementProperty<string>(element, "Text", TextValue))
+            if (AutomationElementFinder.SetElementProperty(element, "Text", TextValue))
             {
                 SendSuccessResult();
                 return;
             }
 
-            if (AutomationElementFinder.SetElementProperty<string>(element, "Password", TextValue))
+            if (AutomationElementFinder.SetElementProperty(element, "Password", TextValue))
             {
                 SendSuccessResult();
                 return;
@@ -45,7 +45,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             bool boolValue;
             if (bool.TryParse(TextValue, out boolValue))
             {
-                if (AutomationElementFinder.SetElementProperty<bool>(element, "IsChecked", boolValue))
+                if (AutomationElementFinder.SetElementProperty(element, "IsChecked", boolValue))
                 {
                     SendSuccessResult();
                     return;
@@ -55,7 +55,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             int intValue;
             if (int.TryParse(TextValue, out intValue))
             {
-                if (AutomationElementFinder.SetElementProperty<int>(element, "Value", intValue))
+                if (AutomationElementFinder.SetElementProperty(element, "Value", intValue))
                 {
                     SendSuccessResult();
                     return;
@@ -65,7 +65,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             double doubleValue;
             if (double.TryParse(TextValue, out doubleValue))
             {
-                if (AutomationElementFinder.SetElementProperty<double>(element, "Value", doubleValue))
+                if (AutomationElementFinder.SetElementProperty(element, "Value", doubleValue))
                 {
                     SendSuccessResult();
                     return;
@@ -75,7 +75,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             DateTime dateTimeValue;
             if (DateTime.TryParse(TextValue, out dateTimeValue))
             {
-                if (AutomationElementFinder.SetElementProperty<DateTime>(element, "Value", dateTimeValue))
+                if (AutomationElementFinder.SetElementProperty(element, "Value", dateTimeValue))
                 {
                     SendSuccessResult();
                     return;
@@ -88,16 +88,16 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 }
             }
 
-            if (AutomationElementFinder.SetElementProperty<string>(element, "Value", TextValue))
+            if (AutomationElementFinder.SetElementProperty(element, "Value", TextValue))
             {
                 SendSuccessResult();
                 return;
             }
 
 
-
             // if text, password IsChecked, Value are all missing... then give up
-            SendNotFoundResult(string.Format("SetValueCommand: Could not set the value :{0} in control :{1}", TextValue, AutomationIdentifier.ToIdOrName()));
+            SendNotFoundResult(string.Format("SetValueCommand: Could not set the value :{0} in control :{1}", TextValue,
+                                             AutomationIdentifier.ToIdOrName()));
         }
     }
 }

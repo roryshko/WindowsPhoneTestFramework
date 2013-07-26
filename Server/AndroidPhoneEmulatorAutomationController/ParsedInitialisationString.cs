@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ParsedInitialisationString.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="ParsedInitialisationString.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -39,10 +39,10 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.Android.Emulator
             if (string.IsNullOrEmpty(initialisation))
                 return;
 
-            var split = initialisation.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+            var split = initialisation.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries);
             foreach (var entry in split)
             {
-                var entrySplit = entry.Split(new char[] {'='}, 2);
+                var entrySplit = entry.Split(new[] {'='}, 2);
                 if (entrySplit.Length != 2)
                     continue;
 

@@ -1,13 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="IPhoneAutomationService.cs" company="Expensify">
-//     (c) Copyright Expensify. http://www.expensify.com
-//     This source is subject to the Microsoft Public License (Ms-PL)
-//     Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
-//     All other rights reserved.
-// </copyright>
-// 
-// Author - Stuart Lodge, Cirrious. http://www.cirrious.com
-// ------------------------------------------------------------------------
+﻿//  ----------------------------------------------------------------------
+//  <copyright file="IPhoneAutomationService.cs" company="Expensify">
+//      (c) Copyright Expensify. http://www.expensify.com
+//      This source is subject to the Microsoft Public License (Ms-PL)
+//      Please see license.txt on https://github.com/Expensify/WindowsPhoneTestFramework
+//      All other rights reserved.
+//  </copyright>
+//  
+//  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
+//  ------------------------------------------------------------------------
 
 using System;
 using System.ServiceModel;
@@ -22,7 +22,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
     public interface IPhoneAutomationService
     {
         [OperationContract]
-        [ServiceKnownType("GetKnownTypes", typeof(KnownTypeProvider))]
+        [ServiceKnownType("GetKnownTypes", typeof (KnownTypeProvider))]
         [WebInvoke(Method = "POST", UriTemplate = "getNextCommand")]
         CommandBase GetNextCommand(int timeoutInMilliseconds);
 
@@ -31,12 +31,12 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Service
         bool ContinueProcessing(Guid commandId);
 
         [OperationContract]
-        [ServiceKnownType("GetKnownTypes", typeof(KnownTypeProvider))]
+        [ServiceKnownType("GetKnownTypes", typeof (KnownTypeProvider))]
         [WebInvoke(Method = "POST", UriTemplate = "submitResult")]
         void SubmitResult(ResultBase result);
-		
+
         [OperationContract]
-        [ServiceKnownType("GetKnownTypes", typeof(KnownTypeProvider))]
+        [ServiceKnownType("GetKnownTypes", typeof (KnownTypeProvider))]
         [WebInvoke(Method = "POST", UriTemplate = "rawSubmitResult")]
         bool RawSubmitResult(String jsonResult);
     }
