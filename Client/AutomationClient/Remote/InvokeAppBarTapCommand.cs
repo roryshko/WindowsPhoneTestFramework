@@ -42,6 +42,8 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 }
             }
 
+#warning This method needs breaking out - far too long
+
             if (!appBar.IsVisible)
             {
                 SendPositionResult(0.0, 0.0, 0.0, 0.0);

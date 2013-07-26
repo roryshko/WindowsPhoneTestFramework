@@ -97,6 +97,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
             return controlName;
         }
 
+#warning Investigate this commented out GetIndexOfOrdinal - can it be deleted?
         //protected static int GetIndexOfOrdinal(string ordinal)
         //{
         //    int index = 0;
@@ -113,6 +114,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
         //    return index;
         //}
 
+#warning Investigate this commented out ControlName - can it be deleted?
         //protected static string ControlName(string named, string type, string ordinal)
         //{
         //    var index = -1;
@@ -126,6 +128,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps
         //    return ControlName(named, type, index);
         //}
 
+#warning Investigate this commented out ControlName - can it be deleted?
         //protected static string ControlName(string named, string type, int index)
         //{
 

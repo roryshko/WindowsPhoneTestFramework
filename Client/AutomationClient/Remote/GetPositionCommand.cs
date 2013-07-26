@@ -15,11 +15,10 @@ using System.Windows;
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 {
-    using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
-
     public partial class GetPositionCommand
     {
         protected override void DoImpl()
@@ -71,6 +70,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 var buttons = appBar.Buttons;
                 var menuItems = appBar.MenuItems;
 
+#warning This method is far too long/flat/big - needs refactoring
                 var applicationBarText = AutomationIdentifier.DisplayedText.Replace("applicationBar|", "");
                 var menuItemIndex = 0;
                 var iconButtonIndex = 0;

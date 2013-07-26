@@ -27,6 +27,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 return;
             }
 
+#warning This method is too long/flat - needs refactoring 
             var appBar = page.ApplicationBar;
             if (appBar == null)
             {

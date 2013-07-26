@@ -23,8 +23,6 @@ using WindowsPhoneTestFramework.Server.Core;
 
 namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
 {
-    using WindowsPhoneTestFramework.Server.Core.Types;
-
     public class PhoneAutomationCommands
     {
         public IApplicationAutomationController ApplicationAutomationController { get; set; }
@@ -255,6 +253,28 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
             Console.WriteLine("scrollH: " + result);
         }
 
+#warning Need to understand why this is removed
+        /*
+        [CommandLineCommand("scrollIntoView")]
+        [Description("scrolls the list item containing a control into view - e.g. 'scrollIntoView textBlock101'")]
+        public void ScrollIntoView(string whichControl)
+        {
+            var result = ApplicationAutomationController.ScrollIntoViewListItem(whichControl);
+            Console.WriteLine("scrollIntoView: " + result);
+        }
+         */
+
+#warning Need to understand why this is removed
+        /*
+        [CommandLineCommand("select")]
+        [Description("select the list item containing a control - e.g. 'select textBlock101'")]
+        public void Select(string whichControl)
+        {
+            var result = ApplicationAutomationController.SelectListItem(whichControl);
+            Console.WriteLine("select: " + result);
+        } 
+         */
+
         [CommandLineCommand("screenshot")]
         [Description("requests a screenshot from the running application - provide an optional control to just picture that control - e.g. 'screenshot' or 'screenshot TextBox1'")]
         public void TakeScreenshot(string optionalControlId)
@@ -282,6 +302,8 @@ namespace WindowsPhoneTestFramework.CommandLine.CommandLineHost.Commands
                         return;
 
                     /*
+                     * This code auto-deletes file - it's not wanted in general - so commented out 
+                     * 
                     System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5.0));
 
                     if (!process.WaitForExit(60000)) // one minute

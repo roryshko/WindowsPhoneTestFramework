@@ -13,7 +13,6 @@ using System;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Windows;
-using System.Windows.Resources;
 using System.Windows.Automation.Peers;
 using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
@@ -48,6 +47,41 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient
             Application.Current.Exit += (sender, args) => automationClient.Stop();
 
             _initialised = true;
+        }
+
+        public void AddStringPropertyNameForTextLookup(string propertyName)
+        {
+            AutomationElementFinder.StringPropertyNamesToTestForText.Add(propertyName);
+        }
+
+        public void AddObjectPropertyNameForTextLookup(string propertyName)
+        {
+            AutomationElementFinder.ObjectPropertyNamesToTestForText.Add(propertyName);
+        }
+
+        public void AddPropertyNameToTestForValue(string propertyName)
+        {
+            AutomationElementFinder.PropertyNamesToTestForValue.Add(propertyName);
+        }
+
+
+        public void AddValueManipulator(IValueManipulator valueManipulator)
+        {
+            ValueCommandHelper.AddManipulator(valueManipulator);    
+        }
+
+#warning Need to understand where this went :/ Can it be deleted?
+        public void AddAutomationPeerHandlerForTapAction(Func<AutomationPeer, bool> handler)
+        {
+            throw new NotImplementedException("This method was removed within NokiaMusic Merge");
+            //IvokeControlTapActionCommand.PatternTesters.Insert(0, handler);
+        }
+
+#warning Need to understand where this went :/ Can it be deleted?
+        public void AddUIElementHandlerForTapAction(Func<UIElement, bool> handler)
+        {
+            throw new NotImplementedException("This method was removed within NokiaMusic Merge");
+            //InvokeControlTapActionCommand.UIElementTesters.Insert(0, handler); 
         }
 
         private static string BddHostForWindowsPhone8

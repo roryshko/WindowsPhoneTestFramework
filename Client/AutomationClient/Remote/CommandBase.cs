@@ -165,7 +165,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             if (_resultSent)
             {
                 // TODO - log this!
-                throw new InvalidOperationException("Tried to send too many dict");
+                throw new InvalidOperationException("Tried to send results more than once");
             }
 
             _resultSent = true;

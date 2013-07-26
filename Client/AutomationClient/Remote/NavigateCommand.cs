@@ -30,6 +30,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 return;
             }
 
+#warning Should Direction be a string or enumeration here?
             switch (Direction.ToLowerInvariant())
             {
                 case "back":
@@ -45,10 +46,11 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 case "home":
                     {
                         var navigationService = page.NavigationService;
-                        navigationService.Navigated += navigationService_Navigated;
-                        navigationService_Navigated(navigationService, new NavigationEventArgs(null, null));
+                        navigationService.Navigated += NavigateBackIfYouCanOtherwiseUnsubscribe;
+                        NavigateBackIfYouCanOtherwiseUnsubscribe(navigationService, new NavigationEventArgs(null, null));
                         break;
                     }
+#warning Not clear what this is
                 case "to start":
                     {
                         var webBrowserTask = new WebBrowserTask { Uri = new Uri("http://www.google.co.uk") };
@@ -67,7 +69,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             SendSuccessResult();
         }
 
-        void navigationService_Navigated(object sender, NavigationEventArgs e)
+        void NavigateBackIfYouCanOtherwiseUnsubscribe(object sender, NavigationEventArgs e)
         {
             var navigationService = sender as NavigationService;
             if (navigationService.CanGoBack)
@@ -76,7 +78,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             }
             else
             {
-                navigationService.Navigated -= navigationService_Navigated;
+                navigationService.Navigated -= NavigateBackIfYouCanOtherwiseUnsubscribe;
             }
         }
     }

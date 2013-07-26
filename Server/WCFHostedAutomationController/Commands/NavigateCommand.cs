@@ -16,6 +16,7 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Command
     [DataContract]
     public class NavigateCommand : AutomationElementCommandBase
     {
+#warning Should this be an enumeration value
         [DataMember]
         public string Direction { get; set; }
     }

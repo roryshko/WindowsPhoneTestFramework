@@ -138,6 +138,7 @@ namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
                 _device = null;
             }
 
+#warning Need to explain why GC.Collect(); is called here - any time this is called my spider sense screams
             GC.Collect();
         }
 
@@ -214,6 +215,7 @@ namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
                 return StopResult.NotInstalled; // really this is an error case - but just return NotInstalled for now
             }
 
+#warning Can we kill this IsRunning block - it's commented out and really dead now?
             /*
              IsRunning is not supported on WP7
             if (!app.IsRunning())
@@ -230,6 +232,7 @@ namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
             }
             catch (Exception ex)
             {
+#warning Nested pokemon exception handling - hard to read and understand
                 try
                 {
                     InvokeTrace("CurrentDeviceID =" + Device.Id);

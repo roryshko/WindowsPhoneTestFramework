@@ -25,6 +25,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         {
         }
 
+#warning Investigate this commented out AutomationStepDefinitions ctor - can it be deleted?
         /*
         public AutomationStepDefinitions(IConfiguration configuration) : base(configuration)
         {

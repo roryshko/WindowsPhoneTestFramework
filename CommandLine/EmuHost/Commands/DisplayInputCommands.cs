@@ -80,6 +80,14 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost.Commands
             Console.WriteLine("doSwipe has been renamed doFlick - try 'doFlick "  + whichSwipe + "'");
         }
 
+
+#warning Is Flick required - removed as part of NokiaMusic merge
+        ////        enum FlickDirection
+        ////        {
+        ////            LeftToRight,
+        ////            RightToLeft
+        ////        } 
+        
         ////[CommandLineCommand("doFlick")]
         ////[Description("completes a flick gesture across the screen - currently only LeftToRight or RightToLeft across the horizontal and vertical middle of the screen supported - e.g. 'doFlick LeftToRight'")]
         ////public void SendFlick(string whichSwipe)
@@ -110,6 +118,8 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost.Commands
         ////    Console.WriteLine("doFlick: Completed");
         ////}
 
+#warning Is tapAt required - removed as part of NokiaMusic merge
+
         ////[CommandLineCommand("tapAt")]
         ////[Description("tap at the specifed position - e.g. 'tapAt 100,100'")]
         ////public void PressOnControl(string x_comma_y)
@@ -133,6 +143,8 @@ namespace WindowsPhoneTestFramework.CommandLine.EmuHost.Commands
         ////    DisplayInputController.DoGesture(gesture);
         ////    Console.WriteLine("tapAt: Completed");
         ////}
+
+#warning Is tapLongAt required - removed as part of NokiaMusic merge
 
         ////[CommandLineCommand("tapLongAt")]
         ////[Description("tap for specified time at the specifed position x,y,seconds - e.g. 'tapAt 100,100,2'")]
