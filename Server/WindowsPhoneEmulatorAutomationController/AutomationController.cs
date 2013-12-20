@@ -190,9 +190,10 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
         {
             get
             {
-                return typeof (Microsoft.SmartDevice.Connectivity.Platform).Assembly.GetName().Version.Major == 11
-                           ? WindowsPhoneVersion.Eight
-                           : WindowsPhoneVersion.Seven;
+                var ver = typeof (Microsoft.SmartDevice.Connectivity.Platform).Assembly.GetName().Version; 
+                var b = ver.Major == 11;
+                var v = b ? WindowsPhoneVersion.Eight : WindowsPhoneVersion.Seven;
+                return v;
             }
         }
 
@@ -251,7 +252,7 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
             if (DeviceController != null)
             {
                 DeviceController.ReleaseDeviceConnection();
-                ShutDown();
+                //ShutDown();
                 DeviceController = null;
             }
         }
