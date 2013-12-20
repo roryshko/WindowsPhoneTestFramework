@@ -27,6 +27,20 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             }
         }
 
+        protected UIElement GetUIElementByPosition(int i)
+        {
+            var element = AutomationElementFinder.FindElementByPosition(AutomationIdentifier, i);
+
+            if (element == null)
+            {
+                    SendNotFoundResult(string.Format("GetUIElement: Could not find - {0}",
+                                                     AutomationIdentifier.ToIdOrName()));
+                return null;
+            }
+
+            return element;
+        }
+
         protected UIElement GetUIElement(bool sendNotFoundResultOnFail = true)
         {
             var element = AutomationElementFinder.FindElement(AutomationIdentifier, Ordinal, ParentIdentifier);

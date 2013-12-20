@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Automation;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
@@ -446,6 +447,65 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
             var top = Math.Min(Math.Min(Math.Min(topLeft.Y, topRight.Y), bottomLeft.Y), bottomRight.Y);
             var position = new Rect(left, top, element.ActualWidth, element.ActualHeight);
             return position;
+        }
+
+        public static UIElement FindElementByPosition(AutomationIdentifier controlIdentifier, int ordinal )
+        {
+            // get the parent element as uielement
+            var parent = GetRootVisual();
+
+            // get the control that is a child of parent as uielement
+
+            if (!string.IsNullOrEmpty(controlIdentifier.AutomationName))
+            {
+                var candidate = MyFindElementsNearestParentByAutomationProperty<UIElement>( parent,
+                                                                                           controlIdentifier.AutomationName,
+                                                                                           ordinal );
+                if (candidate != null)
+                    return candidate;
+            }
+
+
+            return null;
+        }
+
+        public static UIElement MyFindElementsNearestParentByAutomationProperty<TElementType>(UIElement root,
+                                                                                            string controlName,
+                                                                                            int index)
+            where TElementType : UIElement
+        {
+            var count = -1;
+
+            Func<UIElement, bool> elementTest = (element) =>
+                {
+                    var frameworkElement = element as FrameworkElement;
+                    if (frameworkElement == null)
+                        return false;
+
+                    if ( !( frameworkElement is TextBox ) )
+                    {
+                        return false;
+                    }
+
+                    count++;
+                    return index < 0 || count == index;
+                };
+
+            var searchResult = SearchFrameworkElementTreeFor<TElementType>(root, elementTest);
+
+            if (searchResult == null)
+            {
+                foreach (Popup popup in VisualTreeHelper.GetOpenPopups())
+                {
+                    searchResult = SearchFrameworkElementTreeFor<TElementType>(popup.Child, elementTest);
+                    if (searchResult != null) break;
+                }
+            }
+
+
+            if (searchResult == null)
+                return null;
+            return searchResult.NearestParent;
         }
     }
 }

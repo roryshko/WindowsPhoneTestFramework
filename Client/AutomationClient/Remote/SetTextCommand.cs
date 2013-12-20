@@ -9,6 +9,7 @@
 //  Author - Stuart Lodge, Cirrious. http://www.cirrious.com
 //  ------------------------------------------------------------------------
 
+using System.Windows;
 using WindowsPhoneTestFramework.Client.AutomationClient.Helpers;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
@@ -17,9 +18,27 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
     {
         protected override void DoImpl()
         {
-            var element = GetUIElement();
+            UIElement element; 
+
+            int i;
+            if ( int.TryParse(AutomationIdentifier.ElementName, out i) )
+            {
+                // number, so this is not element name, but element position
+                element = GetUIElementByPosition( i );
+            }
+            else
+            {
+                element = GetUIElement();
+            }
+
             if (element == null)
             {
+                return;
+            }
+
+            if (AutomationElementFinder.SetElementProperty(element, "TextValue", Text))
+            {
+                SendSuccessResult();
                 return;
             }
 
@@ -45,5 +64,6 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
             SendNotFoundResult(string.Format("SetTextCommand: Could not set text :{0} for control :{1}", Text,
                                              AutomationIdentifier.ToIdOrName()));
         }
+
     }
 }
