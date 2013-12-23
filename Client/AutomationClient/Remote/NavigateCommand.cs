@@ -33,16 +33,19 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
 #warning Should Direction be a string or enumeration here?
             switch (Direction.ToLowerInvariant())
             {
+                case "назад":
                 case "back":
                     {
                         page.NavigationService.GoBack();
                         break;
                     }
+                case "вперед":
                 case "forward":
                     {
                         page.NavigationService.GoForward();
                         break;
                     }
+                case "домой":
                 case "home":
                     {
                         var navigationService = page.NavigationService;

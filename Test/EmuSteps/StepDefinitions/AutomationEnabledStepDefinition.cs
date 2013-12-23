@@ -17,25 +17,29 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class AutomationEnabledStepDefinition : EmuDefinitionBase
     {
+        [StepDefinition(@"следующие элементы активны")]
         [StepDefinition(@"I see the controls are enabled")]
         public void ThenISeeTheNamedFieldsAreEnabled(Table table)
         {
             IterateOverNameTable(table, @"I see the {0} is enabled");
         }
 
+        [StepDefinition(@"следующие элементы не активны")]
         [StepDefinition(@"I see the controls are disabled")]
         public void ThenISeeTheNamedFieldsAreDisabled(Table table)
         {
             IterateOverNameTable(table, @"I see the {0} is disabled");
         }
 
+        [StepDefinition(@"элемент ([^\""]*) (активен|не активен)")]
         [StepDefinition(@"I see the ([^\""]*) is (enabled|disabled)")]
         public void ThenISeeTheNamedFieldIsEnabled(string namedField, string enabled)
         {
-            var expectedIsEnabled = enabled == "enabled";
+            var expectedIsEnabled = ( enabled == "enabled" || enabled == "активен");
             ThenISeeTheNamedFieldIsEnabled(namedField, expectedIsEnabled);
         }
 
+        [StepDefinition(@"ждем пока элемент ([^\""]*) не станет активным")]
         [StepDefinition(@"I wait for the ([^\""]*) to be enabled")]
         public void ThenIWaitForTheControlToBeEnabled(string namedField)
         {

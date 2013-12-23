@@ -33,27 +33,58 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         }
         */
 
+        [StepDefinition(@"нажата аппаратная кнопка назад")]
         [StepDefinition(@"I go back")]
         public void ThenIGoBack()
         {
             Emu.DisplayInputController.PressHardwareButton(PhoneHardwareButton.Back);
         }
 
+        [StepDefinition(@"нажата аппаратная кнопка назад (\d+) секунд")]
         [StepDefinition(@"I press the back button for (\d+) seconds")]
         public void ThenILongPressBack(int timeInSeconds)
         {
             Emu.DisplayInputController.LongPressHardwareButton(PhoneHardwareButton.Back, TimeSpan.FromSeconds(timeInSeconds));
         }
 
+        [StepDefinition(@"нажата аппаратная кнопка домой")]
         [StepDefinition(@"I go home")]
         public void ThenIGoHome()
         {
             Emu.DisplayInputController.PressHardwareButton(PhoneHardwareButton.Home);
         }
 
-        [StepDefinition(@"I press hardware button ""([^\""]*)""$")]
+        [StepDefinition(@"нажать аппаратную кнопку ""([^\""]*)""$")]
         public void ThenIPressHardwareButton(string whichButton)
         {
+            switch (whichButton)
+            {
+                case "Назад":
+                    whichButton = "Back";
+                    break;
+                case "Домой":
+                    whichButton = "Home";
+                    break;
+                case "Поиск":
+                    whichButton = "Search";
+                    break;
+                case "Камера":
+                    whichButton = "Camera";
+                    break;
+                case "Увеличить громкость":
+                    whichButton = "VolumeUp";
+                    break;
+                case "Уменьшить громкость":
+                    whichButton = "VolumeDown";
+                    break;
+                case "Питание":
+                    whichButton = "Power";
+                    break;
+                case "Меню": // в wp отстуствует
+                    whichButton = "Menu";
+                    break;
+            }
+
             PhoneHardwareButton parsedButton;
             Assert.IsTrue(Enum.TryParse(whichButton, true, out parsedButton), "failed to parse button name " + whichButton);
             Emu.DisplayInputController.PressHardwareButton(parsedButton);

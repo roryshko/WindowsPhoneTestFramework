@@ -20,6 +20,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class AutomationPressStepDefinitions : EmuDefinitionBase
     {
+        [StepDefinition(@"нажать(?: элемент | )""([^\""]*)""$")]
         [StepDefinition(@"I press(?: the control | )""([^\""]*)""$")]
         public void ThenIPressTheNamedControl(string named)
         {
@@ -31,6 +32,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                           "Failed to press control '{0}'", named);
         }
 
+        [StepDefinition("нажать \"(.*)\" в командной панели")]
         [StepDefinition("I press \"(.*)\" in the application bar")]
         public void PressTheTextInTheApplicationBar(string text)
         {
@@ -39,13 +41,22 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.That(result, Is.True, "Unable to press the application bar item with text \"{0}\"", text);
         }
 
+        [StepDefinition("(отсутствует|присутствует) \"(.*)\" в командной панели")]
         [StepDefinition("I (don't |)see \"(.*)\" in the application bar")]
         public void SeeTheTextInTheApplicationBar(string exists, string text)
         {
             var shouldSeeItem = exists.Trim().ToLowerInvariant() != "don't";
+
+            if (exists.ToLowerInvariant() == "отсутствует")
+                shouldSeeItem = false;
+
+            if (exists.ToLowerInvariant() == "присутствует")
+                shouldSeeItem = true;
+
             LookForAppBarText(text, shouldSeeItem);
         }
 
+        [StepDefinition("переключить (.*)")]
         [StepDefinition("I toggle(?: the|) (.*)")]
         public void ToggleButton(string control)
         {
@@ -58,6 +69,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         }
 
         [StepDefinition(@"I hit return on the (\d.. |)([^,]*)(?:, in the |)(.*)$")]
+        [StepDefinition(@"нажать элемент (\d.. |)([^,""]*)(?:, в |)([^""]*)$")]
         [StepDefinition(@"I press the (\d.. |)([^,""]*)(?:, in the |)([^""]*)$")]
         public void PressThe(int index, string itemname, string parentname)
         {
@@ -76,6 +88,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                           "Failed to press element {0} of name '{1}', in {2}", index, itemname, parentname);
         }
 
+        [StepDefinition(@"нажать аппаратную кнопку (.*)")]
         [StepDefinition(@"I click the (.*) button")]
         public void ClickHardwareButton(PhoneHardwareButton button)
         {
@@ -86,6 +99,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Thread.Sleep(TimeSpan.FromSeconds(5));
         }
 
+        [StepDefinition("нажать на всплывающем сообщении \"(.*)\"")]
         [StepDefinition("I acknowledge this message by selecting \"(.*)\"")]
         public void PressButtonInTheMessageBox(string buttonText)
         {

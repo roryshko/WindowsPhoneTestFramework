@@ -26,6 +26,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         }
          */
 
+        [StepDefinition(@"снять скриншот$")]
         [StepDefinition(@"take a picture$")]
         public void ThenTakeAPicture()
         {
@@ -37,6 +38,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             StepFlowOutputHelpers.Write("Picture saved to _startEmuShot_{0}_endEmuShot_", fileName);
         }
 
+        [StepDefinition("фоновая музыка остановлена")]
         [StepDefinition("Background Audio is stopped")]
         public void StopBackgroundAudio()
         {

@@ -18,18 +18,21 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class AutomationMiscStepDefinitions : EmuDefinitionBase
     {
+        [StepDefinition(@"перейти (назад|вперед|домой|to start)")]
         [StepDefinition(@"I navigate (back|forward|home|to start)")]
         public void INavigate(string direction)
         {
             Assert.IsTrue(Emu.ApplicationAutomationController.Navigate(direction), "Unable to navigate {0}", direction);
         }
 
+        [StepDefinition(@"установлен фокус на элемент ""([^\""]*)""")]
         [StepDefinition(@"I set focus to the control ""([^\""]*)""")]
         public void ThenISetFocusToTheControl(string control)
         {
             Assert.IsTrue(Emu.ApplicationAutomationController.SetFocus(control), "Unable to set focus to {0}", control);
         }
 
+        [StepDefinition(@"приложение спит$")]
         [StepDefinition(@"I see my app is not running$")]
         public void AndMyAppIsNotRunning()
         {
@@ -37,6 +40,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsFalse(result, "App is still alive");
         }
 
+        // todo: [StepDefinition("перейти (.*)(panorama|pivot|item) (left|right)")]
         [StepDefinition("I move the (.*)(panorama|pivot|item) (left|right)")]
         public void MovePivot(string named, string type, string direction)
         {
@@ -47,6 +51,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsTrue(result, "Unable to move the {0} {1} {2}", named, type, direction);
         }
 
+        // todo: [StepDefinition("перейти (.*)(panorama|pivot) на (?:the |)(.*)")]
         [StepDefinition("I move the (.*)(panorama|pivot) to (?:the |)(.*)")]
         public void MoveToNamedPivot(string named, string type, string item)
         {

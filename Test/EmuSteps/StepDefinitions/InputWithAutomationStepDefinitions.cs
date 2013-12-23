@@ -17,6 +17,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class InputWithAutomationStepDefinitions : AutomationPositionStepDefinitionsBase
     {
+        [Then(@"нажать в центр элемента ""([^\""]*)""$")]
         [Then(@"I tap in the middle of the control ""([^\""]*)""$")]
         public void ThenITapTheMiddleOfTheControl(string controlId)
         {

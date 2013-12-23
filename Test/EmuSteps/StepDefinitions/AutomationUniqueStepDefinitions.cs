@@ -19,12 +19,14 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class ExpensifyUniqueStepDefinitions : EmuDefinitionBase
     {
+        // todo: ru
         [StepDefinition(@"I create some unique text called ""([^\""]*)""")]
         public void StepICreateANewUniqueStringCalled(string key)
         {
             StepICreateANewUniqueStringCalled(key, string.Empty);
         }
 
+        // todo: ru
         [StepDefinition(@"I create some unique text called ""([^\""]*)"" with prefix ""([^\""]*)""")]
         public void StepICreateANewUniqueStringCalled(string key, string prefix)
         {
@@ -32,6 +34,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             value.StoreAsNamedUnique(key);
         }
 
+        // todo: ru
         [StepDefinition(
             @"I create a unique currency amount called ""([^\""]*)"" between ""([^\""]*)"" and ""([^\""]*)""")]
         public void StepICreateANewUniqueCurrencyValueCalledAndBetween(string key, string lowerText, string upperText)
@@ -46,6 +49,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             currencyValue.ToString("0.00").StoreAsNamedUnique(key);
         }
 
+        // todo: ru
         [StepDefinition(@"I enter the unique value ""([^\""]*)"" into the control ""([^\""]*)""")]
         public void StepIEnterTheUniqueValueIntoControl(string whichKey, string whichControl)
         {

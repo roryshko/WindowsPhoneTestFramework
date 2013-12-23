@@ -31,6 +31,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         {
         }
          */
+        [StepDefinition("выбран (\\d.. |)элемент в (.*) списке$")]
         [StepDefinition("I select the (\\d.. |)item in the (.*) list$")]
         public void ISelectTheNumberedItemInNamedList(int index, string control)
         {
@@ -41,6 +42,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsTrue(result, "Failed to select the {0} item in the control '{1}'", index, control);
         }
 
+        [StepDefinition(@"перейти к элементу ""([^\""]*)""")] 
         [StepDefinition(@"I scroll ""([^\""]*)"" into view")] 
         public void IScrollTheGivenListitemIntoView(string listItem)
         {

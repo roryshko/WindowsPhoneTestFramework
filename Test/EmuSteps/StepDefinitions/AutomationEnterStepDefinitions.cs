@@ -23,6 +23,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     public class AutomationEnterStepDefinitions : EmuDefinitionBase
     {
         // TODO - this doesn't quite match the LessPainful platform... as this replaces the contents...
+        [StepDefinition(@"вводим ""([^\""]*)"" в элемент ""([^\""]*)""")]
         [StepDefinition(@"I enter ""([^\""]*)"" into the control ""([^\""]*)""")]
         public void ThenIEnterTextIntoTheNamedField(string contents, string namedField)
         {
@@ -30,6 +31,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsTrue(result, "Failed to enter text into '{0}'", namedField);
         }
 
+        [StepDefinition(@"установить значение элемента ""([^\""]*)"" в ""([^\""]*)""")]
         [StepDefinition(@"I set the value of the control ""([^\""]*)"" to ""([^\""]*)""")]
         public void ThenISetTheValueOfTheNamedField(string namedField, string value)
         {
@@ -37,13 +39,16 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsTrue(result, "Failed to set value on '{0}'", namedField);
         }
 
+        [StepDefinition(@"вводим следующие значения")]
         [StepDefinition(@"I enter values")]
         public void StepIEnterTheValues(Table table)
         {
             IterateOverNameValueTable(table, (@"I enter ""{1}"" into the control ""{0}"""));
         }
 
+        [StepDefinition("ввести \"([^\\\"]*)\" в (?!элемент )([^,]*)")]
         [StepDefinition("I enter \"([^\\\"]*)\" (?:into|in to) the (?!control )([^,]*)")]
+        [StepDefinition("ввести ([^\\\"]*) в (?!элемент )([^,]*)")]
         [StepDefinition("I enter ([^\\\"]*) (?:into|in to) the (?!control )([^,]*)")]
         public void IEnterTextAndHitReturn(string text, string control)
         {

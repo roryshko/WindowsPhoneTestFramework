@@ -28,6 +28,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         }
         */
 
+        [StepDefinition(@"приложение установлено с нуля и запущено$")]
         [StepDefinition(@"my app is clean installed and running$")]
         public void GivenMyAppIsCleanInstalledAndRunning()
         {
@@ -37,6 +38,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             GivenMyAppIsRunning(MaxStartupTimeInSeconds);
         }
 
+        [StepDefinition(@"приложение удалено$")]
         [StepDefinition(@"my app is uninstalled$")]
         public void GivenMyAppIsUninstalled()
         {
@@ -48,6 +50,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                 });
         }
 
+        [StepDefinition(@"приложение установлено$")]
         [StepDefinition(@"my app is installed$")]
         public void GivenMyAppIsInstalled()
         {
@@ -85,6 +88,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                 });
         }
 
+        [StepDefinition(@"приложение остановлено$")]
         [StepDefinition(@"my app is stopped$")]
         public void GivenMyAppIsStopped()
         {
@@ -105,20 +109,25 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                 });
         }
 
+        [Given(@"приложение запущено$")]
         [Given(@"my app is running$")]
         public void GivenMyAppIsRunning()
         {
             ThenIStartMyAppAndWaitForItToStart();
         }
 
+        [Given(@"приложение запущено в течении (\d+\.?\d*) секунд$")]
         [Given(@"my app is running within (\d+\.?\d*) seconds$")]
+        [When(@"приложение запущено в течении (\d+\.?\d*) секунд$")]
         [When(@"my app is running within (\d+\.?\d*) seconds$")]
         public void GivenMyAppIsRunning(double numSeconds)
         {
             ThenIStartMyAppAndWaitForItToStart(numSeconds);
         }
 
+        [Then(@"приложение работает$")]
         [Then(@"my app is running$")]
+        [When(@"приложение работает$")]
         [When(@"my app is running$")]
         public void ThenMyAppIsAlive()
         {
@@ -126,6 +135,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsTrue(ping, "App not alive - ping failed");
         }
 
+        [StepDefinition(@"приложение остановлено в течении (\d+\.?\d*) секунд$")]
         [StepDefinition(@"my app is stopped within (\d+\.?\d*) seconds$")]
         public void ThenIWaitNSecondsForMyAppToBeStopped(double numSeconds)
         {
@@ -133,6 +143,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                           string.Format("App is still alive"));
         }
 
+        [Then(@"приложение начало работать в течении (\d+\.?\d*) секунд$")]
         [Then(@"my app is running within (\d+\.?\d*) seconds$")]
         public void ThenIWaitNSecondsForMyAppToBeAlive(double numSeconds)
         {
@@ -140,6 +151,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                           string.Format("App is not yet alive"));
         }
 
+        [StepDefinition(@"запускаем приложение и ждем (\d+\.?\d*) секунд пока оно не запустится$")]
         [StepDefinition(@"I start my app and wait (\d+\.?\d*) seconds for it to start$")]
         public void ThenIStartMyAppAndWaitForItToStart(double numSeconds)
         {
@@ -147,6 +159,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             ThenIWaitNSecondsForMyAppToBeAlive(numSeconds);
         }
 
+        [StepDefinition("запускаем приложение и ждем пока оно запустится$")]
         [StepDefinition("I start my app and wait for it to start$")]
         public void ThenIStartMyAppAndWaitForItToStart()
         {
@@ -154,6 +167,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             ThenMyAppIsAlive();
         }
 
+        [StepDefinition("запускаем приложение$")]
         [StepDefinition("I start my app$")]
         public void ThenIStartMyApp()
         {
@@ -165,6 +179,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                 });
         }
 
+        [StepDefinition(@"приложение спит")]
         [StepDefinition(@"my app is not running")]
         public void ThenMyAppIsNotAlive()
         {

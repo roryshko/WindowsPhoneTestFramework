@@ -19,24 +19,28 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class AutomationSeeStepDefinitions : AutomationPositionStepDefinitionsBase
     {
+        [StepDefinition(@"отображаются следующие значения$")]
         [StepDefinition(@"I see the values$")]
         public void ThenISeeTheNamedFieldWithContent(Table table)
         {
             IterateOverNameValueTable(table, (@"I see the control ""{0}"" contains ""{1}"""));
         }
 
+        [StepDefinition(@"отображены следующие элементы")]
         [StepDefinition(@"I see the controls")]
         public void ThenISeeTheControls(Table table)
         {
             IterateOverNameTable(table, @"I see the control ""{0}""");
         }
 
+        [StepDefinition(@"не отображены следующие элементы")]
         [StepDefinition(@"I don't see the controls")]
         public void ThenIDoNotSeeTheControls(Table table)
         {
             IterateOverNameTable(table, ThenIDontSeeControl);
         }
 
+        [StepDefinition(@"элемент ""([^\""]*)"" содержит ""([^\""]*)""$")]
         [StepDefinition(@"I see the control ""([^\""]*)"" contains ""([^\""]*)""$")]
         public void ThenISeeTheNamedFieldWithContent(string namedField, string expectedContents)
         {
@@ -49,6 +53,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                             expectedContents, actualContents);
         }
 
+        [StepDefinition(@"элемент ""([^\""]*)"" содержит значение ""([^\""]*)""$")]
         [StepDefinition(@"I see the control ""([^\""]*)"" has value ""([^\""]*)""$")]
         public void ThenISeeTheNamedFieldWithValue(string namedField, string expectedValue)
         {
@@ -63,6 +68,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                             expectedValue, actualValue);
         }
 
+        [StepDefinition(@"отображено ""([^\""]*)""$")]
         [StepDefinition(@"I see ""([^\""]*)""$")]
         public void ThenISee(string textOrControlId)
         {
@@ -70,6 +76,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             AssertPositionIsVisible(position, textOrControlId);
         }
 
+        [StepDefinition(@"может быть отображено ""([^\""]*)""$")]
         [StepDefinition(@"I may see the text ""([^\""]*)""$")]
         public void ThenIMaySeeText(string contents)
         {
@@ -80,6 +87,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                 seen ? "I saw the optional text '{0}'" : "I didn't see the optional text '{0}'", contents);
         }
 
+        [StepDefinition(@"отображен текст ""([^\""]*)""$")]
         [StepDefinition(@"I see the text ""([^\""]*)""$")]
         public void ThenISeeText(string contents)
         {
@@ -88,6 +96,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             AssertPositionIsVisible(position, contents);
         }
 
+        [StepDefinition(@"не отображен текст ""([^\""]*)""$")]
         [StepDefinition(@"I don't see the text ""([^\""]*)""$")]
         public void ThenIDontSeeText(string contents)
         {
@@ -95,18 +104,21 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             AssertPositionIsNotVisible(position, contents);
         }
 
+        [StepDefinition(@"отображен элемент ""([^\""]*)""$")]
         [StepDefinition(@"I see the control ""([^\""]*)""$")]
         public void ThenISeeControl(string controlId)
         {
             Assert.True(IsControlVisible(controlId), "control not visible {0}", controlId);
         }
 
+        [StepDefinition(@"не отображен элемент ""([^\""]*)""$")]
         [StepDefinition(@"I don't see the control ""([^\""]*)""$")]
         public void ThenIDontSeeControl(string controlId)
         {
             Assert.False(IsControlVisible(controlId), "control is visible {0}", controlId);
         }
 
+        [StepDefinition(@"отображен элемент ""([^\""]*)"" слева от элемента ""([^\""]*)""$")]
         [StepDefinition(@"I see the control ""([^\""]*)"" is left of the control ""([^\""]*)""$")]
         public void ThenISeeControlOnTheLeftOfControl(string leftControlId, string rightControlId)
         {
@@ -116,10 +128,18 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.LessOrEqual(leftPosition.X + leftPosition.Width, rightPosition.X);
         }
 
+        [StepDefinition("отображено (\\d) (.*) (элементов|кнопок)")]
         [StepDefinition("I see (\\d) (.*) (item|button)(?:s*)")]
+        [StepDefinition("отображено как минимум (\\d) (.*) (элементов|кнопок)")]
         [StepDefinition("I see at least (\\d) (.*) (item|button)(?:s*)")]
         public void SeeANumberOfItems(int count, string named, string type)
         {
+            if ( type == "элементов")
+                type = "item";
+
+            if ( type == "кнопок")
+                type = "button";
+
             Emu.ApplicationAutomationController.WaitForControl(named, TimeSpan.FromSeconds(10));
 
             for (var index = 0; index < count; index++)
@@ -136,6 +156,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             }
         }
 
+        // todo: ru
         [StepDefinition(
             "I see the ([^\\\"]*) (panorama|pivot|list|item|button|link|box|bar|scrollviewer|panel|text|title|page)")]
         public void ThenISeeThe(string named, string type)
@@ -146,6 +167,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.True(IsControlVisible(controlName), "The control '{0}' is not visible ", controlName);
         }
 
+        // todo: ru
         [StepDefinition(
             "I do not see the ([^\\\"]*) (panorama|pivot|list|item|button|link|box|bar|scrollviewer|panel|text|title|NotificationButton)"
             )]
@@ -159,6 +181,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             }
         }
 
+        [StepDefinition("ожидаем отображение текста \"(.*)\"")]
         [StepDefinition("I wait to see the text \"(.*)\"")]
         public void SeeTheText(string text)
         {
@@ -172,9 +195,16 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsTrue(textAvailable, "Did not see the text {0} after waiting 2 seconds", text);
         }
 
+        [StepDefinition("ожидаем пока текст \"(.*)\" (исчезнет|появится) не дольше чем через (\\d{1,3}) секунды")]
         [StepDefinition("I wait until the text \"(.*)\" (disappears|appears) for a max of (\\d{1,3}) seconds")]
         public void WaitUntilTheTextAppears(string text, string appearance, int maxSeconds)
         {
+            if (appearance == "исчезнет")
+                appearance = "disappears";
+
+            if (appearance == "появится")
+                appearance = "appears";
+
             var startedAt = DateTime.Now;
             var success = appearance.Equals("appears", StringComparison.InvariantCultureIgnoreCase)
                               ? Emu.ApplicationAutomationController.WaitForText(text, TimeSpan.FromSeconds(maxSeconds))
@@ -185,6 +215,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                           DateTime.Now.Subtract(startedAt).TotalSeconds);
         }
 
+        // todo: ru
         [StepDefinition("I see the text \"([^\"]*)\" on the (\\d.. |)([^,]*)(?:, within the |)(.*)$")]
         public void SeeButtonWithText(string text, int ordinal, string control, string parentName)
         {
@@ -204,6 +235,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.AreEqual(text, controlText);
         }
 
+        // todo: ru
         [StepDefinition("I see (.*) progress on (?:the|)([^\\\"]*)")]
         public void SeeSomeProgress(string progress, string control)
         {
@@ -221,10 +253,18 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             }
         }
 
+        [StepDefinition("(отображется|не отображается) всплывающее сообщение с заголовком \"([^\\\"]*)\"")]
         [StepDefinition("I (do not |)see a message box with \"([^\\\"]*)\" title")]
         public void SeeAMessageBoxWithTheTitle(string exists, string title)
         {
             var doNotSee = exists.Trim().ToLowerInvariant() == "do not";
+
+            if (exists == "отображется")
+                doNotSee = false;
+
+            if (exists == "не отображается")
+                doNotSee = true;
+
             var result = Emu.ApplicationAutomationController.WaitForMessageBox(title, null, null);
             if (doNotSee)
             {
@@ -236,6 +276,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             }
         }
 
+        [StepDefinition("отображено всплывающее сообщение с заголовком \"([^\\\"]*)\" и кнопкой \"([^\\\"]*)\"")]
         [StepDefinition("I see a message box with \"([^\\\"]*)\" title and \"([^\\\"]*)\" button")]
         public void SeeAMessageBoxWithTheTitleAndButton(string title, string button)
         {
@@ -245,6 +286,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsTrue(result, "A message box with the title '{0}' and button '{1}' was not found", title, button);
         }
 
+        [StepDefinition("отображено всплывающее сообщение с заголовком \"([^\\\"]*)\" и кнопками \"([^\\\"]*)\", \"([^\\\"]*)\"")]
         [StepDefinition("I see a message box with \"([^\\\"]*)\" title and \"([^\\\"]*)\", \"([^\\\"]*)\" buttons")]
         public void SeeAMessageBoxWithTheTitleAndButtons(string title, string button1, string button2)
         {

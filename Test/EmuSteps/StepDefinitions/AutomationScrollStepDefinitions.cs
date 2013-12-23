@@ -18,6 +18,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
     [Binding]
     public class AutomationScrollStepDefinitions : EmuDefinitionBase
     {
+        [StepDefinition(@"перейти к (\d.. |)([^,]*)(?:, в |)(.*)$")]
         [StepDefinition(@"I scroll to the (\d.. |)([^,]*)(?:, in the |)(.*)$")]
         public void ScrollToThe(int index, string itemname, string parentname)
         {
