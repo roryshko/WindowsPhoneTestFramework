@@ -47,6 +47,19 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             return WaitForTestSuccess(LookIsAlive, Constants.DefaultConfirmAliveTimeout);
         }
 
+        public bool WaitPanorama()
+        {
+            return WaitForTestSuccess(() =>
+                {
+                    var command = new LookForTypeCommand
+                        {
+                            TypeStr = "Microsoft.Phone.Controls.Panorama",
+                        };
+                    var result = SyncLookExecuteCommand(command) as SuccessResult;
+                    return result != null;
+                }, Constants.DefaultWaitForClientAppActionTimeout);
+        }
+
         public string GetIsChecked(string control)
         {
             var command = new GetCheckedStatusCommand {AutomationIdentifier = CreateAutomationIdentifier(control)};

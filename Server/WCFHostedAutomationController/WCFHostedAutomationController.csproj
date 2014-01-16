@@ -85,6 +85,7 @@
     <Compile Include="Interfaces\AutomationIdentifier.cs" />
     <Compile Include="Interfaces\Constants.cs" />
     <Compile Include="Interfaces\IPhoneAutomationServiceControl.cs" />
+    <Compile Include="Commands\LookForTypeCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\ActionFailedResult.cs" />
     <Compile Include="Results\DictionaryResult.cs" />

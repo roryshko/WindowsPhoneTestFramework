@@ -127,6 +127,8 @@ namespace WindowsPhoneTestFramework.Server.Core
 
         bool WaitIsAlive();
 
+        bool WaitPanorama();
+
         #endregion
 
         string GetIsChecked(string control);

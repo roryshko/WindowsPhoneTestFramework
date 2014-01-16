@@ -82,6 +82,7 @@
     <Compile Include="Remote\ControlContainsImageCommand.cs" />
     <Compile Include="Remote\GetPerformanceCommand.cs" />
     <Compile Include="Remote\GetIsCheckedCommand.cs" />
+    <Compile Include="Remote\LookForTypeCommand.cs" />
     <Compile Include="Remote\ScrollIntoViewCommand.cs" />
     <Compile Include="Remote\BackgroundAudioCommand.cs" />
     <Compile Include="Remote\SetApplicationSettingsCommand.cs" />
@@ -129,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Remote\phoneAutomation5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Remote\phoneAutomation6.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Remote\Reference.svcmap">

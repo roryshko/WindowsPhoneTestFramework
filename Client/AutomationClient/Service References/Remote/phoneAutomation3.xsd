@@ -47,7 +47,7 @@
   </xs:complexType>
   <xs:element name="ConfirmAliveCommand" nillable="true" type="tns:ConfirmAliveCommand" />
   <xs:complexType name="ControlContainsImageCommand">
-    <xs:complexContent mixed="false"> 
+    <xs:complexContent mixed="false">
       <xs:extension base="tns:AutomationElementCommandBase">
         <xs:sequence>
           <xs:element minOccurs="0" name="ImageName" nillable="true" type="xs:string" />
