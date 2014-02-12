@@ -31,7 +31,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             IterateOverNameTable(table, @"I see the {0} is disabled");
         }
 
-        [StepDefinition(@"элемент ([^\""]*) (активен|не активен)")]
+        [StepDefinition(@"элемент ([^\""]*) (активен|неактивен)")]
         [StepDefinition(@"I see the ([^\""]*) is (enabled|disabled)")]
         public void ThenISeeTheNamedFieldIsEnabled(string namedField, string enabled)
         {
