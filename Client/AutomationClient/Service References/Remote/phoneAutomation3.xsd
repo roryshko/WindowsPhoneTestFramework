@@ -2,7 +2,7 @@
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Interfaces" />
   <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8085/phoneAutomation?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="AutomationElementCommandBase">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:CommandBase">

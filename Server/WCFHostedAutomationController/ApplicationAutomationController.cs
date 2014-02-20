@@ -60,6 +60,19 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
                 }, Constants.DefaultWaitForClientAppActionTimeout);
         }
 
+        public bool ChooseItemInSelect(string text, string index)
+        {
+            var command = new SelectionItemOnIndexCommand()
+            {
+                IndexOfItemToSelect = int.Parse(index),
+                AutomationIdentifier = CreateAutomationIdentifier(text),
+            };
+
+            var result = SyncExecuteCommand(command);
+            var successResult = result as SuccessResult;
+            return successResult != null;
+        }
+
         public string GetIsChecked(string control)
         {
             var command = new GetCheckedStatusCommand {AutomationIdentifier = CreateAutomationIdentifier(control)};

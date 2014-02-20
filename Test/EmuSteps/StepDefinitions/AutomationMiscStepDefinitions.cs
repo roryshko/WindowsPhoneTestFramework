@@ -40,7 +40,7 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
             Assert.IsFalse(result, "App is still alive");
         }
 
-        // todo: [StepDefinition("перейти (.*)(panorama|pivot|item) (left|right)")]
+        [StepDefinition("перейти на (.*)(panorama|pivot|item) в (left|right)")]
         [StepDefinition("I move the (.*)(panorama|pivot|item) (left|right)")]
         public void MovePivot(string named, string type, string direction)
         {

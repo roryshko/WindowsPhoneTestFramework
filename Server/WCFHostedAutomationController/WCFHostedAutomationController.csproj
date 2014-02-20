@@ -55,6 +55,7 @@
     <Compile Include="Commands\GetVisualStateCommand.cs" />
     <Compile Include="Commands\GetPerformanceCommand.cs" />
     <Compile Include="Commands\ScrollIntoViewCommand.cs" />
+    <Compile Include="Commands\SelectionItemOnIndexCommand.cs" />
     <Compile Include="Commands\SetApplicationSettingsCommand.cs" />
     <Compile Include="Commands\GetApplicationSettingsCommand.cs" />
     <Compile Include="Commands\LookForAppBarItemCommand.cs" />

@@ -51,6 +51,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
                 SendSuccessResult();
                 return;
             }
+            
 
             throw new TestAutomationException("No invoke pattern found for " + element.GetType().FullName);
         }

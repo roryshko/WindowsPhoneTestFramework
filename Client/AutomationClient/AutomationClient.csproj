@@ -85,6 +85,7 @@
     <Compile Include="Remote\LookForTypeCommand.cs" />
     <Compile Include="Remote\ScrollIntoViewCommand.cs" />
     <Compile Include="Remote\BackgroundAudioCommand.cs" />
+    <Compile Include="Remote\SelectionItemOnIndexCommand.cs" />
     <Compile Include="Remote\SetApplicationSettingsCommand.cs" />
     <Compile Include="Remote\GetApplicationSettingsCommand.cs" />
     <Compile Include="Remote\LookForAppBarItemCommand.cs" />

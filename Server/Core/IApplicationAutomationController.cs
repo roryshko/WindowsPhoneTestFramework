@@ -129,6 +129,8 @@ namespace WindowsPhoneTestFramework.Server.Core
 
         bool WaitPanorama();
 
+        bool ChooseItemInSelect(string text, string index = "0");
+
         #endregion
 
         string GetIsChecked(string control);
