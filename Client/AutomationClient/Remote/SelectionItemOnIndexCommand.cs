@@ -18,7 +18,7 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Remote
         protected override void DoImpl()
         {
             var element = GetFrameworkElement();
-            var selector = element as ItemsControl;
+            var selector = element as Control;
             if (selector == null)
             {
                 return;
