@@ -15,6 +15,7 @@ namespace WindowsPhoneTestFramework.Server.Core.Results
     {
         Success,
         NotInstalled,
-        NotRunning
+        NotRunning,
+        FailToStop,
     }
 }

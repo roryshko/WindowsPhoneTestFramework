@@ -10,6 +10,7 @@
 //  ------------------------------------------------------------------------
 
 using System;
+using System.Threading;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using WindowsPhoneTestFramework.Server.Core.Results;
@@ -96,7 +97,17 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
                 {
                     var result = Emu.DeviceController.Stop(Configuration.ApplicationDefinition);
                     Assert.That(result == StopResult.Success || result == StopResult.NotRunning ||
-                                result == StopResult.NotInstalled);
+                                result == StopResult.NotInstalled || result == StopResult.FailToStop );
+
+                    if (result == StopResult.FailToStop)
+                    {
+                        // подождать и попробовать снова
+                        Thread.Sleep( TimeSpan.FromMinutes(1) );
+                        result = Emu.DeviceController.Stop(Configuration.ApplicationDefinition);
+                        Assert.That(result == StopResult.Success || result == StopResult.NotRunning ||
+                                    result == StopResult.NotInstalled || result == StopResult.FailToStop );
+                    }
+
                     if (result == StopResult.Success)
                     {
                         // following experiments and research by MrGoodCat - http://www.pitorque.de/MisterGoodcat/

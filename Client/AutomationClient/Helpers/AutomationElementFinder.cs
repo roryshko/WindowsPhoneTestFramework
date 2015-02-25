@@ -217,6 +217,9 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                     if (name.ToString() != controlName)
                         return false;
 
+                    if (frameworkElement.Visibility == Visibility.Collapsed)
+                        return false;
+
                     count++;
                     return index < 0 || count == index;
                 };

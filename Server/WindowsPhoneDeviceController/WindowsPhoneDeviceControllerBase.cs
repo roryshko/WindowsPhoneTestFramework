@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Microsoft.SmartDevice.Connectivity;
 
 using WindowsPhoneTestFramework.Server.Core;
@@ -230,8 +231,19 @@ namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
             {
                 app.TerminateRunningInstances();
             }
+            catch (SmartDeviceException ex)
+            {
+                InvokeTrace("failed to stopping application (SmartDeviceException ex) {0}", ex.ErrorCode, ex.Message, ex.ToString() );
+                InvokeTrace("SmartDeviceException {0}, {1}", ex.ErrorCode, ex.Message );
+                InvokeTrace("> {0}", ex.ToString() );
+                return StopResult.FailToStop;
+            }
             catch (Exception ex)
             {
+                // for windows phone 8 emulator killing process only close window, 
+                // but virtual machine stay running
+                InvokeTrace("failed to stopping application (Exception ex)");
+#if false
 #warning Nested pokemon exception handling - hard to read and understand
                 try
                 {
@@ -249,7 +261,7 @@ namespace WindowsPhoneTestFramework.Server.WindowsPhoneDeviceController
                     // We can but try, but if we can't let's ignore it
                     InvokeTrace("failed to close emulator");
                 }
-
+#endif
                 throw ex;
             }
 
