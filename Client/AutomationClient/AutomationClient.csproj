@@ -118,6 +118,8 @@
     <Compile Include="Remote\ResultBase.cs" />
     <Compile Include="Remote\TakePictureCommand.cs" />
     <Compile Include="Helpers\ValueCommandHelper.cs" />
+    <Compile Include="Remote\TestCommand.cs" />
+    <Compile Include="TestCommandPeer.cs" />
     <Compile Include="Remote\ToggleButtonCommand.cs" />
     <Compile Include="TestAutomationException.cs" />
     <Compile Include="Service References\Remote\Reference.cs">

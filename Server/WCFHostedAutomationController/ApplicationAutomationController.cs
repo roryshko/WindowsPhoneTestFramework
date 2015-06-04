@@ -63,10 +63,10 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
         public bool ChooseItemInSelect(string text, string index)
         {
             var command = new SelectionItemOnIndexCommand()
-            {
-                IndexOfItemToSelect = int.Parse(index),
-                AutomationIdentifier = CreateAutomationIdentifier(text),
-            };
+                {
+                    IndexOfItemToSelect = int.Parse(index),
+                    AutomationIdentifier = CreateAutomationIdentifier(text),
+                };
 
             var result = SyncExecuteCommand(command);
             var successResult = result as SuccessResult;
@@ -81,6 +81,32 @@ namespace WindowsPhoneTestFramework.Server.WCFHostedAutomationController
             var successResult = result as SuccessResult;
 
             return successResult == null ? null : successResult.ResultText;
+        }
+
+        public bool SendCommand(string controlName, string commandName, string value, out string returnValue)
+        {
+            AutomationIdentifier ai = null;
+
+            if (!string.IsNullOrWhiteSpace(controlName))
+                ai = new AutomationIdentifier(controlName, AutomationIdentification.TryEverything);
+
+            var command = new TestCommand
+                {
+                    Command = commandName,
+                    Data = value,
+                    AutomationIdentifier = ai,
+                };
+            var result = SyncExecuteCommand(command);
+
+            var successResult = result as SuccessResult;
+            if (successResult != null)
+            {
+                returnValue = successResult.ResultText;
+                return true;
+            }
+
+            returnValue = "";
+            return false;
         }
 
         public bool LookIsAlive()

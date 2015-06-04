@@ -124,7 +124,7 @@ namespace WindowsPhoneTestFramework.Server.AndroidDeviceController
             // nothing to do here
         }
 
-        public override InstallationResult Install(ApplicationDefinition applicationDefinition)
+        public override InstallationResult Install(ApplicationDefinition applicationDefinition, bool update = false )
         {
             var adbDefinition = new AdbApplicationDefinition(applicationDefinition);
 

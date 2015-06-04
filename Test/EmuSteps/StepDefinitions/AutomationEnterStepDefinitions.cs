@@ -12,6 +12,7 @@
 using System;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
+using WindowsPhoneTestFramework.Server.Core;
 
 namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
 {
@@ -37,6 +38,14 @@ namespace WindowsPhoneTestFramework.Test.EmuSteps.StepDefinitions
         {
             var result = Emu.ApplicationAutomationController.SetValueOnControl(namedField, value);
             Assert.IsTrue(result, "Failed to set value on '{0}'", namedField);
+        }
+
+        [StepDefinition(@"send to control ""([^\""]*)"" command ""([^\""]*)"" with data ""([^\""]*)""")]
+        public void SendCommand(string controlName, string commandName, string value)
+        {
+            string returnValue;
+            var res = Emu.ApplicationAutomationController.SendCommand(controlName, commandName, value, out returnValue);
+            Assert.IsTrue(res);
         }
 
         [StepDefinition(@"вводим следующие значения")]

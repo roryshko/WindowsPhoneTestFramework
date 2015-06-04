@@ -38,7 +38,7 @@ namespace WindowsPhoneTestFramework.Server.DeviceController
 
         public abstract bool TryConnect();
         public abstract void ReleaseDeviceConnection();
-        public abstract InstallationResult Install(ApplicationDefinition applicationDefinition);
+        public abstract InstallationResult Install(ApplicationDefinition applicationDefinition, bool update = false);
         public abstract UninstallationResult Uninstall(ApplicationDefinition applicationDefinition);
         public abstract StopResult Stop(ApplicationDefinition applicationDefinition);
         public abstract StartResult Start(ApplicationDefinition applicationDefinition);

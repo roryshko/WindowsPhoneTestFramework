@@ -21,4 +21,15 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="LookForTypeCommand" nillable="true" type="tns:LookForTypeCommand" />
+  <xs:complexType name="TestCommand">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/WindowsPhoneTestFramework.Server.WCFHostedAutomationController.Commands" base="q3:AutomationElementCommandBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Command" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Data" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TestCommand" nillable="true" type="tns:TestCommand" />
 </xs:schema>

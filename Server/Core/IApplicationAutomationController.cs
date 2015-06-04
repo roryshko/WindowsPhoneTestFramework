@@ -134,6 +134,7 @@ namespace WindowsPhoneTestFramework.Server.Core
         #endregion
 
         string GetIsChecked(string control);
+        bool SendCommand(string controlName, string commandName, string value, out string returnValue);
     }
 
     public enum PivotType

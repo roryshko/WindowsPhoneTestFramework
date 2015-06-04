@@ -23,7 +23,8 @@ namespace WindowsPhoneTestFramework.Server.Core
         void ReleaseDeviceConnection();
 
         InstallationResult ForceInstall(ApplicationDefinition applicationDefinition);
-        InstallationResult Install(ApplicationDefinition applicationDefinition);
+        //InstallationResult Install(ApplicationDefinition applicationDefinition);
+        InstallationResult Install(ApplicationDefinition applicationDefinition, bool update = false );
 
         UninstallationResult ForceUninstall(ApplicationDefinition applicationDefinition);
         UninstallationResult Uninstall(ApplicationDefinition applicationDefinition);

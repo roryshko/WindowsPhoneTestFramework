@@ -64,12 +64,13 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
         /// <param name="applicationDefinition">
         /// The application definition.
         /// </param>
+        /// <param name="update"></param>
         /// <returns>
         /// The <see cref="InstallationResult"/>.
         /// </returns>
-        public override InstallationResult Install(ApplicationDefinition applicationDefinition)
+        public override InstallationResult Install(ApplicationDefinition applicationDefinition, bool update = false)
         {
-            InstallationResult result = base.Install(applicationDefinition);
+            InstallationResult result = base.Install(applicationDefinition, update);
 
             RemoteIsolatedStorageFile store = GetIsoStorage(applicationDefinition);
 
@@ -78,7 +79,8 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
                 store.DeleteFile(BddhostFilePath);
             }
 
-            string hostName = Dns.GetHostEntry("127.0.0.1").HostName + ":" + this.Port;
+            string hostName = Dns.GetHostEntry("127.0.0.1")
+                                 .HostName + ":" + this.Port;
 
             File.WriteAllLines(BddhostFilePath, new[] {hostName});
 
@@ -124,7 +126,8 @@ namespace WindowsPhoneTestFramework.Server.AutomationController.WindowsPhone.Emu
             ManagementObjectCollection computers = searcher.Get();
 
             Guid dummy;
-            return computers.Cast<ManagementObject>().First(comp => Guid.TryParse(comp["Name"].ToString(), out dummy));
+            return computers.Cast<ManagementObject>()
+                            .First(comp => Guid.TryParse(comp["Name"].ToString(), out dummy));
         }
 
         /// <summary>

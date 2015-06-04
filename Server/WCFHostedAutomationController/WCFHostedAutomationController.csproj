@@ -104,6 +104,7 @@
     <Compile Include="Service\IPhoneAutomationService.cs" />
     <Compile Include="Service\MonoHacks.cs" />
     <Compile Include="Service\PhoneAutomationService.cs" />
+    <Compile Include="Commands\TestCommand.cs" />
     <Compile Include="Utils\KnownTypeProvider.cs" />
   </ItemGroup>
   <ItemGroup>
